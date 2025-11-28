@@ -22,8 +22,8 @@ public class InventoryTester : MonoBehaviour
             icon = buttonBIcon
         };
 
-        Debug.Log("USB added: " + inventory.AddItem(usb));
-        Debug.Log("NOTE added: " + inventory.AddItem(note));
+        //Debug.Log("USB added: " + inventory.AddItem(usb));
+        //Debug.Log("NOTE added: " + inventory.AddItem(note));
 
     }
 
