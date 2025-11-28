@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class PlayerInteractor : MonoBehaviour
 {
 
@@ -32,6 +33,7 @@ public class PlayerInteractor : MonoBehaviour
         HandleRaycast();
         HandleInteraction();
     }
+
 
     private void HandleRaycast()
     {

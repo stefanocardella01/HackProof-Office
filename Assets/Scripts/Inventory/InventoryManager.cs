@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
             {
 
                 items[i] = newItem;
+                Debug.Log($"[Inventory] Aggiunto '{newItem.displayName}' nello slot {i}");
                 OnInventoryChanged?.Invoke();
                 return true;
 
@@ -55,22 +56,23 @@ public class InventoryManager : MonoBehaviour
         //Prevengo accesso out of range
         if(index < 0 || index >= MaxSlots)
         {
-
+            Debug.Log($"[Inventory] SelectSlot({index}) fuori range");
             return;
 
         }
         //Se seleziono uno slot vuoto allora deseleziono l'eventuale oggetto selezionato in precedenza
         if (items[index] == null)
         {
-
-            selectedIndex = -1;
-
+            Debug.Log($"[Inventory] SelectSlot({index})  slot vuoto, nessuna selezione");
         }
         //Seleziono l'oggetto
         else
         {
 
             selectedIndex = index;
+
+            Debug.Log($"[Inventory] SelectSlot({index})  selezionato '{items[index].displayName}'");
+
 
         }
 

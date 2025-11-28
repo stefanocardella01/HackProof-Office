@@ -35,6 +35,9 @@ public class InventoryUI : MonoBehaviour
             inventory.OnSelectionChanged += RefreshSelection;
 
         }
+
+        Refresh();
+        RefreshSelection(inventory.GetSelectedIndex());
     }
 
     private void OnDisable()
@@ -87,13 +90,18 @@ public class InventoryUI : MonoBehaviour
     private void RefreshSelection(int selectedIndex)
     {
 
-        for(int i = 0; i < slots.Length; i++)
+        Debug.Log($"[InventoryUI] RefreshSelection({selectedIndex})");  // <--- AGGIUNTO
+
+
+        for (int i = 0; i < slots.Length; i++)
         {
 
             if (slots[i].background != null)
             {
+                var colore = (i == selectedIndex) ? selectedColor : normalColor;
+                slots[i].background.color = colore;
+                Debug.Log($"[InventoryUI] Slot {i} -> {slots[i].background.name} color={colore}");
 
-                slots[i].background.color = (i == selectedIndex) ? selectedColor : normalColor;
 
             }
 

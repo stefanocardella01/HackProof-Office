@@ -1,25 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.Collections;
+using StarterAssets;
 public class InspectUI : MonoBehaviour
 {
 
     [Header("Riferimenti UI")]
-    public GameObject rootPanel; //pannello full-screen
     public Image objectImage; //immagine principale dell'oggetto
-    public TextMeshProUGUI objectNameText; // "ESC - Esci"
-    public TextMeshProUGUI leftHintText; // "ESC - Esci"
-    public TextMeshProUGUI rightHintText; // "E - Aggiungi all'inventario"
+    public TextMeshProUGUI objectNameText; // es: "Post-it"
 
-    public bool IsOpen { get; private set; }
+    [Header("Canvas con inventario, interact text e crosshair")]
+    public GameObject hudCanvas;
+
+    [Header("Bloccare movimento mentre ispeziono")]
+    public FirstPersonController playerController;
+    public StarterAssetsInputs starterInputs;
+
+
+    public bool IsOpen;
 
     private InspectableObject currentObject;
     private InventoryManager inventory;
-
     private void Awake()
     {
         inventory = FindFirstObjectByType<InventoryManager>();
+
+        // Se non li hai assegnati a mano nell'Inspector, prova a recuperarli
+        if (playerController == null)
+            playerController = FindFirstObjectByType<FirstPersonController>();
+
+        if (starterInputs == null)
+            starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
+
         CloseImmediate();
     }
 
@@ -27,15 +40,26 @@ public class InspectUI : MonoBehaviour
     {
         currentObject = obj;
 
-        if(rootPanel != null)
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
         {
-            rootPanel.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(true);
+            hudCanvas.SetActive(false);
         }
 
+        // Blocca il movimento del personaggio
+        if (playerController != null)
+            playerController.enabled = false;
+
+        // Blocca l'input di look e movimento dagli Starter Assets
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = false; // il mouse non controlla più la camera
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
+
+        gameObject.SetActive(true);
+    
         IsOpen = true;
 
         if (objectImage != null)
@@ -44,12 +68,6 @@ public class InspectUI : MonoBehaviour
         if (objectNameText != null)
             objectNameText.text = obj.objectName;
 
-        if (leftHintText != null)
-            leftHintText.text = "Esc - Esci";
-
-        if (rightHintText != null)
-            rightHintText.text = "E - Aggiungi all'inventario";
-
         //TO DO: bloccare movimento e cursore per spostarsi
     }
 
@@ -57,7 +75,7 @@ public class InspectUI : MonoBehaviour
     {
         if (!IsOpen) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             CloseImmediate();
         }
@@ -67,9 +85,11 @@ public class InspectUI : MonoBehaviour
         }
     }
 
+
+
     private void TryAddToInventory()
     {
-        if(currentObject == null || inventory == null)
+        if (currentObject == null || inventory == null)
         {
             return;
         }
@@ -79,6 +99,7 @@ public class InspectUI : MonoBehaviour
 
         if (added)
         {
+            Debug.Log("Aggiunto.");
             Destroy(currentObject.gameObject);
             CloseImmediate();
         }
@@ -90,12 +111,31 @@ public class InspectUI : MonoBehaviour
 
     public void CloseImmediate()
     {
-        if (rootPanel != null)
-            rootPanel.SetActive(false);
-        else
-            gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
+
+
+        // Riattiva l'HUD
+        if (hudCanvas != null)
+            hudCanvas.SetActive(true);
+
+        //  Riabilita il movimento del personaggio
+        if (playerController != null)
+            playerController.enabled = true;
+
+        //  Riabilita input di look/movimento
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = true;
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
 
         IsOpen = false;
         currentObject = null;
+
+        // Assicurati che il cursore rimanga bloccato e nascosto
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
