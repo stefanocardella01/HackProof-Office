@@ -25,6 +25,12 @@ public class InventoryInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) inventory.SelectSlot(3);
         if (Input.GetKeyDown(KeyCode.Alpha5)) inventory.SelectSlot(4);
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+
+            Debug.Log("Oggetto pronto per essere rimosso");
+            inventory.RemoveItem();
+        }
     }
 
 }

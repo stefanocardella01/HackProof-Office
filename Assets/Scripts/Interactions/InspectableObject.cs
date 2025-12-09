@@ -8,6 +8,9 @@ public class InspectableObject : MonoBehaviour, IInteractable
     public Sprite inventoryIcon; //Icona per lo slot dell'inventario
     public string itemId = "item_default"; //id logico
 
+    [Header("Prefab 3D per ispezione")]
+    public GameObject inspectPrefab;
+
     public string GetInteractionText()
     {
         return $"Ispeziona {objectName}";
@@ -38,7 +41,8 @@ public class InspectableObject : MonoBehaviour, IInteractable
         {
             id = itemId,
             displayName = objectName,
-            icon = inventoryIcon
+            icon = inventoryIcon,
+            inspectPrefab = inspectPrefab != null ? inspectPrefab : gameObject
         };
     }
 }

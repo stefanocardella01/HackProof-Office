@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 public class InventoryUI : MonoBehaviour
 {
 
@@ -19,11 +21,22 @@ public class InventoryUI : MonoBehaviour
     public Color normalColor = Color.white;
     public Color selectedColor = new Color(0.7f, 0.7f, 0.7f); //colore di sfondo per oggetto selezionato
 
+    public GameObject inspectObjectSelected;  //testo a sinistra dell'inventario con oggetto selezionato e Q per ispezionare
+
+    private TextMeshProUGUI objectSelectedName;
+
     private InventoryManager inventory;
 
     private void Awake()
     {
         inventory = FindFirstObjectByType<InventoryManager>(); //FIndObjectOfType andrebbe usato ma sembra obsoleto
+
+        //Recupero il textmeshpro della UI a sinistra dell'inventario
+        objectSelectedName = inspectObjectSelected.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        //La UI a sinistra dell'inventario deve essere inizialmente disattivata
+        inspectObjectSelected.SetActive(false);
+
     }
 
     private void OnEnable()
@@ -78,11 +91,18 @@ public class InventoryUI : MonoBehaviour
                 slots[i].iconImage.enabled = true;
                 slots[i].iconImage.sprite = item.icon;
 
+                //Attivo a prescindere UI a sinistra dell'inventario
+                inspectObjectSelected.SetActive(true);
+                objectSelectedName.text = item.displayName;
+
             } 
             else
             {
                 slots[i].iconImage.enabled = false;
                 slots[i].iconImage.sprite = null;
+
+                //Disattivo UI a sinistra dell'inventario
+                inspectObjectSelected.SetActive(false);
             }
         }
     }
@@ -92,20 +112,35 @@ public class InventoryUI : MonoBehaviour
 
         Debug.Log($"[InventoryUI] RefreshSelection({selectedIndex})");  // <--- AGGIUNTO
 
+        var item = inventory.GetItem(selectedIndex);
 
         for (int i = 0; i < slots.Length; i++)
         {
-
             if (slots[i].background != null)
             {
-                var colore = (i == selectedIndex) ? selectedColor : normalColor;
+                var colore = normalColor;
+
+                if(i == selectedIndex)
+                {
+                    colore = selectedColor;
+                }
+
                 slots[i].background.color = colore;
+
                 Debug.Log($"[InventoryUI] Slot {i} -> {slots[i].background.name} color={colore}");
-
-
             }
+        }
+        //Atttivo UI a sinistra dell'inventario se lo slot selezionato contiene un item
+        if (item != null)
+        {
+            inspectObjectSelected.SetActive(true);
+            objectSelectedName.text = item.displayName;
 
         }
-
+        // Disattivo UI a sinistra dell'inventario se l'oggetto precedentemente selezionato è stato rimosso
+        else
+        {
+            inspectObjectSelected.SetActive(false);
+        }
     }
 }

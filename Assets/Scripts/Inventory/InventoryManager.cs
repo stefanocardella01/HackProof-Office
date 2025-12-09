@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.IO;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -35,6 +36,32 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("Inventario pieno!");
         return false;
 
+    }
+    //Metodo per rimuovere l'oggetto selezionato nell'inventario
+    public bool RemoveItem()
+    {
+        if(selectedIndex >= 0 && selectedIndex < 5)
+        {
+            //Controllo che l'oggetto selezionato (che deve essere rimosso) esista 
+            if (items[selectedIndex] != null)
+            {
+                //Se esiste, allora lo elimino
+                items[selectedIndex] = null;
+
+                //Riporto l'indice dello slot selezionato a -1 (niente è selezionato)
+                selectedIndex = -1;
+
+                Debug.Log("Oggetto rimosso");
+
+
+                OnInventoryChanged?.Invoke();
+                OnSelectionChanged?.Invoke(selectedIndex);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public InventoryItem GetItem(int index)
@@ -85,6 +112,17 @@ public class InventoryManager : MonoBehaviour
         return selectedIndex;
     }
 
+    public bool HasSelectedItem()
+    {
+        return selectedIndex >= 0 && selectedIndex < MaxSlots && items[selectedIndex] != null;
+    }
+    public InventoryItem GetSelectedItem()
+    {
+        if (!HasSelectedItem())
+            return null;
+
+        return items[selectedIndex];
+    }
 
 
 }

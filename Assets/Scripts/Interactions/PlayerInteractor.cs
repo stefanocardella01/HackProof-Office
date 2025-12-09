@@ -19,7 +19,16 @@ public class PlayerInteractor : MonoBehaviour
     public InspectUI inspectUI;                // la UI full-screen degli oggetti
     //public DialogueUI dialogueUI;              // la UI di dialogo NPC
 
+    [Header("Inventario")]
+    public InventoryManager inventoryManager;
+
     private IInteractable currentInteractable;
+
+    private void Awake()
+    {
+        inventoryManager = FindFirstObjectByType<InventoryManager>();
+    }
+
 
     private void Update()
     {
@@ -51,8 +60,6 @@ public class PlayerInteractor : MonoBehaviour
             {
                 currentInteractable = interactable;
 
-                Debug.Log("Oggetto visto");
-
                 //Aggiorno la UI
                 if (interactionUI != null)
                     interactionUI.SetActive(true);
@@ -69,15 +76,35 @@ public class PlayerInteractor : MonoBehaviour
     private void HandleInteraction()
     {
 
-        if(currentInteractable == null)
+        //Apro la UI per ispezionare quando ho un oggetto nell'inventario, questo è selezionato e non sono in un'altra UI
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            // Se ho la UI di ispezione, è chiusa, e ho l'inventario
+            if (inspectUI != null && !inspectUI.IsOpen && inventoryManager != null)
+            {
+                if (inventoryManager.HasSelectedItem())
+                {
+                    InventoryItem selected = inventoryManager.GetSelectedItem();
+                    inspectUI.OpenFromInventory(selected);
+                }
+                else
+                {
+                    Debug.Log("[PlayerInteractor] Nessun oggetto selezionato nell'inventario.");
+                }
+            }
+        }
+
+        if (currentInteractable == null)
         {
             return;
         }
 
+        //Chiamo la specifica implementazione del metodo quando punto verso un gameobject (NPC/oggetto) e premo E
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentInteractable.Interact(this);
         }
+
 
     }
 }
