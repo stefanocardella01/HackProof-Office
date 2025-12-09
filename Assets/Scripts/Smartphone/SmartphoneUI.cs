@@ -18,7 +18,7 @@ public class SmartphoneUI : MonoBehaviour
     [SerializeField] private GameObject messageDetailPanel;     // Pannello dettaglio messaggio
 
     [Header("Animazione Slide")]
-    [SerializeField] private float hiddenYPosition = -400f;     // Posizione Y quando nascosto (abbassato)
+    [SerializeField] private float hiddenYPosition = -520f;     // Posizione Y quando nascosto (abbassato)
     [SerializeField] private float visibleYPosition = 0f;       // Posizione Y quando visibile (alzato)
     [SerializeField] private float animationDuration = 0.3f;    // Durata animazione in secondi
     [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1); // Curva di easing
@@ -151,7 +151,7 @@ public class SmartphoneUI : MonoBehaviour
         {
             StopCoroutine(currentAnimation);
         }
-        currentAnimation = StartCoroutine(AnimateSlide(visibleYPosition));
+        currentAnimation = StartCoroutine(AnimateSlideUp(visibleYPosition));
     }
 
     /// <summary>
@@ -163,13 +163,13 @@ public class SmartphoneUI : MonoBehaviour
         {
             StopCoroutine(currentAnimation);
         }
-        currentAnimation = StartCoroutine(AnimateSlide(hiddenYPosition));
+        currentAnimation = StartCoroutine(AnimateSlideDown());
     }
 
     /// <summary>
-    /// Coroutine per animare lo slide dello smartphone.
+    /// Coroutine per animare lo slide up dello smartphone.
     /// </summary>
-    private IEnumerator AnimateSlide(float targetY)
+    private IEnumerator AnimateSlideUp(float targetY)
     {
         if (smartphoneRect == null) yield break;
 
@@ -182,7 +182,7 @@ public class SmartphoneUI : MonoBehaviour
 
         while (elapsed < animationDuration)
         {
-            elapsed += Time.deltaTime;  
+            elapsed += Time.unscaledDeltaTime;  
             float t = elapsed / animationDuration;
             float curveValue = slideCurve.Evaluate(t);
 
@@ -194,6 +194,55 @@ public class SmartphoneUI : MonoBehaviour
         // Assicurati di arrivare esattamente alla posizione finale
         smartphoneRect.anchoredPosition = endPos;
         isAnimating = false;
+        //Dopo l'animazione: mostra l'orologio open
+        if (clockTextOpen != null)
+            clockTextOpen.gameObject.SetActive(true);
+
+        // DOPO l'animazione: mostra i pannelli
+        if (messageListPanel != null)
+            messageListPanel.SetActive(true);
+        if (messageDetailPanel != null)
+            messageDetailPanel.SetActive(false);
+
+        ShowMessageList();
+        RefreshMessageList();
+
+    }
+
+
+    /// <summary>
+    /// Coroutine per animare lo slide DOWN (chiusura).
+    /// I pannelli sono già nascosti PRIMA dell'animazione.
+    /// </summary>
+    private IEnumerator AnimateSlideDown()
+    {
+        if (smartphoneRect == null) yield break;
+
+        isAnimating = true;
+
+        Vector2 startPos = smartphoneRect.anchoredPosition;
+        Vector2 endPos = new Vector2(startPos.x, hiddenYPosition);
+
+        float elapsed = 0f;
+
+        while (elapsed < animationDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = elapsed / animationDuration;
+            float curveValue = slideCurve.Evaluate(t);
+
+            smartphoneRect.anchoredPosition = Vector2.Lerp(startPos, endPos, curveValue);
+
+            yield return null;
+        }
+
+        // Assicurati di arrivare esattamente alla posizione finale
+        smartphoneRect.anchoredPosition = endPos;
+        isAnimating = false;
+
+        // DOPO l'animazione: mostra l'orologio closed
+        if (clockTextClosed != null)
+            clockTextClosed.gameObject.SetActive(true);
     }
 
     #endregion
@@ -215,8 +264,6 @@ public class SmartphoneUI : MonoBehaviour
         // Scambia orologi: mostra quello "aperto", nascondi quello "chiuso"
         if (clockTextClosed != null)
             clockTextClosed.gameObject.SetActive(false);
-        if (clockTextOpen != null)
-            clockTextOpen.gameObject.SetActive(true);
 
         // Mostra la lista messaggi
         ShowMessageList();
@@ -230,21 +277,21 @@ public class SmartphoneUI : MonoBehaviour
 
     private void HandleSmartphoneClosed()
     {
-        // Avvia animazione slide down
-        SlideDown();
 
-        // Nascondi i pannelli interni dopo un piccolo delay (durante l'animazione)
-        StartCoroutine(HidePanelsAfterDelay());
 
         // Ripristina HUD principale
         if (hudCanvas != null)
             hudCanvas.SetActive(true);
 
-        // Scambia orologi: mostra quello "chiuso", nascondi quello "aperto"
-        if (clockTextClosed != null)
-            clockTextClosed.gameObject.SetActive(true);
+        // Nascondi l'orologio aperto SUBITO
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(false);
+
+        // Avvia animazione slide down
+        SlideDown();
+
+        // Nascondi i pannelli interni dopo un piccolo delay (durante l'animazione)
+        StartCoroutine(HidePanelsAfterDelay());
 
         currentMessage = null;
     }
@@ -333,15 +380,14 @@ public class SmartphoneUI : MonoBehaviour
 
         if (senderIconImage != null)
         {
+            Debug.Log("[SmartphoneUI] Impostando icona mittente nel dettaglio messaggio.");
+
             if (message.senderIcon != null)
             {
                 senderIconImage.sprite = message.senderIcon;
                 senderIconImage.gameObject.SetActive(true);
             }
-            else
-            {
-                senderIconImage.gameObject.SetActive(false);
-            }
+                senderIconImage.gameObject.SetActive(true);
         }
 
         // Segna come letto

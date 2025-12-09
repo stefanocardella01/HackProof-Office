@@ -74,11 +74,8 @@ public class SmartphoneMessageItem : MonoBehaviour
                 senderIcon.sprite = msg.senderIcon;
                 senderIcon.gameObject.SetActive(true);
             }
-            else
-            {
-                // Usa un'icona di default o nascondi
-                senderIcon.gameObject.SetActive(false);
-            }
+            senderIcon.gameObject.SetActive(true);
+            
         }
 
         // Indicatore non letto

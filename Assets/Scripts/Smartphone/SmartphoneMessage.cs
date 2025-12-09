@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 // rappresenta il singolo messaggio ricevuto dallo smartphone in-game
 [System.Serializable]
 public class SmartphoneMessage
