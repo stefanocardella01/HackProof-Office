@@ -60,6 +60,10 @@ public class InspectUI : MonoBehaviour
         openedFromInventory = false;
         currentObject = obj;
 
+        //NASCONDI L'OGGETTO NEL MONDO MENTRE LO ISPEZIONI
+        if (currentObject != null)
+            currentObject.gameObject.SetActive(false);
+
         // Nascondi l'HUD (E + inventario + crosshair)
         if (hudCanvas != null)
             hudCanvas.SetActive(false);
@@ -271,6 +275,16 @@ public class InspectUI : MonoBehaviour
     public void CloseImmediate()
     {
         gameObject.SetActive(false);
+
+        //Se l'ispezione viene da un oggetto del mondo e NON dall'inventario
+        //  e l'oggetto non è stato distrutto, lo riattivo.
+        if (!openedFromInventory && currentObject != null)
+        {
+            // Se in TryAddToInventory hai fatto Destroy(currentObject.gameObject),
+            // allora qui currentObject risulta null (per l'overload di == in Unity)
+            // e non entrerà in questo if.
+            currentObject.gameObject.SetActive(true);
+        }
 
         // Riattiva l'HUD
         if (hudCanvas != null)
