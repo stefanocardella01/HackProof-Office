@@ -13,8 +13,7 @@ public class SmartphoneInput : MonoBehaviour
     [SerializeField] private PlayerInteractor playerInteractor;
 
     [Header("Input Settings")]
-    [SerializeField] private KeyCode openKey = KeyCode.P;
-    [SerializeField] private KeyCode closeKey = KeyCode.Escape;
+    [SerializeField] private KeyCode openCloseKey = KeyCode.P;
 
     private SmartphoneManager manager;
 
@@ -67,16 +66,11 @@ public class SmartphoneInput : MonoBehaviour
         if (manager == null) return;
 
         // Tasto P per toggle smartphone
-        if (Input.GetKeyDown(openKey))
+        if (Input.GetKeyDown(openCloseKey))
         {
             manager.Toggle();
         }
 
-        // ESC per chiudere (solo se aperto)
-        if (Input.GetKeyDown(closeKey) && manager.IsOpen)
-        {
-            manager.Close();
-        }
     }
 
     /// <summary>

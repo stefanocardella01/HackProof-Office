@@ -16,6 +16,7 @@ public class SmartphoneUI : MonoBehaviour
     [SerializeField] private RectTransform smartphoneRect;      // RectTransform per animazione
     [SerializeField] private GameObject messageListPanel;       // Pannello lista messaggi
     [SerializeField] private GameObject messageDetailPanel;     // Pannello dettaglio messaggio
+    [SerializeField] private GameObject homePanel;              // Pannello Home con icone
 
     [Header("Animazione Slide")]
     [SerializeField] private float hiddenYPosition = -520f;     // Posizione Y quando nascosto (abbassato)
@@ -23,13 +24,20 @@ public class SmartphoneUI : MonoBehaviour
     [SerializeField] private float animationDuration = 0.3f;    // Durata animazione in secondi
     [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1); // Curva di easing
 
-    [Header("Notifica (quando smartphone chiuso)")]
-    [SerializeField] private GameObject notificationBadge;      // Badge notifica (pallino rosso)
-    [SerializeField] private TextMeshProUGUI notificationCountText; // Numero messaggi non letti
+    [Header("Banner Notifica")]
+    [SerializeField] private GameObject notificationBanner;     // Banner "X nuove notifiche"
+    [SerializeField] private TextMeshProUGUI notificationBannerText; // Testo del banner
 
     [Header("Lista Messaggi")]
     [SerializeField] private Transform messageListContent;      // Parent per gli item della lista
     [SerializeField] private GameObject messageItemPrefab;      // Prefab per singolo item messaggio
+    [SerializeField] private Button backToHomeButton;           // Bottone per tornare alla Home
+
+    [Header("Home Panel")]
+    [SerializeField] private Button messagesButton;             // Bottone per aprire messaggi
+    [SerializeField] private Button phoneButton;                // Bottone telefono (non fa niente)
+    [SerializeField] private GameObject homeBadge;              // Badge notifiche sull'icona messaggi
+    [SerializeField] private TextMeshProUGUI homeBadgeText;     // Testo del badge (numero)
 
     [Header("Dettaglio Messaggio")]
     [SerializeField] private Image senderIconImage;             // Icona mittente
@@ -61,6 +69,8 @@ public class SmartphoneUI : MonoBehaviour
             smartphonePanel.SetActive(true);  // Sempre attivo per poter animare
 
             // Nascondi i pannelli interni
+            if (homePanel != null)
+                homePanel.SetActive(false);
             if (messageListPanel != null)
                 messageListPanel.SetActive(false);
             if (messageDetailPanel != null)
@@ -75,8 +85,13 @@ public class SmartphoneUI : MonoBehaviour
             smartphoneRect.anchoredPosition = pos;
         }
 
-        if (notificationBadge != null)
-            notificationBadge.SetActive(false);
+        // Nascondi il banner notifica all'inizio
+        if (notificationBanner != null)
+            notificationBanner.SetActive(false);
+
+        // Nascondi il badge sulla home all'inizio
+        if (homeBadge != null)
+            homeBadge.SetActive(false);
 
         // Setup orologi: all'inizio mostra solo quello per "chiuso"
         if (clockTextClosed != null)
@@ -107,14 +122,23 @@ public class SmartphoneUI : MonoBehaviour
             backButton.onClick.AddListener(ShowMessageList);
         }
 
+        // Setup back to home button (da MessageList a Home)
+        if (backToHomeButton != null)
+        {
+            backToHomeButton.onClick.AddListener(ShowHome);
+        }
+        //setup messages button (da Home a MessageList)
+        if (messagesButton != null)
+        {
+            messagesButton.onClick.AddListener(ShowMessageListFromHome);
+        }
+
         // Auto-find RectTransform se non assegnato
         if (smartphoneRect == null && smartphonePanel != null)
         {
             smartphoneRect = smartphonePanel.GetComponent<RectTransform>();
         }
 
-        // Aggiorna la UI iniziale
-        UpdateNotificationBadge();
     }
 
     private void OnDestroy()
@@ -194,19 +218,13 @@ public class SmartphoneUI : MonoBehaviour
         // Assicurati di arrivare esattamente alla posizione finale
         smartphoneRect.anchoredPosition = endPos;
         isAnimating = false;
+        
         //Dopo l'animazione: mostra l'orologio open
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(true);
 
-        // DOPO l'animazione: mostra i pannelli
-        if (messageListPanel != null)
-            messageListPanel.SetActive(true);
-        if (messageDetailPanel != null)
-            messageDetailPanel.SetActive(false);
-
-        ShowMessageList();
-        RefreshMessageList();
-
+        // DOPO l'animazione mostra la home
+        ShowHome();
     }
 
 
@@ -219,6 +237,7 @@ public class SmartphoneUI : MonoBehaviour
         if (smartphoneRect == null) yield break;
 
         isAnimating = true;
+       
 
         Vector2 startPos = smartphoneRect.anchoredPosition;
         Vector2 endPos = new Vector2(startPos.x, hiddenYPosition);
@@ -243,6 +262,7 @@ public class SmartphoneUI : MonoBehaviour
         // DOPO l'animazione: mostra l'orologio closed
         if (clockTextClosed != null)
             clockTextClosed.gameObject.SetActive(true);
+        
     }
 
     #endregion
@@ -251,25 +271,19 @@ public class SmartphoneUI : MonoBehaviour
 
     private void HandleSmartphoneOpened()
     {
-        // Mostra i pannelli interni PRIMA dell'animazione
-        if (messageListPanel != null)
-            messageListPanel.SetActive(true);
-        if (messageDetailPanel != null)
-            messageDetailPanel.SetActive(false);
+        // Nascondi SUBITO il banner quando si apre lo smartphone
+        if (notificationBanner != null)
+            notificationBanner.SetActive(false);
 
         // Nascondi HUD principale
         if (hudCanvas != null)
             hudCanvas.SetActive(false);
 
-        // Scambia orologi: mostra quello "aperto", nascondi quello "chiuso"
+        // Nascondi l'orologio chiuso SUBITO (quello aperto apparirà DOPO l'animazione)
         if (clockTextClosed != null)
             clockTextClosed.gameObject.SetActive(false);
 
-        // Mostra la lista messaggi
-        ShowMessageList();
-
-        // Aggiorna la lista
-        RefreshMessageList();
+        // NON mostrare i pannelli qui - appariranno DOPO l'animazione in AnimateSlideUp()
 
         // Avvia animazione slide up
         SlideUp();
@@ -277,44 +291,41 @@ public class SmartphoneUI : MonoBehaviour
 
     private void HandleSmartphoneClosed()
     {
+        // Nascondi tutti i pannelli SUBITO (prima dell'animazione)
+        if (notificationBanner != null)
+            notificationBanner.SetActive(false); // Nascondi il banner durante l'animazione
+        if (homePanel != null)
+            homePanel.SetActive(false);
+        if (messageListPanel != null)
+            messageListPanel.SetActive(false);
+        if (messageDetailPanel != null)
+            messageDetailPanel.SetActive(false);
 
 
-        // Ripristina HUD principale
-        if (hudCanvas != null)
-            hudCanvas.SetActive(true);
-
-        // Nascondi l'orologio aperto SUBITO
+        // Nascondi l'orologio aperto SUBITO (quello chiuso apparirà DOPO l'animazione)
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(false);
 
         // Avvia animazione slide down
         SlideDown();
 
-        // Nascondi i pannelli interni dopo un piccolo delay (durante l'animazione)
-        StartCoroutine(HidePanelsAfterDelay());
+        // Ripristina HUD principale
+        if (hudCanvas != null)
+            hudCanvas.SetActive(true);
+
+        // Aggiorna il banner (verrà mostrato se ci sono messaggi non letti)
+        UpdateNotificationBanner();
 
         currentMessage = null;
     }
-
-    /// <summary>
-    /// Nasconde i pannelli interni dopo che l'animazione è completata.
-    /// </summary>
-    private IEnumerator HidePanelsAfterDelay()
-    {
-        yield return new WaitForSecondsRealtime(animationDuration);
-
-        if (!manager.IsOpen)  // Verifica che sia ancora chiuso
-        {
-            if (messageListPanel != null)
-                messageListPanel.SetActive(false);
-            if (messageDetailPanel != null)
-                messageDetailPanel.SetActive(false);
-        }
-    }
-
+    
     private void HandleMessageReceived(SmartphoneMessage message)
     {
-        UpdateNotificationBadge();
+        // Aggiorna il banner (mostrerà notifica solo se smartphone chiuso)
+        UpdateNotificationBanner();
+
+        // Aggiorna il badge sulla home
+        UpdateHomeBadge();
 
         // Se lo smartphone è aperto, aggiorna la lista
         if (manager.IsOpen)
@@ -325,7 +336,12 @@ public class SmartphoneUI : MonoBehaviour
 
     private void HandleMessageRead(SmartphoneMessage message)
     {
-        UpdateNotificationBadge();
+        // Aggiorna il banner (potrebbe nascondersi se era l'ultimo messaggio non letto)
+        UpdateNotificationBanner();
+
+        // Aggiorna il badge sulla home
+        UpdateHomeBadge();
+
         RefreshMessageList();
 
         // Se c'è un target da evidenziare, attiva l'outline
@@ -340,10 +356,52 @@ public class SmartphoneUI : MonoBehaviour
     #region UI Navigation
 
     /// <summary>
-    /// Mostra il pannello lista messaggi.
+    /// Mostra il pannello Home.
+    /// </summary>
+    public void ShowHome()
+    {
+        if (homePanel != null)
+            homePanel.SetActive(true);
+
+        if (messageListPanel != null)
+            messageListPanel.SetActive(false);
+
+        if (messageDetailPanel != null)
+            messageDetailPanel.SetActive(false);
+
+        // Aggiorna il badge sulla home
+        UpdateHomeBadge();
+
+        manager?.PlayButtonClick();
+    }
+
+    /// <summary>
+    /// Mostra il pannello lista messaggi (chiamato dalla Home).
+    /// </summary>
+    public void ShowMessageListFromHome()
+    {
+        if (homePanel != null)
+            homePanel.SetActive(false);
+
+        if (messageListPanel != null)
+            messageListPanel.SetActive(true);
+
+        if (messageDetailPanel != null)
+            messageDetailPanel.SetActive(false);
+
+        RefreshMessageList();
+
+        manager?.PlayButtonClick();
+    }
+
+    /// <summary>
+    /// Mostra il pannello lista messaggi (chiamato dal MessageDetail).
     /// </summary>
     public void ShowMessageList()
     {
+        if (homePanel != null)
+            homePanel.SetActive(false);
+
         if (messageListPanel != null)
             messageListPanel.SetActive(true);
 
@@ -362,6 +420,9 @@ public class SmartphoneUI : MonoBehaviour
 
         currentMessage = message;
 
+        if (homePanel != null)
+            homePanel.SetActive(false);
+
         if (messageListPanel != null)
             messageListPanel.SetActive(false);
 
@@ -378,16 +439,15 @@ public class SmartphoneUI : MonoBehaviour
         if (messageBodyText != null)
             messageBodyText.text = message.messageText;
 
+        // 4. Icona mittente - mantieni visibile anche senza sprite
         if (senderIconImage != null)
         {
-            Debug.Log("[SmartphoneUI] Impostando icona mittente nel dettaglio messaggio.");
-
             if (message.senderIcon != null)
             {
                 senderIconImage.sprite = message.senderIcon;
-                senderIconImage.gameObject.SetActive(true);
             }
-                senderIconImage.gameObject.SetActive(true);
+            // Non nascondere l'icona, così mostra il colore placeholder
+            senderIconImage.gameObject.SetActive(true);
         }
 
         // Segna come letto
@@ -400,22 +460,52 @@ public class SmartphoneUI : MonoBehaviour
     #region UI Updates
 
     /// <summary>
-    /// Aggiorna il badge delle notifiche.
+    /// Aggiorna il badge sulla icona Messaggi nella Home.
     /// </summary>
-    private void UpdateNotificationBadge()
+    private void UpdateHomeBadge()
     {
         if (manager == null) return;
 
         int unreadCount = manager.UnreadCount;
 
-        if (notificationBadge != null)
+        if (homeBadge != null)
         {
-            notificationBadge.SetActive(unreadCount > 0);
+            homeBadge.SetActive(unreadCount > 0);
         }
 
-        if (notificationCountText != null)
+        if (homeBadgeText != null && unreadCount > 0)
         {
-            notificationCountText.text = unreadCount > 9 ? "9+" : unreadCount.ToString();
+            homeBadgeText.text = unreadCount > 9 ? "9+" : unreadCount.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Aggiorna il banner delle notifiche.
+    /// Mostra il banner SOLO se ci sono messaggi non letti E lo smartphone è CHIUSO.
+    /// </summary>
+    private void UpdateNotificationBanner()
+    {
+        if (manager == null) return;
+
+        int unreadCount = manager.UnreadCount;
+        bool shouldShowBanner = unreadCount > 0 && !manager.IsOpen;
+
+        if (notificationBanner != null)
+        {
+            notificationBanner.SetActive(shouldShowBanner);
+        }
+
+        // Aggiorna il testo solo se il banner è visibile
+        if (shouldShowBanner && notificationBannerText != null)
+        {
+            if (unreadCount == 1)
+            {
+                notificationBannerText.text = "1 nuova notifica";
+            }
+            else
+            {
+                notificationBannerText.text = $"{unreadCount} nuove notifiche";
+            }
         }
     }
 
