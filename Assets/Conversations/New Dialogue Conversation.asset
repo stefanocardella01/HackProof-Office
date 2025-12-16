@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643a82db76a49b447a40c25f70658ede, type: 3}
+  m_Name: New Dialogue Conversation
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  startNodeIndex: 0
+  nodes:
+  - lines:
+    - Salve, viaggiatore.
+    - Cosa posso fare per te?
+    choices:
+    - text: Chi sei?
+      nextNodeIndex: 1
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+    - text: Come mi chiamo?
+      nextNodeIndex: 1
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+  - lines:
+    - Sono il guardiano del villaggio.
+    choices:
+    - text: Arrivederci
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: addio

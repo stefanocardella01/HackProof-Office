@@ -29,6 +29,9 @@ public class DialogueUI : MonoBehaviour
     [Tooltip("Se true, puoi avanzare le linee con click sinistro del mouse")]
     public bool advanceWithClick = false;
 
+    //PROVA
+    public DialogueConversation testConversation;
+
     // --- Stato interno del sistema di dialogo ---
 
     // Conversazione corrente (ScriptableObject)
@@ -62,6 +65,11 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        StartConversation(testConversation);
+    }
+
     private void Update()
     {
         if (!isDialogueActive)
@@ -82,6 +90,11 @@ public class DialogueUI : MonoBehaviour
             {
                 AdvanceLine();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            
         }
     }
 
