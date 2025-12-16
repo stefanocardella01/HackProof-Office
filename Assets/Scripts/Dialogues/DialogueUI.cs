@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using StarterAssets;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// Gestisce la UI dei dialoghi a partire da un DialogueConversation.
@@ -28,6 +29,17 @@ public class DialogueUI : MonoBehaviour
 
     [Tooltip("Se true, puoi avanzare le linee con click sinistro del mouse")]
     public bool advanceWithClick = false;
+
+    [Header("Cursor & Player Lock (opzionale ma consigliato)")]
+    public bool showCursorDuringDialogue = true;
+
+    [Header("Canvas con inventario, interact text e crosshair")]
+    public GameObject hudCanvas;
+
+    // Se usi StarterAssets:
+    public StarterAssets.FirstPersonController playerController;
+    public StarterAssets.StarterAssetsInputs starterInputs;
+
 
     //PROVA
     public DialogueConversation testConversation;
@@ -56,6 +68,9 @@ public class DialogueUI : MonoBehaviour
     // Esempio ID auto-generato: "nodeIndex_choiceIndex"
     private HashSet<string> usedSingleUseChoices = new HashSet<string>();
 
+    private CursorLockMode prevLockState;
+    private bool prevCursorVisible;
+
     private void Awake()
     {
         // All'avvio nascondiamo il pannello di dialogo
@@ -63,6 +78,14 @@ public class DialogueUI : MonoBehaviour
         {
             dialogueRoot.SetActive(false);
         }
+
+        // Se non li hai assegnati a mano nell'Inspector, prova a recuperarli
+        if (playerController == null)
+            playerController = FindFirstObjectByType<FirstPersonController>();
+
+        if (starterInputs == null)
+            starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
+
     }
 
     void Start()
@@ -102,6 +125,44 @@ public class DialogueUI : MonoBehaviour
     /// Avvia una conversazione, partendo dal nodo startNodeIndex.
     /// Puoi chiamare questo metodo da un trigger, da uno script NPC, ecc.
     /// </summary>
+    /// 
+
+    private void ApplyDialogueInputState(bool active)
+    {
+        if (showCursorDuringDialogue)
+        {
+            if (active)
+            {
+                prevLockState = Cursor.lockState;
+                prevCursorVisible = Cursor.visible;
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = prevLockState;
+                Cursor.visible = prevCursorVisible;
+            }
+        }
+
+        // (opzionale) blocca player + input mentre parli
+        if (playerController != null)
+            playerController.enabled = !active;
+
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = !active;
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
+
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
+            hudCanvas.SetActive(false);
+    }
+
+
     public void StartConversation(DialogueConversation conversation)
     {
         if (conversation == null || conversation.nodes == null || conversation.nodes.Length == 0)
@@ -118,6 +179,9 @@ public class DialogueUI : MonoBehaviour
         currentNodeIndex = -1;
         currentLineIndex = 0;
         isDialogueActive = true;
+
+        ApplyDialogueInputState(true);
+
 
         // Mostra il pannello
         if (dialogueRoot != null)
@@ -408,6 +472,9 @@ public class DialogueUI : MonoBehaviour
 
         if (dialogueRoot != null)
             dialogueRoot.SetActive(false);
+
+        ApplyDialogueInputState(false);
+
 
         // Qui potresti anche lanciare un evento per notificare altri sistemi:
         // es. sbloccare movimento player, ecc.

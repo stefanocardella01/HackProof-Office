@@ -24,9 +24,9 @@ MonoBehaviour:
       singleUse: 0
       customId: 
     - text: Come mi chiamo?
-      nextNodeIndex: 1
+      nextNodeIndex: 2
       endsDialogue: 0
-      singleUse: 0
+      singleUse: 1
       customId: 
   - lines:
     - Sono il guardiano del villaggio.
@@ -36,3 +36,11 @@ MonoBehaviour:
       endsDialogue: 1
       singleUse: 0
       customId: addio
+  - lines:
+    - Sei Peter, il migliore impiegato del mese.
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: capito
