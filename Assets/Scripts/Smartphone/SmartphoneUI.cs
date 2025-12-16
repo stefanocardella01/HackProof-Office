@@ -171,6 +171,7 @@ public class SmartphoneUI : MonoBehaviour
     /// </summary>
     private void SlideUp()
     {
+        // Interrompi animazione corrente se in corso(apertura e chiusara rapida di seguito)
         if (isAnimating)
         {
             StopCoroutine(currentAnimation);
@@ -203,13 +204,13 @@ public class SmartphoneUI : MonoBehaviour
         Vector2 endPos = new Vector2(startPos.x, targetY);
 
         float elapsed = 0f;
-
+        //ogni frame muovi lo smartphone finche non esci dal loop dopo 0.3 secondi
         while (elapsed < animationDuration)
         {
             elapsed += Time.unscaledDeltaTime;  
             float t = elapsed / animationDuration;
             float curveValue = slideCurve.Evaluate(t);
-
+            //muovi lo smartphone
             smartphoneRect.anchoredPosition = Vector2.Lerp(startPos, endPos, curveValue);
 
             yield return null;
@@ -258,7 +259,9 @@ public class SmartphoneUI : MonoBehaviour
         // Assicurati di arrivare esattamente alla posizione finale
         smartphoneRect.anchoredPosition = endPos;
         isAnimating = false;
-
+        // Aggiorna il banner (verrà mostrato se ci sono messaggi non letti)
+        UpdateNotificationBanner();
+        
         // DOPO l'animazione: mostra l'orologio closed
         if (clockTextClosed != null)
             clockTextClosed.gameObject.SetActive(true);
@@ -312,9 +315,6 @@ public class SmartphoneUI : MonoBehaviour
         // Ripristina HUD principale
         if (hudCanvas != null)
             hudCanvas.SetActive(true);
-
-        // Aggiorna il banner (verrà mostrato se ci sono messaggi non letti)
-        UpdateNotificationBanner();
 
         currentMessage = null;
     }
