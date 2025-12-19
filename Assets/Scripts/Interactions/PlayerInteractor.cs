@@ -89,7 +89,7 @@ public class PlayerInteractor : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("[PlayerInteractor] Nessun oggetto selezionato nell'inventario.");
+                    //Debug.Log("[PlayerInteractor] Nessun oggetto selezionato nell'inventario.");
                 }
             }
         }

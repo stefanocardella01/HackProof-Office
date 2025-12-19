@@ -262,13 +262,13 @@ public class InspectUI : MonoBehaviour
 
         if (added)
         {
-            Debug.Log("Aggiunto.");
+            //Debug.Log("Aggiunto.");
             Destroy(currentObject.gameObject);
             CloseImmediate();
         }
         else
         {
-            Debug.Log("Inventario pieno, impossibile aggiungere l'oggetto.");
+            //Debug.Log("Inventario pieno, impossibile aggiungere l'oggetto.");
         }
     }
 

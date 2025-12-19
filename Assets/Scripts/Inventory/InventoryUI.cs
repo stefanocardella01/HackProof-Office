@@ -110,7 +110,7 @@ public class InventoryUI : MonoBehaviour
     private void RefreshSelection(int selectedIndex)
     {
 
-        Debug.Log($"[InventoryUI] RefreshSelection({selectedIndex})");  // <--- AGGIUNTO
+        //Debug.Log($"[InventoryUI] RefreshSelection({selectedIndex})");  // <--- AGGIUNTO
 
         var item = inventory.GetItem(selectedIndex);
 
@@ -127,7 +127,7 @@ public class InventoryUI : MonoBehaviour
 
                 slots[i].background.color = colore;
 
-                Debug.Log($"[InventoryUI] Slot {i} -> {slots[i].background.name} color={colore}");
+                //Debug.Log($"[InventoryUI] Slot {i} -> {slots[i].background.name} color={colore}");
             }
         }
         //Atttivo UI a sinistra dell'inventario se lo slot selezionato contiene un item

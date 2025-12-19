@@ -809,7 +809,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -74.3}
-  m_SizeDelta: {x: 240.16, y: 100}
+  m_SizeDelta: {x: 403.2, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &174154872
 MonoBehaviour:
@@ -5735,7 +5735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 14.09}
+  m_AnchoredPosition: {x: 0, y: 29.56}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1742887603
@@ -6460,6 +6460,10 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 333723675235585222, guid: a986897a72a7bef4f97b1bd9ed233881, type: 3}
   advanceWithSpace: 1
   advanceWithClick: 0
+  showCursorDuringDialogue: 1
+  hudCanvas: {fileID: 0}
+  playerController: {fileID: 0}
+  starterInputs: {fileID: 0}
   testConversation: {fileID: 11400000, guid: 9c202a34630dad946ade28b0c3dd3e4e, type: 2}
 --- !u!4 &1937703315
 Transform:

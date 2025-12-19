@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
             {
 
                 items[i] = newItem;
-                Debug.Log($"[Inventory] Aggiunto '{newItem.displayName}' nello slot {i}");
+                //Debug.Log($"[Inventory] Aggiunto '{newItem.displayName}' nello slot {i}");
                 OnInventoryChanged?.Invoke();
                 return true;
 
@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //se viene eseguito questo codice vuol dire che non c'erano slot liberi
-        Debug.Log("Inventario pieno!");
+        //Debug.Log("Inventario pieno!");
         return false;
 
     }
@@ -51,7 +51,7 @@ public class InventoryManager : MonoBehaviour
                 //Riporto l'indice dello slot selezionato a -1 (niente è selezionato)
                 selectedIndex = -1;
 
-                Debug.Log("Oggetto rimosso");
+                //Debug.Log("Oggetto rimosso");
 
 
                 OnInventoryChanged?.Invoke();
@@ -83,14 +83,14 @@ public class InventoryManager : MonoBehaviour
         //Prevengo accesso out of range
         if(index < 0 || index >= MaxSlots)
         {
-            Debug.Log($"[Inventory] SelectSlot({index}) fuori range");
+            //Debug.Log($"[Inventory] SelectSlot({index}) fuori range");
             return;
 
         }
         //Se seleziono uno slot vuoto allora deseleziono l'eventuale oggetto selezionato in precedenza
         if (items[index] == null)
         {
-            Debug.Log($"[Inventory] SelectSlot({index})  slot vuoto, nessuna selezione");
+            //Debug.Log($"[Inventory] SelectSlot({index})  slot vuoto, nessuna selezione");
         }
         //Seleziono l'oggetto
         else
@@ -98,7 +98,7 @@ public class InventoryManager : MonoBehaviour
 
             selectedIndex = index;
 
-            Debug.Log($"[Inventory] SelectSlot({index})  selezionato '{items[index].displayName}'");
+            //Debug.Log($"[Inventory] SelectSlot({index})  selezionato '{items[index].displayName}'");
 
 
         }
