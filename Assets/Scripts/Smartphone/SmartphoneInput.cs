@@ -63,7 +63,10 @@ public class SmartphoneInput : MonoBehaviour
 
     private void Update()
     {
+        if (!isActiveAndEnabled) return;
         if (manager == null) return;
+        if (!CanOpenSmartphone()) return;
+        if (!manager.isActiveAndEnabled) return;
 
         // Tasto P per toggle smartphone
         if (Input.GetKeyDown(openCloseKey))
