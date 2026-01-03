@@ -320,27 +320,6 @@ public class PCCameraController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Forza il ritorno immediato (senza transizione) - per emergenze
-    /// </summary>
-    public void ForceReturnToPlayer()
-    {
-        Debug.Log("[PCCameraController] ForceReturnToPlayer()");
-
-        StopAllCoroutines();
-
-        if (pcCamera != null)
-            pcCamera.gameObject.SetActive(false);
-
-        if (playerCamera != null)
-            playerCamera.gameObject.SetActive(true);
-
-        SetPlayerControlsEnabled(true);
-
-        isTransitioning = false;
-        isAtScreen = false;
-    }
-
     // Properties pubbliche
     public bool IsAtScreen => isAtScreen;
     public bool IsTransitioning => isTransitioning;

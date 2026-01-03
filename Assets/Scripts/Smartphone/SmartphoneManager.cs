@@ -188,12 +188,4 @@ public class SmartphoneManager : MonoBehaviour
     {
         return UnreadCount > 0;
     }
-
-    
-    // Rimuove tutti i messaggi (per reset/debug).
-    public void ClearAllMessages()
-    {
-        messages.Clear();
-        Debug.Log("[SmartphoneManager] Tutti i messaggi rimossi");
-    }
 }

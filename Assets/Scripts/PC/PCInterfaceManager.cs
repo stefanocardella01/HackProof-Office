@@ -40,10 +40,6 @@ public class PCInterfaceManager : MonoBehaviour
     [SerializeField] private bool requirePasswordChange = true;
     [SerializeField] private bool require2FA = true;
 
-    [Header("Messaggio Fine Missione")]
-    [SerializeField] private float closeDelay = 2f;
-    [SerializeField] private string missionCompleteMessage = "Setup account completato! Il PC si chiuderà automaticamente.";
-    [SerializeField] private string missionIncompleteMessage = "Setup parziale. Il PC si chiuderà automaticamente.";
 
     [Header("Eventi")]
     public UnityEvent OnLoginCompleted;
@@ -54,7 +50,7 @@ public class PCInterfaceManager : MonoBehaviour
     public UnityEvent OnAllTasksCompleted;
     public UnityEvent OnInterfaceOpened;
     public UnityEvent OnInterfaceClosed;
-    public UnityEvent OnMission1Finished;  // NUOVO: triggerato quando la missione 1 è finita (PC si chiude e diventa non interagibile)
+    public UnityEvent OnMission1Finished;  
 
     // Componenti delle schermate (cache)
     private LoginScreen loginScreen;
@@ -397,7 +393,7 @@ public class PCInterfaceManager : MonoBehaviour
         {
             // Non c'è 2FA da fare, chiudi il PC
             CheckAllTasksCompleted();
-            StartCoroutine(ClosePCAfterDelay(missionCompleteMessage));
+            StartCoroutine(ClosePCAfterDelay());
         }
     }
 
@@ -421,7 +417,7 @@ public class PCInterfaceManager : MonoBehaviour
         {
             // Non c'è 2FA da fare, chiudi il PC
             CheckAllTasksCompleted();
-            StartCoroutine(ClosePCAfterDelay(missionIncompleteMessage));
+            StartCoroutine(ClosePCAfterDelay());
         }
     }
 
@@ -436,8 +432,8 @@ public class PCInterfaceManager : MonoBehaviour
 
         CheckAllTasksCompleted();
 
-        // Avvia chiusura automatica con messaggio
-        StartCoroutine(ClosePCAfterDelay(missionCompleteMessage));
+        // Avvia chiusura automatica
+        StartCoroutine(ClosePCAfterDelay());
     }
 
     /// <summary>
@@ -453,30 +449,17 @@ public class PCInterfaceManager : MonoBehaviour
 
         CheckAllTasksCompleted();
 
-        // Avvia chiusura automatica con messaggio
-        StartCoroutine(ClosePCAfterDelay(missionIncompleteMessage));
+        // Avvia chiusura automatica
+        StartCoroutine(ClosePCAfterDelay());
     }
 
     /// <summary>
     /// Coroutine che mostra un messaggio e poi chiude il PC automaticamente
     /// </summary>
-    private System.Collections.IEnumerator ClosePCAfterDelay(string message)
+    private System.Collections.IEnumerator ClosePCAfterDelay()
     {
-        // Mostra messaggio nella schermata corrente (se c'è un feedbackText)
-        // Nascondi tutte le schermate e mostra solo il messaggio
-        HideAllScreens();
-
-        // Attiva il container se non lo è già
-        if (screenContainer != null)
-            screenContainer.SetActive(true);
-
-        // Crea un messaggio temporaneo (o usa un panel dedicato)
-        ShowTemporaryMessage(message);
-
-        Debug.Log($"[PCInterface] {message}");
-
-        // Aspetta
-        yield return new WaitForSeconds(closeDelay);
+        // Chiusura immediata: niente messaggi e niente attesa
+        yield return null;
 
         // Chiudi il PC
         Close();
@@ -589,42 +572,6 @@ public class PCInterfaceManager : MonoBehaviour
             twoFactorActivated = this.twoFactorActivated,
             twoFactorSkipped = this.twoFactorSkipped
         };
-    }
-
-    /// <summary>
-    /// Resetta lo stato (utile per testing)
-    /// </summary>
-    public void ResetState()
-    {
-        loginCompleted = false;
-        passwordChanged = false;
-        passwordSkipped = false;
-        twoFactorActivated = false;
-        twoFactorSkipped = false;
-        currentState = PCState.Inactive;
-    }
-
-    /// <summary>
-    /// Forza la chiusura immediata (per emergenze/debug)
-    /// </summary>
-    public void ForceClose()
-    {
-        if (cameraController != null)
-        {
-            cameraController.ForceReturnToPlayer();
-        }
-
-        HideAllScreens();
-        if (screenContainer != null)
-            screenContainer.SetActive(false);
-
-        isOpen = false;
-        currentState = PCState.Inactive;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        OnInterfaceClosed?.Invoke();
     }
 
     #endregion

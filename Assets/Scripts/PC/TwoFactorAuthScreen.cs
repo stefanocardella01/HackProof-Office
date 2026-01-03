@@ -417,27 +417,7 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
 
     #endregion
 
-    #region Public Methods (per debug/testing)
-
-    /// <summary>
-    /// Resetta completamente lo stato del 2FA
-    /// </summary>
-    public void ResetState()
-    {
-        savedStep = 1;
-        savedCode = "";
-        savedCodeSent = false;
-        currentStep = 1;
-        codeSent = false;
-    }
-
-    /// <summary>
-    /// Ottiene il codice corrente (per debug)
-    /// </summary>
-    public string GetCurrentCode()
-    {
-        return currentValidCode;
-    }
+    #region Public Methods
 
     /// <summary>
     /// Mostra un messaggio finale nascondendo tutti gli altri elementi.
