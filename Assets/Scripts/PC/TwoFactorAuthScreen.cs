@@ -44,12 +44,9 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
     [SerializeField] private Sprite smsSenderIcon;
 
     [Header("Messaggi UI")]
-    [SerializeField] private string step1Message = "L'autenticazione a due fattori protegge il tuo account richiedendo un codice aggiuntivo ad ogni accesso.";
-    [SerializeField] private string step2Message = "Invieremo un codice di verifica al tuo telefono aziendale.";
-    [SerializeField] private string step3Message = "Controlla il tuo telefono aziendale (premi P) e inserisci il codice ricevuto.";
-    [SerializeField] private string codeSentMessage = "Codice inviato! Premi ESC per uscire, poi P per aprire il telefono.";
+    [SerializeField] private string codeSentMessage = "";
     [SerializeField] private string codeErrorMessage = "Codice non valido. Riprova.";
-    [SerializeField] private string successMessage = "2FA attivato con successo! Il tuo account è ora protetto.";
+    [SerializeField] private string successMessage = "";
 
     private PCInterfaceManager manager;
     private int currentStep = 1;
@@ -177,7 +174,7 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
         if (step1Panel != null)
             step1Panel.SetActive(true);
 
-        SetFeedback(step1Message, Color.white);
+      
     }
 
     private void ShowStep2()
@@ -185,10 +182,6 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
         if (step2Panel != null)
             step2Panel.SetActive(true);
 
-        if (step2InfoText != null)
-            step2InfoText.text = step2Message;
-
-        SetFeedback(step2Message, Color.white);
     }
 
     private void ShowStep3()
@@ -208,7 +201,7 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
         {
             if (codeSent)
             {
-                hintText.text = "Hai già ricevuto il codice. Controllalo sul telefono (P).";
+                hintText.text = "Codice inviato! Premi ESC per uscire, poi P per aprire il telefono.";
             }
             else
             {
@@ -216,7 +209,7 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
             }
         }
 
-        SetFeedback(step3Message, Color.white);
+       
     }
 
     private void ShowStep4()

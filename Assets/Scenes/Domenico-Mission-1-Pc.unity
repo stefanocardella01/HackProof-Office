@@ -1557,9 +1557,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 674830302478362532, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
+      propertyPath: successMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 674830302478362532, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
+      propertyPath: codeSentMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237745864334520611, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3249993314541570156, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
       propertyPath: m_Name
       value: PC_Mission_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941122292971957152, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6780574781223333454, guid: d9a418b1df7b595428edadd4864ca1e6, type: 3}
       propertyPath: playerInput
