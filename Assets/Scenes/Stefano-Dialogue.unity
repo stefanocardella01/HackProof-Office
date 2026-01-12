@@ -249,6 +249,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5649175376974751076, guid: 56e75eeefc29539409bb7e618ef7f077, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 164.96
+      objectReference: {fileID: 0}
     - target: {fileID: 7379078282287063737, guid: 56e75eeefc29539409bb7e618ef7f077, type: 3}
       propertyPath: m_Name
       value: DialogueCanvas
