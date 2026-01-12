@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643a82db76a49b447a40c25f70658ede, type: 3}
+  m_Name: ConversazioneNPC1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  startNodeIndex: 0
+  nodes:
+  - lines:
+    - "Ehi\u2026 grazie per essere venuto fin qui. Davvero, non sai quanto lo apprezzi."
+    - "Ultimamente \xE8 un vero incubo... il capo mi sta col fiato sul collo."
+    - "Mi ha detto che ho messo a rischio l\u2019intera azienda e che potrei perdere
+      il lavoro se continuo cos\xEC."
+    - "Io non lo faccio apposta, eh\u2026 \xE8 solo che a volte certe cose mi sembrano
+      esagerate, inutilmente complicate."
+    - "Comunque, guarda tu stesso la mia scrivania, dimmi se c'\xE8 qualcosa che
+      non va."
+    choices:
+    - text: "Cosa c'\xE8 scritto su quel post-it attaccato al monitor?"
+      nextNodeIndex: 1
+      endsDialogue: 0
+      singleUse: 1
+      customId: 
+    - text: Quelle cuffie sulla scrivania... da dove arrivano?
+      nextNodeIndex: 2
+      endsDialogue: 0
+      singleUse: 1
+      customId: 
+    - text: Cosa contiene quella chiavetta USB sul tavolo?
+      nextNodeIndex: 3
+      endsDialogue: 0
+      singleUse: 1
+      customId: 
+    - text: Arrivederci.
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 1
+      customId: 
+  - lines:
+    - "Ah, quello? \xC8 la mia salvezza!"
+    - "Il problema \xE8 che ci obbligano a cambiare password ogni tre mesi e devono
+      essere super complicate."
+    - Onestamente? Non faccio altro che dimenticarmele. Bloccavo l'account quasi
+      ogni mattina.
+    - "Cos\xEC ho deciso di annotare le credenziali su quel post-it e di appiccicarlo
+      l\xEC sullo schermo. Almeno ce le ho sempre sott'occhio e non perdo tempo!"
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+  - lines:
+    - Belle vero? Sono le mie cuffie personali.
+    - "Le ho portate da casa stamattina. Sai com'\xE8, lavorare in silenzio mi annoia."
+    - "Le tengo qui cos\xEC posso collegarle al PC e ascoltare un po' della mia musica
+      durante le pause o quando il lavoro si fa ripetitivo."
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+  - lines:
+    - "Quella? In realt\xE0 non ne ho la pi\xF9 pallida idea."
+    - L'ho trovata per terra nel parcheggio mentre venivo in ufficio. Qualcuno deve
+      averla persa.
+    - L'etichetta sopra dice 'Bonus Dipendenti 2024' o qualcosa del genere... molto
+      interessante, no?
+    - "Non vedo l'ora di inserirla nel PC per controllare cosa c'\xE8 dentro. Stavo
+      per farlo proprio prima che arrivassi tu!"
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: 

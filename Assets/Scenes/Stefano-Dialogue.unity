@@ -976,6 +976,10 @@ PrefabInstance:
       propertyPath: choicesContainer
       value: 
       objectReference: {fileID: 1025799755}
+    - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
+      propertyPath: testConversation
+      value: 
+      objectReference: {fileID: 11400000, guid: b22679f98952e314597924f040fe6b6a, type: 2}
     - target: {fileID: 7316326483904960309, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
       propertyPath: m_Name
       value: DialogueUIManager
