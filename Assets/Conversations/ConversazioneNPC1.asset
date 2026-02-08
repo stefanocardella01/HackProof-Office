@@ -23,27 +23,45 @@ MonoBehaviour:
       esagerate, inutilmente complicate."
     - "Comunque, guarda tu stesso la mia scrivania, dimmi se c'\xE8 qualcosa che
       non va."
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 1f61abcb0828166488d8ff45f7911bca, type: 3}
+    - {fileID: 8300000, guid: ad00a83b730d3014cac55b244cdc0a69, type: 3}
+    - {fileID: 8300000, guid: c0045c20ede50eb43bb96b8cdf4f27d9, type: 3}
+    - {fileID: 8300000, guid: b6c60771a8d078647801936b76bc8cf3, type: 3}
+    - {fileID: 8300000, guid: 1ae1c111b2ed19540a64d99b110538aa, type: 3}
     choices:
     - text: "Cosa c'\xE8 scritto su quel post-it attaccato al monitor?"
       nextNodeIndex: 1
       endsDialogue: 0
       singleUse: 1
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
     - text: Quelle cuffie sulla scrivania... da dove arrivano?
       nextNodeIndex: 2
       endsDialogue: 0
       singleUse: 1
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
     - text: Cosa contiene quella chiavetta USB sul tavolo?
       nextNodeIndex: 3
       endsDialogue: 0
       singleUse: 1
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
     - text: Arrivederci.
       nextNodeIndex: 0
       endsDialogue: 1
       singleUse: 1
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
   - lines:
     - "Ah, quello? \xC8 la mia salvezza!"
     - "Il problema \xE8 che ci obbligano a cambiare password ogni tre mesi e devono
@@ -52,23 +70,38 @@ MonoBehaviour:
       ogni mattina.
     - "Cos\xEC ho deciso di annotare le credenziali su quel post-it e di appiccicarlo
       l\xEC sullo schermo. Almeno ce le ho sempre sott'occhio e non perdo tempo!"
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 57bf55d1c8ab69e4a85e3de5a247b78d, type: 3}
+    - {fileID: 8300000, guid: cfc980c395651784882d27103c7b543f, type: 3}
+    - {fileID: 8300000, guid: 2877fc45742d6a545ab5698ef2e38d6a, type: 3}
+    - {fileID: 8300000, guid: 3f2ef85dc3513804fae54326f06abe4b, type: 3}
     choices:
     - text: Ho capito
       nextNodeIndex: 0
       endsDialogue: 0
       singleUse: 0
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
   - lines:
     - Belle vero? Sono le mie cuffie personali.
     - "Le ho portate da casa stamattina. Sai com'\xE8, lavorare in silenzio mi annoia."
     - "Le tengo qui cos\xEC posso collegarle al PC e ascoltare un po' della mia musica
       durante le pause o quando il lavoro si fa ripetitivo."
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 167ca554c0caf954187c38e7f6a3f32c, type: 3}
+    - {fileID: 8300000, guid: 0914b0d9e1e7bae4d9854aca691db92b, type: 3}
+    - {fileID: 8300000, guid: fdcd33b70f208744c862d0713573b9e8, type: 3}
     choices:
     - text: Ho capito
       nextNodeIndex: 0
       endsDialogue: 0
       singleUse: 0
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
   - lines:
     - "Quella? In realt\xE0 non ne ho la pi\xF9 pallida idea."
     - L'ho trovata per terra nel parcheggio mentre venivo in ufficio. Qualcuno deve
@@ -77,9 +110,17 @@ MonoBehaviour:
       interessante, no?
     - "Non vedo l'ora di inserirla nel PC per controllare cosa c'\xE8 dentro. Stavo
       per farlo proprio prima che arrivassi tu!"
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 3c30b814e4a75ff45a52e327afb80d5e, type: 3}
+    - {fileID: 8300000, guid: 8ad281801300ee8438fac882e0cd851b, type: 3}
+    - {fileID: 8300000, guid: 62271d137efb1964d9793941368d283a, type: 3}
+    - {fileID: 8300000, guid: 36906aa19ce368b4290ae63b72e2b774, type: 3}
     choices:
     - text: Ho capito
       nextNodeIndex: 0
       endsDialogue: 0
       singleUse: 0
       customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}

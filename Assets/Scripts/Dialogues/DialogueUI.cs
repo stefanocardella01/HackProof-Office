@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using TMPro;
@@ -36,6 +37,21 @@ public class DialogueUI : MonoBehaviour
     [Header("Canvas con inventario, interact text e crosshair")]
     public GameObject hudCanvas;
 
+    [Header("Audio (Voice Over)")]
+    public AudioSource voiceSource;
+
+    [Tooltip("Se true, quando passi alla linea successiva interrompe l'audio precedente.")]
+    public bool stopPreviousVoiceOnAdvance = true;
+
+    [Header("Typewriter")]
+    public float charsPerSecond = 45f;
+
+    private Coroutine typeRoutine;
+    private bool isTyping = false;
+    private string currentFullLine = "";
+
+
+
     // Se usi StarterAssets:
     public StarterAssets.FirstPersonController playerController;
     public StarterAssets.StarterAssetsInputs starterInputs;
@@ -71,6 +87,27 @@ public class DialogueUI : MonoBehaviour
     private CursorLockMode prevLockState;
     private bool prevCursorVisible;
 
+
+    private IEnumerator TypeLine(string line)
+    {
+        isTyping = true;
+        currentFullLine = line;
+
+        dialogueText.text = "";
+
+        float delay = 1f / Mathf.Max(1f, charsPerSecond);
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            dialogueText.text += line[i];
+            yield return new WaitForSeconds(delay);
+        }
+
+        isTyping = false;
+        typeRoutine = null;
+    }
+
+
     private void Awake()
     {
         // All'avvio nascondiamo il pannello di dialogo
@@ -85,6 +122,10 @@ public class DialogueUI : MonoBehaviour
 
         if (starterInputs == null)
             starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
+
+        if (voiceSource == null)
+            voiceSource = GetComponent<AudioSource>();
+
 
     }
 
@@ -111,8 +152,21 @@ public class DialogueUI : MonoBehaviour
 
             if (advance)
             {
-                AdvanceLine();
+                if (isTyping)
+                {
+                    // completa subito la linea corrente
+                    if (typeRoutine != null) StopCoroutine(typeRoutine);
+                    dialogueText.text = currentFullLine;
+                    isTyping = false;
+                    typeRoutine = null;
+                }
+                else
+                {
+                    // linea già completa -> vai avanti
+                    AdvanceLine();
+                }
             }
+
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -126,6 +180,18 @@ public class DialogueUI : MonoBehaviour
     /// Puoi chiamare questo metodo da un trigger, da uno script NPC, ecc.
     /// </summary>
     /// 
+
+    private void StopTypingIfAny()
+    {
+        if (typeRoutine != null)
+        {
+            StopCoroutine(typeRoutine);
+            typeRoutine = null;
+        }
+        isTyping = false;
+        currentFullLine = "";
+    }
+
 
     private void ApplyDialogueInputState(bool active)
     {
@@ -220,6 +286,9 @@ public class DialogueUI : MonoBehaviour
         // Puliamo sempre le scelte precedenti
         ClearChoices();
 
+        StopTypingIfAny();
+
+
         // Se è la prima volta che entriamo in questo nodo, mostriamo le linee
         bool firstTime = !visitedNodes.Contains(currentNodeIndex);
         if (firstTime)
@@ -264,15 +333,43 @@ public class DialogueUI : MonoBehaviour
         // Clamp di sicurezza
         currentLineIndex = Mathf.Clamp(currentLineIndex, 0, node.lines.Length - 1);
 
+        string line = node.lines[currentLineIndex];
+
         if (dialogueText != null)
         {
-            dialogueText.text = node.lines[currentLineIndex];
+            // stop eventuale typing precedente
+            if (typeRoutine != null) StopCoroutine(typeRoutine);
+
+            // avvia typing
+            typeRoutine = StartCoroutine(TypeLine(line));
         }
+
+        PlayVoiceOverForCurrentLine(node);
+
     }
 
     /// <summary>
     /// Avanza alla prossima linea. Se non ci sono più linee, mostra le scelte.
     /// </summary>
+    /// 
+
+    private void PlayVoiceOverForCurrentLine(DialogueNode node)
+    {
+        if (voiceSource == null) return;
+
+        if (stopPreviousVoiceOnAdvance && voiceSource.isPlaying)
+            voiceSource.Stop();
+
+        if (node == null || node.lineVoiceOvers == null) return;
+        if (currentLineIndex < 0 || currentLineIndex >= node.lineVoiceOvers.Length) return;
+
+        AudioClip clip = node.lineVoiceOvers[currentLineIndex];
+        if (clip == null) return;
+
+        voiceSource.clip = clip;
+        voiceSource.Play();
+    }
+
     private void AdvanceLine()
     {
         if (currentConversation == null || currentNodeIndex < 0)
@@ -298,6 +395,11 @@ public class DialogueUI : MonoBehaviour
         {
             // Abbiamo finito le linee di questo nodo, ora mostriamo le scelte
             isShowingLines = false;
+
+
+            if (voiceSource != null && voiceSource.isPlaying)
+                voiceSource.Stop();
+
             ShowChoicesForCurrentNode();
         }
     }
@@ -467,11 +569,19 @@ public class DialogueUI : MonoBehaviour
 
         ClearChoices();
 
+        StopTypingIfAny();
+
+
         if (dialogueText != null)
             dialogueText.text = string.Empty;
 
+        if (voiceSource != null)
+            voiceSource.Stop();
+
         if (dialogueRoot != null)
             dialogueRoot.SetActive(false);
+
+
 
         ApplyDialogueInputState(false);
 
