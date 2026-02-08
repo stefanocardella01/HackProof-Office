@@ -5,19 +5,26 @@ public class SeatedCharacter : MonoBehaviour
 {
     [Header("Timings")]
     [SerializeField] private float idleTime = 6f;
-    [SerializeField] private float writingTime = 6f;
+    [SerializeField] private float writingTime = 8f;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
+    // Eventi (opzionali, se ti servono per altri script)
     public event Action OnIdleStarted;
     public event Action OnWritingStarted;
 
     private float _timer;
     private bool _isWriting = false;
 
+    // Nomi dei parametri dell'Animator per evitare errori di battitura
+    private static readonly int IsWritingHash = Animator.StringToHash("isWriting");
+    private static readonly int TalkingHash = Animator.StringToHash("Talking");
+    private static readonly int LeftHash = Animator.StringToHash("Left");
+
     private void Start()
     {
+        if (animator == null) animator = GetComponent<Animator>();
         SetIdle();
     }
 
@@ -25,7 +32,7 @@ public class SeatedCharacter : MonoBehaviour
     {
         _timer -= Time.deltaTime;
 
-        if (_timer <= 0f)
+        if (_timer <= 0)
         {
             if (_isWriting)
                 SetIdle();
@@ -39,7 +46,8 @@ public class SeatedCharacter : MonoBehaviour
         _isWriting = false;
         _timer = idleTime;
 
-        animator.SetBool("isWriting", false);
+        // Aggiorna l'animator
+        animator.SetBool(IsWritingHash, false);
 
         OnIdleStarted?.Invoke();
     }
@@ -49,11 +57,17 @@ public class SeatedCharacter : MonoBehaviour
         _isWriting = true;
         _timer = writingTime;
 
-        animator.SetBool("isWriting", true);
+        // Aggiorna l'animator
+        animator.SetBool(IsWritingHash, true);
 
         OnWritingStarted?.Invoke();
     }
 
-    public bool IsWriting => _isWriting;
+    // Metodo pubblico per gestire il dialogo via script
+    public void SetTalking(bool isTalking, bool lookLeft = true)
+    {
+        animator.SetBool(TalkingHash, isTalking);
+        animator.SetBool(LeftHash, lookLeft);
+    }
 }
 

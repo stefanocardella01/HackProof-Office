@@ -19,27 +19,18 @@ public class NpcBrain : MonoBehaviour
 
         _fsm = new FiniteStateMachine<NpcBrain>(this);
 
-        // Stati
         MoveToState moveState = new MoveToState("MoveTo", _movement);
         _interactionState = new InteractionState("Interaction", _movement, _interactionDuration);
 
-        // Transizioni
         _fsm.AddTransition(moveState, _interactionState, () => _movement.HasReachedDestination);
         _fsm.AddTransition(_interactionState, moveState, () => _interactionState.IsFinished());
 
-        // Stato iniziale
         _fsm.SetState(moveState);
     }
 
     void Update()
     {
         _fsm.Tik();
-
-        // Quando l’interaction finisce, passa al prossimo waypoint
-        if (_interactionState.IsFinished() && _fsm.CurrentStateName == _interactionState.Name)
-        {
-            _movement.GoToNextWaypoint();
-        }
     }
 }
 
@@ -66,6 +57,7 @@ public class IdleState : State
 
 
 
+
 public class MoveToState : State
 {
     private NpcMovement _movement;
@@ -77,21 +69,13 @@ public class MoveToState : State
 
     public override void Enter()
     {
-        if (_movement == null) return;
         _movement.MoveToNextTarget();
     }
 
-    public override void Tik()
-    {
-        // Aggiornamento movimento gestito direttamente da NpcMovement
-    }
+    public override void Tik() { }
 
-    public override void Exit()
-    {
-        // opzionale
-    }
+    public override void Exit() { }
 }
-
 
 
 
@@ -109,10 +93,7 @@ public class InteractionState : State
 
     public override void Enter()
     {
-        if (_movement == null) return;
-
         _movement.StopMovement();
-        _movement.PlayInteractionAnimation(""); // puoi sostituire con il nome dell’animazione
         _timer = 0f;
     }
 
@@ -125,7 +106,8 @@ public class InteractionState : State
 
     public override void Exit()
     {
-        // opzionale: reset animazione a camminata
+        _movement.GoToNextWaypoint();
     }
 }
+
 
