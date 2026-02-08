@@ -13,4 +13,83 @@ MonoBehaviour:
   m_Name: ConversazioneNPC2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   startNodeIndex: 0
-  nodes: []
+  nodes:
+  - lines:
+    - Ciao. Che vuoi?
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: d77758ebf4fea32409891bf431d7ed6b, type: 3}
+    choices:
+    - text: Cosa stai facendo qui?
+      nextNodeIndex: 1
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+    - text: "Dov\u2019\xE8 il tuo badge?"
+      nextNodeIndex: 2
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+    - text: Puoi rimanere, continua pure il tuo lavoro.
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+    - text: Devi andartene immediatamente da questa sala.
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+  - lines:
+    - 'Sto lavorando, non si vede?
+
+'
+    - Un server ha avuto un guasto e mi hanno chiamato per sistemarlo.
+    - "\xC8 una cosa urgente, quindi se non ti dispiace ho da fare."
+    - Sono un tecnico esterno, mi hanno fatto entrare poco fa.
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: ef3b8fd00c2032f4ebf2dcd9f26c87ba, type: 3}
+    - {fileID: 8300000, guid: dd5068bee8750c84a8d4935ae86238e9, type: 3}
+    - {fileID: 8300000, guid: e26c1fed0fad87848aed87127ff2da89, type: 3}
+    - {fileID: 8300000, guid: d674e32f8e119514fa9eba3f8ff7d135, type: 3}
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+  - lines:
+    - Il badge?
+    - "Ce l\u2019avevo\u2026 credo di averlo lasciato nella giacca in macchina."
+    - "Sono entrato di corsa perch\xE9 mi hanno detto che era un\u2019emergenza."
+    - Comunque mi hanno visto alla reception, sanno che sono qui.
+    - Non penso sia un problema, devo solo finire questo intervento e me ne vado.
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 8eb40f9e67dcf3e4a8766fb363350fce, type: 3}
+    - {fileID: 8300000, guid: 832a976aeec71644b9d60ef92643cd30, type: 3}
+    - {fileID: 8300000, guid: aa209381a4b79d04d91b505af4e42c47, type: 3}
+    - {fileID: 8300000, guid: 45bcc1a8c2479264581e1e46f9e8030b, type: 3}
+    - {fileID: 8300000, guid: 7bcc1a373705e8a43a4d02a8bc8d2995, type: 3}
+    choices:
+    - text: Ho capito
+      nextNodeIndex: 0
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}

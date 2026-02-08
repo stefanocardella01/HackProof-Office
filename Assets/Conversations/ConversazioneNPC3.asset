@@ -13,4 +13,30 @@ MonoBehaviour:
   m_Name: ConversazioneNPC3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   startNodeIndex: 0
-  nodes: []
+  nodes:
+  - lines:
+    - "Ehi, scusa se ti disturbo\u2026 avrei bisogno di un aiuto."
+    - Ho ricevuto diverse email stamattina e non riesco a capire quali siano vere.
+    - "Alcune sembrano comunicazioni ufficiali dell\u2019azienda,\naltre per\xF2
+      mi danno una strana sensazione."
+    - Ho paura di cliccare qualcosa che non dovrei.
+    - Non vorrei finire per cadere in qualche truffa o tentativo di phishing.
+    - "Potresti dare un\u2019occhiata tu e aiutarmi a capire quali sono legittime?"
+    - "Mi sentirei molto pi\xF9 tranquillo con il tuo parere."
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: e0fe450ab9d7d024e97d30dc663703a3, type: 3}
+    - {fileID: 8300000, guid: 77dad1195c5d1314c9c6b2da894eb318, type: 3}
+    - {fileID: 8300000, guid: c4d08333c7a261a4ba13050631243358, type: 3}
+    - {fileID: 8300000, guid: 63afa61cdcbc8524a93c8e2e19f275b3, type: 3}
+    - {fileID: 8300000, guid: 22650247f0a9c904c8823ccafe960078, type: 3}
+    - {fileID: 8300000, guid: b188d4de774bd364a878a974dfb7aafe, type: 3}
+    - {fileID: 8300000, guid: eb50f362f36d5d04d84e95da718ee5f5, type: 3}
+    choices:
+    - text: Certo!
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}

@@ -13,4 +13,28 @@ MonoBehaviour:
   m_Name: ConversazioneReceptionist2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   startNodeIndex: 0
-  nodes: []
+  nodes:
+  - lines:
+    - "\xC8 successa una cosa un po\u2019 particolare poco fa."
+    - Era venuto un tecnico esterno per sistemare un problema nella sala server.
+    - "Ha lavorato l\xEC per un po\u2019, poi si \xE8 spostato nella sala relax per
+      fare una pausa."
+    - "Purtroppo, mentre era l\xEC, ha ricevuto una chiamata urgente per un\u2019emergenza."
+    - "Si \xE8 scusato in fretta ed \xE8 andato via immediatamente."
+    - Non ho avuto modo di verificare se abbia rimesso tutto in ordine prima di andare
+      via.
+    - Per sicurezza, le chiederei di controllare sia la sala relax che la sala server.
+    - Vorrei essere certa che sia tutto a posto e che non abbia lasciato nulla fuori
+      posto.
+    - "Meglio fare una verifica in pi\xF9 che una in meno, in questi casi."
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: 4d5a85d32babe72439f0cce0207720e4, type: 3}
+    - {fileID: 8300000, guid: f61cb4e784fb9ca4db8b11d938de10a4, type: 3}
+    - {fileID: 8300000, guid: 342fbdd34dc54754aaf007a9502dde1a, type: 3}
+    - {fileID: 8300000, guid: 88a41d3c2a8a3dc44b54d1fd8d2fae51, type: 3}
+    - {fileID: 8300000, guid: 80fe3596b9cecbf41a7b8b15e449498a, type: 3}
+    - {fileID: 8300000, guid: d26fa663afe66c84fa66ab94ace825dc, type: 3}
+    - {fileID: 8300000, guid: c851b0b8258505d4fbe7b75bfefe6ae3, type: 3}
+    - {fileID: 8300000, guid: 8f2baa67961f58f4ca32868acfb62634, type: 3}
+    - {fileID: 8300000, guid: 151a49ee8365a0044992fcd62078eec4, type: 3}
+    choices: []

@@ -13,4 +13,48 @@ MonoBehaviour:
   m_Name: ConversazioneReceptionistPostIspezioni
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   startNodeIndex: 0
-  nodes: []
+  nodes:
+  - lines:
+    - Vuoi davvero consegnarmi questo oggetto?
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: b1db90d6e98aeaf4ebcb06d60ac833c4, type: 3}
+    choices:
+    - text: "S\xEC"
+      nextNodeIndex: 1
+      endsDialogue: 0
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+    - text: No
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+  - lines:
+    - Grazie per la segnalazione!
+    - "Hai qualcos\u2019altro da consegnarmi?"
+    lineVoiceOvers:
+    - {fileID: 8300000, guid: f8f1ea0970bd479499a418df9deb1261, type: 3}
+    - {fileID: 8300000, guid: 1081c2a7028ce7b4798fec11cd0b73c4, type: 3}
+    choices:
+    - text: "S\xEC, torno tra poco"
+      nextNodeIndex: 1
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
+    - text: No (concludi missione)
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
