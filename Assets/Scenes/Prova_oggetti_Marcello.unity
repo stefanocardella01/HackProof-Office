@@ -497,6 +497,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0511dfdf027884946aa260d94b40516d, type: 3}
+--- !u!1001 &2107187785706457071
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938103487766596581, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750105350787453279, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
+      propertyPath: m_Name
+      value: Blocco_ufficio
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2022faf69270e304299b23311fa5c99a, type: 3}
 --- !u!1001 &3446505915046928095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -911,3 +968,4 @@ SceneRoots:
   - {fileID: 3800985142054352686}
   - {fileID: 6710158964283498144}
   - {fileID: 7734549879029340400}
+  - {fileID: 2107187785706457071}
