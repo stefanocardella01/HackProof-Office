@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643a82db76a49b447a40c25f70658ede, type: 3}
+  m_Name: ConversazioneReceptionist1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  startNodeIndex: 0
+  nodes:
+  - lines:
+    - "Buongiorno e benvenuto nella nostra azienda.\n\xC8 un piacere averla qui."
+    - "Mi presento: sono la receptionist e mi occuper\xF2 di fornirle tutte le informazioni
+      necessarie per iniziare."
+    - "Come probabilmente le \xE8 stato anticipato, negli ultimi mesi la nostra azienda
+      ha affrontato numerosi problemi di sicurezza informatica e aziendale."
+    - Abbiamo registrato accessi non autorizzati, comportamenti poco attenti da parte
+      dei dipendenti e diverse situazioni potenzialmente rischiose.
+    - "Per questo motivo l\u2019abbiamo contattata. \nAbbiamo bisogno del suo aiuto."
+    - "Il suo compito sar\xE0 quello di muoversi all\u2019interno dell\u2019azienda
+      e individuare eventuali minacce alla sicurezza, sia informatiche che fisiche."
+    - Prima di iniziare, devo consegnarle il suo badge personale.
+    - "Questo badge \xE8 indispensabile per sbloccare le porte di accesso alle sale
+      uffici, alla sala server e alle altre aree riservate dell\u2019azienda."
+    - "La prego di tenerlo sempre con s\xE9 e di non prestarlo a nessuno."
+    - Inoltre, le viene assegnato un telefono aziendale.
+    - Attraverso questo dispositivo i dipendenti potranno contattarla direttamente
+      nel caso abbiano bisogno di assistenza o segnalazioni.
+    - "Se ricever\xE0 chiamate o messaggi, significa che qualcuno necessita del suo
+      intervento."
+    - "Se durante le sue attivit\xE0 dovesse trovare oggetti sospetti, dispositivi
+      sconosciuti o qualsiasi elemento che le sembri fuori posto, la invito a non
+      utilizzarli e a portarli immediatamente qui da me per la consegna e la segnalazione."
+    - "Per iniziare la sua missione, la prima cosa da fare \xE8 recarsi alla sua
+      postazione di lavoro."
+    - "Dovr\xE0 effettuare il primo accesso al suo account aziendale."
+    - Le credenziali di default sono temporanee e sono riportate direttamente sul
+      suo badge.
+    - Per il primo accesso, username e password sono uguali.
+    - Le credenziali di default sono temporanee e sono riportate direttamente sul
+      suo badge.
+    - "Le verr\xE0 richiesto di modificarle al primo login."
+    - "Da questo momento \xE8 ufficialmente operativo."
+    - Si prenda tutto il tempo necessario e non esiti a tornare da me per qualsiasi
+      dubbio.
+    - "Buon lavoro\u2026 \ne grazie per aver accettato di aiutarci."
+    lineVoiceOvers: []
+    choices:
+    - text: Arrivederci
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 0
+      eventId: 
+      eventChannel: {fileID: 0}
