@@ -16,6 +16,11 @@ public class InspectUI : MonoBehaviour
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
 
+    [Header("Inspect Orientation")]
+    public Vector3 modelFaceAxis = Vector3.up;   // +Y del modello = faccia principale (normale)
+    public Vector3 modelUpAxis = Vector3.forward; // +Z del modello = “su” del modello
+
+
     [Header("3D Model Inspection")]
     public Transform modelAnchor;        // punto dove spawnare il modello (pivot)
     public Camera inspectCamera;         // camera che guarda il modello
@@ -173,13 +178,27 @@ public class InspectUI : MonoBehaviour
             float radius = Mathf.Max(bounds.extents.x, bounds.extents.y, bounds.extents.z);
             if (radius > 0.0001f)
             {
-                float targetRadius = 0.2f;              // quanto grande lo vuoi nello spazio ispezione
+                float targetRadius = 0.4f;              // quanto grande lo vuoi nello spazio ispezione
                 float scaleFactor = targetRadius / radius;
                 scaleFactor = Mathf.Clamp(scaleFactor, 0.1f, 10f);
 
                 currentModelInstance.transform.localScale *= scaleFactor;
             }
         }
+
+
+        // ORIENTAMENTO INIZIALE CORRETTO PER L'ISPEZIONE
+        Vector3 worldFaceDir = -inspectCamera.transform.forward;  // la faccia guarda la camera
+        Vector3 worldUpDir = inspectCamera.transform.up;        // "su" in schermo
+
+        Quaternion worldRot = Quaternion.LookRotation(worldFaceDir, worldUpDir);
+
+        // Correzione dagli assi locali del modello (+Y front, +Z up) allo spazio mondo
+        Quaternion fix = Quaternion.Inverse(Quaternion.LookRotation(modelFaceAxis, modelUpAxis));
+
+        // Applico la rotazione all'anchor
+        modelAnchor.rotation = worldRot * fix;
+
 
         // Posiziono la camera a una distanza base
         currentZoomDistance = Mathf.Clamp(1f, minZoomDistance, maxZoomDistance);
