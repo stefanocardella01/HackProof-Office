@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -867768225134500041, guid: 7b057a15d2ed56e468fa382caa2abafd, type: 3}
+      propertyPath: _closingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fb12976860433ef46a7c60ec3240ebbc, type: 3}
+    - target: {fileID: -867768225134500041, guid: 7b057a15d2ed56e468fa382caa2abafd, type: 3}
+      propertyPath: _openingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 724d0aa45d5cec049a0bf5e56c1d398c, type: 3}
     - target: {fileID: 2791635595553937363, guid: 7b057a15d2ed56e468fa382caa2abafd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.799
@@ -88,6 +96,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8683804649735984859, guid: 7b057a15d2ed56e468fa382caa2abafd, type: 3}
+      propertyPath: _doorBody
+      value: 
+      objectReference: {fileID: 2271714542991869235}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

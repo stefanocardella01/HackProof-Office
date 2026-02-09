@@ -7,6 +7,9 @@ public class DoorOpener : MonoBehaviour, IInteractable
     [SerializeField] private Door door;
     [SerializeField] private float openRotation = 90f;
 
+    [Header("Inventory")]
+    [SerializeField] private InventoryManager inventory;   // assegna in inspector o auto-find
+
     [Header("Interaction Requirements")]
     [SerializeField] private bool requiresBadge = false;
     [SerializeField] private bool badgeAcquired = false;
@@ -18,19 +21,42 @@ public class DoorOpener : MonoBehaviour, IInteractable
     // Tiene traccia SOLO degli attori unici (Player / NPC)
     private HashSet<Transform> actorsInside = new HashSet<Transform>();
 
+    private void Awake()
+    {
+        if (inventory == null)
+            inventory = FindFirstObjectByType<InventoryManager>();
+    }
+
+
+    private bool HasBadgeSelected()
+    {
+        if (inventory == null) return false;
+
+        var item = inventory.GetSelectedItem();
+        if (item == null) return false;
+
+        // scegli una delle due righe a seconda di come definisci InventoryItem
+        if(item.id == "badgePersonale")
+        {
+            return true;
+        }
+
+        return false;
+        // return item.itemType == ItemType.Badge;
+    }
+
     public string GetInteractionText()
     {
-        if (requiresBadge && !badgeAcquired)
-            return "Serve un badge";
-        if(requiresBadge && badgeAcquired)
-            return "Usa Badge per aprire la porta";
+        if (requiresBadge)
+            return HasBadgeSelected() ? "Usa badge per aprire" : "Serve un badge";
 
         return door.IsOpen ? "Chiudi Porta" : "Apri Porta";
     }
 
+
     public void Interact(PlayerInteractor interactor)
     {
-        if (requiresBadge && !badgeAcquired)
+        if (requiresBadge && !HasBadgeSelected())
         {
             return;
         }
@@ -56,7 +82,14 @@ public class DoorOpener : MonoBehaviour, IInteractable
         Debug.Log($"ENTER: {root.name}");
 
         if (wasEmpty && !door.IsOpen)
-            door.OpenDoor(openRotation); // 🔹 sempre stesso lato
+        {
+            if (requiresBadge && !HasBadgeSelected())
+                return;
+
+            door.OpenDoor(openRotation); // sempre stesso lato
+        }
+
+
     }
 
     private void OnTriggerExit(Collider other)
