@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7ad35e3b99ea74e92ebf369b36747a, type: 3}
+  m_Name: Mission3
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionId: mission_3
+  missionTitle: Missione 3 - Aree comuni
+  objectives:
+  - objectiveId: m3_talk_receptionist
+    displayText: Parla con la receptionist
+    requiredCount: 0
+    showCounter: 0
+    visibleAtStart: 1
+    unlockedAfter: []
+  - objectiveId: m3_inspect_relax
+    displayText: Ispeziona sala relax
+    requiredCount: 3
+    showCounter: 1
+    visibleAtStart: 0
+    unlockedAfter:
+    - m3_talk_receptionist
+  - objectiveId: 'm3_inspect_server '
+    displayText: Ispeziona sala server
+    requiredCount: 0
+    showCounter: 0
+    visibleAtStart: 0
+    unlockedAfter:
+    - m3_talk_receptionist
+  - objectiveId: m3_deliver_items
+    displayText: Consegna eventuali oggetti sospetti alla receptionist
+    requiredCount: 0
+    showCounter: 0
+    visibleAtStart: 0
+    unlockedAfter:
+    - m3_inspect_relax
+    - m3_inspect_server
+  startsAutomatically: 0

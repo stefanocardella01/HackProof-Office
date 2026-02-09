@@ -65,7 +65,7 @@ public class PCInterfaceManager : MonoBehaviour
     private bool passwordChanged = false;
     private bool twoFactorActivated = false;
 
-    // Stato skip (NUOVO)
+    // Stato skip 
     private bool passwordSkipped = false;
     private bool twoFactorSkipped = false;
 
@@ -77,9 +77,9 @@ public class PCInterfaceManager : MonoBehaviour
     public bool IsOpen => isOpen;
     public bool LoginCompleted => loginCompleted;
     public bool PasswordChanged => passwordChanged;
-    public bool PasswordSkipped => passwordSkipped;           // NUOVO
+    public bool PasswordSkipped => passwordSkipped;           
     public bool TwoFactorActivated => twoFactorActivated;
-    public bool TwoFactorSkipped => twoFactorSkipped;         // NUOVO
+    public bool TwoFactorSkipped => twoFactorSkipped;         
 
     private void Awake()
     {

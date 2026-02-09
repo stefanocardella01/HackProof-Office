@@ -52,12 +52,16 @@ public class PlayerInteractor : MonoBehaviour
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
 
-        if(Physics.Raycast(ray, out RaycastHit hit, maxDistance, interactableMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, interactableMask))
         {
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 
-            if(interactable != null)
+            if (interactable != null)
             {
+                var text = interactable.GetInteractionText();
+                if (string.IsNullOrWhiteSpace(text))
+                    return;
+
                 currentInteractable = interactable;
 
                 //Aggiorno la UI
@@ -65,7 +69,7 @@ public class PlayerInteractor : MonoBehaviour
                     interactionUI.SetActive(true);
 
                 if (interactionText != null)
-                    interactionText.text = interactable.GetInteractionText();
+                    interactionText.text = text;
 
                 if (crosshair != null)
                     crosshair.color = Color.red;

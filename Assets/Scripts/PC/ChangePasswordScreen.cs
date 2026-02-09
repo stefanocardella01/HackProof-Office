@@ -270,7 +270,7 @@ public class ChangePasswordScreen : MonoBehaviour, IPCScreen
 
         yield return new WaitForSeconds(1f);
 
-        // Aggiorna la password (in un gioco reale salveresti questo valore)
+        // Aggiorna la password 
         currentPassword = newPassword;
 
         SetFeedback(successMessage, Color.green);
