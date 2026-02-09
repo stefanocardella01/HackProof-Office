@@ -53,6 +53,8 @@ public class DialogueUI : MonoBehaviour
     private bool isTyping = false;
     private string currentFullLine = "";
 
+    [Header("NPC Animation")]
+    private Animator npcAnimator;
 
 
     // Se usi StarterAssets:
@@ -226,11 +228,17 @@ public class DialogueUI : MonoBehaviour
             starterInputs.look = Vector2.zero;
         }
 
-        // Nascondi l'HUD (E + inventario + crosshair)
+        // HUD visibile solo quando NON sei in dialogo
         if (hudCanvas != null)
-            hudCanvas.SetActive(false);
+            hudCanvas.SetActive(!active);
+
     }
 
+    public void StartConversation(DialogueConversation conversation, Animator whoIsTalking)
+    {
+        npcAnimator = whoIsTalking;
+        StartConversation(conversation);
+    }
 
     public void StartConversation(DialogueConversation conversation)
     {
@@ -238,6 +246,11 @@ public class DialogueUI : MonoBehaviour
         {
             Debug.LogWarning("DialogueUI: conversazione nulla o senza nodi.");
             return;
+        }
+
+        if (npcAnimator != null)
+        {
+            npcAnimator.SetBool("IsTalking", true);
         }
 
         currentConversation = conversation;
@@ -587,6 +600,10 @@ public class DialogueUI : MonoBehaviour
         if (dialogueRoot != null)
             dialogueRoot.SetActive(false);
 
+        if (npcAnimator != null)
+        {
+            npcAnimator.SetBool("IsTalking", false);
+        }
 
 
         ApplyDialogueInputState(false);
