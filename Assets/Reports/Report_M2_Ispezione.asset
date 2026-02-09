@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
+  m_Name: Report_M2_Ispezione
+  m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
+  missionTitle: Ispezione oggetti
+  entries:
+  - label: Post-it con password consegnato
+    check: 2
+    okText: "Il post-it contenente credenziali di accesso \xE8 stato correttamente
+      identificato e consegnato. Annotare password in chiaro su supporti visibili
+      costituisce una grave vulnerabilit\xE0 di sicurezza fisica, poich\xE9 consente
+      a chiunque abbia accesso visivo alla postazione di acquisire le credenziali
+      senza necessit\xE0 di tecniche informatiche avanzate. Questa pratica vanifica
+      completamente l\u2019efficacia delle politiche di autenticazione e rende inutile
+      qualsiasi misura di protezione logica del sistema."
+    badText: "Il post-it contenente la password non \xE8 stato segnalato. Lasciare
+      credenziali in chiaro sulla postazione di lavoro espone l\u2019azienda a compromissioni
+      immediate tramite osservazione diretta (shoulder surfing) o accesso non autorizzato
+      all\u2019ufficio. La sicurezza informatica non pu\xF2 essere garantita se la
+      protezione fisica delle informazioni sensibili viene trascurata."
+  - label: Cuffie personali
+    check: 4
+    okText: "Le cuffie personali non sono state segnalate come minaccia. L\u2019utilizzo
+      di dispositivi audio privi di memoria interna e non collegabili come unit\xE0
+      di archiviazione non rappresenta una vulnerabilit\xE0 diretta per la sicurezza
+      informatica. Una corretta valutazione del rischio consente di distinguere tra
+      comportamenti realmente pericolosi e oggetti che non comportano esposizioni
+      significative."
+    badText: "Le cuffie personali sono state segnalate come oggetto sospetto. Sebbene
+      sia importante mantenere un atteggiamento prudente, \xE8 necessario distinguere
+      tra dispositivi che rappresentano un reale vettore di attacco e oggetti che
+      non hanno capacit\xE0 di memorizzazione o esecuzione di codice. Una valutazione
+      errata del rischio pu\xF2 generare falsi allarmi e ridurre l\u2019attenzione
+      verso minacce effettive."
+  - label: Chiavetta USB trovata nel parcheggio consegnata
+    check: 3
+    okText: "La chiavetta USB trovata all\u2019esterno dell\u2019azienda \xE8 stata
+      correttamente segnalata e non utilizzata. I dispositivi di archiviazione rimovibili
+      sconosciuti rappresentano uno dei vettori pi\xF9 comuni per la diffusione di
+      malware (attacchi di tipo baiting). Collegare tali dispositivi a un computer
+      aziendale pu\xF2 comportare l\u2019esecuzione automatica di codice malevolo,
+      l\u2019installazione di software non autorizzato o l\u2019esfiltrazione di
+      dati sensibili."
+    badText: "La chiavetta USB trovata nel parcheggio non \xE8 stata segnalata. Inserire
+      dispositivi di archiviazione sconosciuti nei computer aziendali espone l\u2019infrastruttura
+      a rischi elevati di infezione da malware e compromissione dei dati. Questo
+      tipo di attacco sfrutta la curiosit\xE0 dell\u2019utente ed \xE8 una tecnica
+      nota e documentata nell\u2019ambito della sicurezza informatica."

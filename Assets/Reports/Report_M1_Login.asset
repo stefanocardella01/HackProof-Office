@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
+  m_Name: Report_M1_Login
+  m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
+  missionTitle: Login
+  entries:
+  - label: Cambio password effettuato
+    check: 0
+    okText: "La password predefinita \xE8 stata sostituita con una credenziale personale.
+      Questa operazione riduce in modo significativo il rischio di accessi non autorizzati,
+      poich\xE9 le password di default sono spesso note, prevedibili o reperibili
+      pubblicamente nella documentazione dei dispositivi e dei software. L\u2019adozione
+      di una password unica e non riutilizzata limita l\u2019efficacia di attacchi
+      basati su credenziali compromesse (credential stuffing) e tentativi di accesso
+      automatizzati."
+    badText: "La password predefinita non \xE8 stata modificata. Le credenziali di
+      default rappresentano una delle principali vulnerabilit\xE0 sfruttate negli
+      attacchi informatici, in quanto facilmente reperibili e frequentemente utilizzate
+      dagli aggressori per ottenere accessi non autorizzati. Mantenere una password
+      di default espone il sistema a compromissioni immediate e automatizzate."
+  - label: Autenticazione a due fattori attivata
+    check: 1
+    okText: "L\u2019autenticazione a due fattori \xE8 stata correttamente attivata.
+      Questo meccanismo aggiunge un secondo livello di verifica oltre alla password,
+      richiedendo un elemento aggiuntivo come un codice temporaneo o un dispositivo
+      fisico. Anche in caso di compromissione della password, l\u2019accesso all\u2019account
+      risulta impedito in assenza del secondo fattore, riducendo drasticamente il
+      rischio di intrusione."
+    badText: "L\u2019autenticazione a due fattori non \xE8 stata attivata. In assenza
+      di un secondo fattore di verifica, l\u2019accesso all\u2019account dipende
+      esclusivamente dalla password. Qualora questa venga intercettata, indovinata
+      o sottratta tramite tecniche di phishing, l\u2019attaccante pu\xF2 ottenere
+      pieno accesso alle risorse aziendali senza ulteriori barriere di sicurezza."
