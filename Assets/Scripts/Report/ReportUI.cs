@@ -13,6 +13,8 @@ public class ReportUI : MonoBehaviour
     public GameObject headerPrefab;
     public GameObject rowPrefab;
 
+
+
     [Header("UI")]
     public GameObject reportRoot;      // es: ReportPanel (o Canvas_Report)
     public Button continueButton;      // bottone "Continua"
@@ -107,17 +109,19 @@ public class ReportUI : MonoBehaviour
 
     public void Build()
     {
-        // pulisci
         foreach (Transform c in contentParent)
+        {
+            if (continueButton != null && c.gameObject == continueButton.gameObject)
+                continue;
+
             Destroy(c.gameObject);
+        }
 
         foreach (var mission in missions)
         {
-            // Header
             var h = Instantiate(headerPrefab, contentParent);
             h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
 
-            // Righe
             foreach (var entry in mission.entries)
             {
                 bool ok = MissionTracker.Instance.Get(entry.check);
@@ -128,5 +132,9 @@ public class ReportUI : MonoBehaviour
                    .Setup(entry.label, ok, explanation);
             }
         }
+
+        if (continueButton != null)
+            continueButton.transform.SetAsLastSibling();
     }
+
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
   m_Name: Report_M1_Login
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
-  missionTitle: Login
+  missionTitle: 'Missione 1: Login'
   entries:
   - label: Cambio password effettuato
     check: 0
