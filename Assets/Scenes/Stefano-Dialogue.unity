@@ -346,6 +346,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56e75eeefc29539409bb7e618ef7f077, type: 3}
+--- !u!114 &100996114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3167047503904261312, guid: 56e75eeefc29539409bb7e618ef7f077, type: 3}
+  m_PrefabInstance: {fileID: 100996113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &123753821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4135013735270702856, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
@@ -981,13 +992,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 250653258}
     - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
+      propertyPath: charsPerSecond
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
+      propertyPath: speakerNameText
+      value: 
+      objectReference: {fileID: 100996114}
+    - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
       propertyPath: choicesContainer
       value: 
       objectReference: {fileID: 1025799755}
     - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
       propertyPath: testConversation
       value: 
-      objectReference: {fileID: 11400000, guid: e97e79839f84486479e91e3d48081542, type: 2}
+      objectReference: {fileID: 11400000, guid: 1bd7d28aea9f9d94294bb7cd7792d24d, type: 2}
     - target: {fileID: 7316326483904960309, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
       propertyPath: m_Name
       value: DialogueUIManager

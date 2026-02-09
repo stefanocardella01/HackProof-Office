@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643a82db76a49b447a40c25f70658ede, type: 3}
   m_Name: ConversazioneNPC3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  speakerName: Paolo
   startNodeIndex: 0
   nodes:
   - lines:

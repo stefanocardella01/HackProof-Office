@@ -15,6 +15,9 @@ public class DialogueUI : MonoBehaviour
     [Tooltip("Root del pannello di dialogo (es. un GameObject dentro il Canvas)")]
     public GameObject dialogueRoot;
 
+    public TextMeshProUGUI speakerNameText;
+
+
     [Tooltip("Testo in cui mostrare le frasi dell'NPC")]
     public TextMeshProUGUI dialogueText;
 
@@ -282,6 +285,9 @@ public class DialogueUI : MonoBehaviour
         currentLineIndex = 0;
 
         DialogueNode node = currentConversation.nodes[currentNodeIndex];
+
+        speakerNameText.text = currentConversation.speakerName;
+
 
         // Puliamo sempre le scelte precedenti
         ClearChoices();
