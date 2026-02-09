@@ -134,7 +134,7 @@ public class DialogueUI : MonoBehaviour
 
     void Start()
     {
-        StartConversation(testConversation);
+        //StartConversation(testConversation);
     }
 
     private void Update()
