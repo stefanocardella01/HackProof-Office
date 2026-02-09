@@ -80,7 +80,7 @@ public class Door : MonoBehaviour
 
         _targetRotation = Quaternion.Euler(
             _startRotation.eulerAngles.x,
-            rotation,
+            _startRotation.eulerAngles.y + rotation,
             _startRotation.eulerAngles.z
         );
 

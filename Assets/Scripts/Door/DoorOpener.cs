@@ -32,7 +32,6 @@ public class DoorOpener : MonoBehaviour, IInteractable
     {
         if (requiresBadge && !badgeAcquired)
         {
-            Debug.Log("Richiede un badge!");
             return;
         }
 

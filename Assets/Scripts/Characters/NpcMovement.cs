@@ -6,123 +6,76 @@ using UnityEngine.AI;
 public class NpcMovement : MonoBehaviour
 {
     [Header("Waypoints")]
-    [SerializeField] private List<Transform> _targets;
-    [SerializeField] private float _arrivalThreshold = 0.2f;
-
-    [Header("Rotation")]
-    [SerializeField] private float _rotationSpeed = 8f;
+    [SerializeField] private List<GameObject> _targets;
+    [SerializeField] private float _arrivalThreshold = 0.4f;
 
     private NavMeshAgent _agent;
     private Animator _animator;
     private int _currentTargetIndex = 0;
 
-    public bool HasReachedDestination =>
-        !_agent.pathPending &&
-        _agent.remainingDistance <= _arrivalThreshold;
+    public GameObject CurrentTarget => (_targets != null && _currentTargetIndex < _targets.Count) ? _targets[_currentTargetIndex] : null;
+
+    public bool HasReachedDestination
+    {
+        get
+        {
+            if (_agent == null || !_agent.isOnNavMesh) return false;
+            return !_agent.pathPending && _agent.remainingDistance <= _arrivalThreshold;
+        }
+    }
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.updateRotation = false; // rotazione manuale = più fluida
-        _agent.updatePosition = true;
-
+        _agent.updateRotation = false;
         _animator = GetComponentInChildren<Animator>();
-
-        // sicurezza: disattiva root motion
-        if (_animator != null)
-            _animator.applyRootMotion = false;
     }
 
     private void Update()
     {
+        if (_agent == null || !_agent.isActiveAndEnabled) return;
         UpdateAnimation();
         RotateTowardsMovement();
     }
 
-    #region Movement API (usata dalla FSM)
-
     public void MoveToNextTarget()
     {
-        if (_targets == null || _targets.Count == 0) return;
-
+        if (_agent == null || !_agent.isOnNavMesh || CurrentTarget == null) return;
         _agent.isStopped = false;
-        _agent.SetDestination(_targets[_currentTargetIndex].position);
+        _agent.SetDestination(CurrentTarget.transform.position);
     }
 
     public void GoToNextWaypoint()
     {
         if (_targets == null || _targets.Count == 0) return;
-
         _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Count;
         MoveToNextTarget();
     }
 
     public void StopMovement()
     {
-        if (_agent == null) return;
-
+        if (_agent == null || !_agent.isOnNavMesh) return;
         _agent.isStopped = true;
-        _agent.velocity = Vector3.zero; // Azzera l'inerzia immediata
-        _agent.ResetPath();             // Pulisce il calcolo del percorso
+        _agent.velocity = Vector3.zero;
 
-        // Forza l'animator a fermarsi se lo script viene chiamato in Idle
-        if (_animator != null && _animator.runtimeAnimatorController != null)
+        if (_animator != null)
         {
             _animator.SetBool("Walking", false);
             _animator.SetFloat("Speed", 0f);
         }
     }
 
-    #endregion
-
-    #region Animation
-
     private void UpdateAnimation()
     {
-        if (_animator == null) return;
-
-        // Calcoliamo la velocità relativa (0 se fermo, 1 se corre alla velocità massima)
-        float currentSpeed = _agent.velocity.magnitude;
-        float normalizedSpeed = currentSpeed / _agent.speed;
-
-        // Applichiamo una piccola soglia per evitare micro-movimenti
-        if (currentSpeed < 0.1f) normalizedSpeed = 0f;
-
-        _animator.SetFloat("Speed", normalizedSpeed);
-        _animator.SetBool("Walking", normalizedSpeed > 0.01f);
+        if (_animator == null || _agent == null) return;
+        float speed = _agent.velocity.magnitude / _agent.speed;
+        _animator.SetFloat("Speed", speed > 0.1f ? speed : 0f);
+        _animator.SetBool("Walking", speed > 0.1f);
     }
-
-    #endregion
-
-    #region Rotation (smooth e naturale)
 
     private void RotateTowardsMovement()
     {
-        // Aumenta la soglia per evitare micro-rotazioni nervose
-        if (_agent.velocity.sqrMagnitude < 0.1f)
-            return;
-
-        Vector3 direction = _agent.velocity.normalized;
-        direction.y = 0; // Mantieni l'NPC dritto, evita che si inclini verso l'alto/basso
-
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            Time.deltaTime * _rotationSpeed
-        );
+        if (_agent == null || _agent.velocity.sqrMagnitude < 0.1f) return;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_agent.velocity.normalized), Time.deltaTime * 8f);
     }
-
-    #endregion
-
-    #region Anti Root Motion Drift (fix definitivo)
-
-    private void OnAnimatorMove()
-    {
-        if (_agent != null)
-            transform.position = _agent.nextPosition;
-    }
-
-    #endregion
 }
-

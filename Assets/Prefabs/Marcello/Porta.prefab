@@ -48,6 +48,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4393221850192786883, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4393221850192786883, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4393221850192786883, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3419447452778783401, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3419447452778783401, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3419447452778783401, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
       propertyPath: m_Name
       value: Porta
@@ -56,8 +80,125 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ff9ebf2ced6992648b5746e52c46d997, type: 2}
+    - target: {fileID: 4819318491507358971, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819318491507358971, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819318491507358971, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8683804649735984859}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1176725894284601227}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -867768225134500041}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -378270341477999876}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3373485496463114137}
   m_SourcePrefab: {fileID: 100100000, guid: 528166f802333df43be0a343daed4e28, type: 3}
+--- !u!1 &3311888881911352681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 528166f802333df43be0a343daed4e28, type: 3}
+  m_PrefabInstance: {fileID: 2393479265441640504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8683804649735984859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311888881911352681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cc0f8c3d8424043a2e836e87c98baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Door
+  _doorBody: {fileID: 0}
+  _openingTime: 1
+  _closingTime: 0.5
+--- !u!114 &1176725894284601227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311888881911352681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc5839223cfa5e46896fcdcd4662585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorOpener
+  door: {fileID: 0}
+  openRotation: 90
+  requiresBadge: 0
+  badgeAcquired: 0
+  autoOpen: 0
+  autoClose: 1
+--- !u!114 &-867768225134500041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311888881911352681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ea20c9664c3554f81451e9882b792c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorAudio
+  _openingSound: {fileID: 0}
+  _closingSound: {fileID: 0}
+--- !u!114 &-378270341477999876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311888881911352681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7410554991e0824895f33dad8dd2c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
+  objectName: Porta
+  inspectImage: {fileID: 0}
+  inventoryIcon: {fileID: 0}
+  itemId: item_default
+  inspectPrefab: {fileID: 0}
+--- !u!65 &3373485496463114137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311888881911352681}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.5, z: 1}
+  m_Center: {x: 0, y: 1, z: 0.5}
