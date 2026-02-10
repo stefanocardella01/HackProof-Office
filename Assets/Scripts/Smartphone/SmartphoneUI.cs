@@ -18,6 +18,10 @@ public class SmartphoneUI : MonoBehaviour
     [SerializeField] private GameObject messageDetailPanel;     // Pannello dettaglio messaggio
     [SerializeField] private GameObject homePanel;              // Pannello Home con icone
 
+    [Header("Top Bar")]
+    [SerializeField] private GameObject topBarBlackForIcons;
+
+
     [Header("Animazione Slide")]
     [SerializeField] private float hiddenYPosition = -520f;     // Posizione Y quando nascosto (abbassato)
     [SerializeField] private float visibleYPosition = 0f;       // Posizione Y quando visibile (alzato)
@@ -49,6 +53,7 @@ public class SmartphoneUI : MonoBehaviour
     [Header("Orologio")]
     [SerializeField] private TextMeshProUGUI clockTextClosed;   // Orologio visibile quando smartphone CHIUSO
     [SerializeField] private TextMeshProUGUI clockTextOpen;     // Orologio visibile quando smartphone APERTO 
+    [SerializeField] private TextMeshProUGUI clockTextOpenMessages;     // Orologio visibile quando smartphone APERTO 
 
     [Header("Riferimenti Altri Canvas")]
     [SerializeField] private GameObject hudCanvas;              // Canvas HUD da nascondere
@@ -98,6 +103,7 @@ public class SmartphoneUI : MonoBehaviour
             clockTextClosed.gameObject.SetActive(true);
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(false);
+
     }
 
     private void Start()
@@ -162,6 +168,9 @@ public class SmartphoneUI : MonoBehaviour
 
         if (clockTextOpen != null)
             clockTextOpen.text = currentTime;
+        if (clockTextOpenMessages != null)
+            clockTextOpenMessages.text = currentTime;
+
     }
 
     #region Animation
@@ -223,6 +232,8 @@ public class SmartphoneUI : MonoBehaviour
         //Dopo l'animazione: mostra l'orologio open
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(true);
+
+
 
         // DOPO l'animazione mostra la home
         ShowHome();
@@ -309,6 +320,8 @@ public class SmartphoneUI : MonoBehaviour
         if (clockTextOpen != null)
             clockTextOpen.gameObject.SetActive(false);
 
+
+
         // Avvia animazione slide down
         SlideDown();
 
@@ -369,6 +382,10 @@ public class SmartphoneUI : MonoBehaviour
         if (messageDetailPanel != null)
             messageDetailPanel.SetActive(false);
 
+        // Top bar OFF in Home generico
+        if (topBarBlackForIcons != null)
+            topBarBlackForIcons.SetActive(false);
+
         // Aggiorna il badge sulla home
         UpdateHomeBadge();
 
@@ -389,6 +406,11 @@ public class SmartphoneUI : MonoBehaviour
         if (messageDetailPanel != null)
             messageDetailPanel.SetActive(false);
 
+
+        // Top bar ON nella lista messaggi
+        if (topBarBlackForIcons != null)
+            topBarBlackForIcons.SetActive(true);
+
         RefreshMessageList();
 
         manager?.PlayButtonClick();
@@ -407,6 +429,10 @@ public class SmartphoneUI : MonoBehaviour
 
         if (messageDetailPanel != null)
             messageDetailPanel.SetActive(false);
+
+        // Top bar ON nella lista messaggi
+        if (topBarBlackForIcons != null)
+            topBarBlackForIcons.SetActive(true);
 
         manager?.PlayButtonClick();
     }
@@ -428,6 +454,10 @@ public class SmartphoneUI : MonoBehaviour
 
         if (messageDetailPanel != null)
             messageDetailPanel.SetActive(true);
+
+        // Top bar ON nella lista messaggi
+        if (topBarBlackForIcons != null)
+            topBarBlackForIcons.SetActive(true);
 
         // Popola i campi
         if (senderNameText != null)

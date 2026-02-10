@@ -82,10 +82,10 @@ public class EmailInterfaceManager : MonoBehaviour
             emailScreen.Initialize(this);
 
         // Popola le email di default se non sono state configurate
-        if (emails == null || emails.Length == 0 || emails[0] == null || string.IsNullOrEmpty(emails[0].senderName))
+       /* if (emails == null || emails.Length == 0 || emails[0] == null || string.IsNullOrEmpty(emails[0].senderName))
         {
             PopulateDefaultEmails();
-        }
+        }*/
     }
 
     private void SetupCameraController()
@@ -109,7 +109,7 @@ public class EmailInterfaceManager : MonoBehaviour
     /// <summary>
     /// Popola le email con contenuti di default (4 email hardcoded)
     /// </summary>
-    private void PopulateDefaultEmails()
+   /* private void PopulateDefaultEmails()
     {
         emails = new EmailData[4];
 
@@ -220,6 +220,7 @@ public class EmailInterfaceManager : MonoBehaviour
 
         Debug.Log("[EmailInterfaceManager] Email di default caricate");
     }
+   */
 
     /// <summary>
     /// Apre l'interfaccia email con transizione camera
