@@ -18,6 +18,12 @@ public class UrlHoverArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+        Debug.Log("ENTER " + gameObject.name);
+
+        Debug.Log($"panel={(tooltipPanel ? tooltipPanel.name : "NULL")} url='{urlText}' text={(tooltipTextUI ? tooltipTextUI.name : "NULL")}");
+
+
         if (tooltipPanel != null && !string.IsNullOrEmpty(urlText))
         {
             tooltipPanel.SetActive(true);

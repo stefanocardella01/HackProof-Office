@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8268355158950051338
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 366984167801237853, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_Name
+      value: HardDisk Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 366984167801237853, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.782
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.4529223
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034731200390654951, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835754837725771518, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167221715507969816, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 366984167801237853, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4099251852384072450}
+    - targetCorrespondingSourceObject: {fileID: 366984167801237853, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7852730517239036606}
+  m_SourcePrefab: {fileID: 100100000, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+--- !u!1 &8622373562507874135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 366984167801237853, guid: 5ff83c461e462e74b85d6e9e07605a83, type: 3}
+  m_PrefabInstance: {fileID: 8268355158950051338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4099251852384072450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622373562507874135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7410554991e0824895f33dad8dd2c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
+  objectName: Hard Disk
+  inspectImage: {fileID: 0}
+  inventoryIcon: {fileID: 21300000, guid: 43162ebbe2efe1a4aabc2e0bcd10b406, type: 3}
+  itemId: harddisk
+  inspectPrefab: {fileID: 8622373562507874135}
+--- !u!65 &7852730517239036606
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622373562507874135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.39, y: 0.09, z: 0.31}
+  m_Center: {x: -0.07, y: 0, z: 0}

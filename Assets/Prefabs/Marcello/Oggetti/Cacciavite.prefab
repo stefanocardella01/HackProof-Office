@@ -48,12 +48,77 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6590723173870255717, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3684041759031029896, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2188817771887309853, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
       propertyPath: m_Name
       value: Cacciavite
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7267594130838256393}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3889970573567438193}
   m_SourcePrefab: {fileID: 100100000, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+--- !u!1 &8682631846092139056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4d0e6d6cd242b9a4fb427883744358e9, type: 3}
+  m_PrefabInstance: {fileID: 8412599277982701409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7267594130838256393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8682631846092139056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7410554991e0824895f33dad8dd2c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectableObject
+  objectName: Cacciavite
+  inspectImage: {fileID: 0}
+  inventoryIcon: {fileID: 21300000, guid: ea0f6aef68fc9314884616e4e01b842b, type: 3}
+  itemId: cacciavite
+  inspectPrefab: {fileID: 8682631846092139056}
+--- !u!65 &3889970573567438193
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8682631846092139056}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.25, y: 0.05, z: 0.15}
+  m_Center: {x: 0, y: 0, z: 0}
