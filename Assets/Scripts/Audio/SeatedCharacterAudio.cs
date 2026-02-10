@@ -19,6 +19,13 @@ public class SeatedCharacterAudio : MonoBehaviour
         seatedCharacter.OnIdleStarted += StopWritingSound;
     }
 
+    public void ForceStop()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+            audioSource.Stop();
+    }
+
+
     private void PlayWritingSound()
     {
         if (writingClip == null)

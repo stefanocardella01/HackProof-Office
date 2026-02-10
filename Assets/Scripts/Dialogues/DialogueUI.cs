@@ -4,6 +4,8 @@ using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 
 /// <summary>
 /// Gestisce la UI dei dialoghi a partire da un DialogueConversation.
@@ -58,6 +60,9 @@ public class DialogueUI : MonoBehaviour
 
     [Header("NPC Animation")]
     private Animator npcAnimator;
+
+    private Action onDialogueFinished;
+
 
 
     // Se usi StarterAssets:
@@ -243,13 +248,13 @@ public class DialogueUI : MonoBehaviour
 
     }
 
-    public void StartConversation(DialogueConversation conversation, Animator whoIsTalking)
+    public void StartConversation(DialogueConversation conversation, Animator whoIsTalking, Action onFinished = null)
     {
         npcAnimator = whoIsTalking;
-        StartConversation(conversation);
+        StartConversation(conversation, onFinished);
     }
 
-    public void StartConversation(DialogueConversation conversation)
+    public void StartConversation(DialogueConversation conversation, Action onFinished = null)
     {
         if (conversation == null || conversation.nodes == null || conversation.nodes.Length == 0)
         {
@@ -257,14 +262,19 @@ public class DialogueUI : MonoBehaviour
             return;
         }
 
+        // salva callback
+        onDialogueFinished = onFinished;
+
+        // (IMPORTANTE) qui il nome del bool deve combaciare col tuo Animator!
+        // Tu stai usando "IsTalking"
         if (npcAnimator != null)
         {
-            npcAnimator.SetBool("IsTalking", true);
+            npcAnimator.SetBool("Talking", true);
+            //npcAnimator.SetBool("Left", false); // default, poi lo setti da NPCInteractable se vuoi
         }
 
         currentConversation = conversation;
 
-        // Reset stato
         visitedNodes.Clear();
         usedSingleUseChoices.Clear();
         currentNodeIndex = -1;
@@ -273,20 +283,12 @@ public class DialogueUI : MonoBehaviour
 
         ApplyDialogueInputState(true);
 
-
-        // Mostra il pannello
         if (dialogueRoot != null)
             dialogueRoot.SetActive(true);
 
-        // Vai al nodo di partenza
         GoToNode(currentConversation.startNodeIndex);
     }
 
-    /// <summary>
-    /// Vai a un nodo specifico della conversazione.
-    /// Se il nodo è nuovo, mostra le linee una alla volta.
-    /// Se è già stato visitato, salta direttamente alle scelte.
-    /// </summary>
     private void GoToNode(int nodeIndex)
     {
         if (currentConversation == null)
@@ -611,8 +613,17 @@ public class DialogueUI : MonoBehaviour
 
         if (npcAnimator != null)
         {
-            npcAnimator.SetBool("IsTalking", false);
+            npcAnimator.SetBool("Talking", false);
+            //npcAnimator.SetBool("Left", false);
         }
+
+        // notifica chi ha avviato il dialogo
+        onDialogueFinished?.Invoke();
+        onDialogueFinished = null;
+
+        // (opzionale) pulizia riferimento NPC
+        npcAnimator = null;
+
 
 
         ApplyDialogueInputState(false);

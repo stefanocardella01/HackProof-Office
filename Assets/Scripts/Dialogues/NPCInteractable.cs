@@ -4,14 +4,17 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 {
     public string npcName = "Marco";
     public DialogueConversation conversation;
-    private Animator animator;
 
+    private SeatedCharacter seated;
+    private Transform npcTransform;
+    private Animator npcAnimator;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>(); // Animator dell’NPC
+        seated = GetComponent<SeatedCharacter>();
+        npcTransform = transform;
+        npcAnimator = GetComponent<Animator>();
     }
-
 
     public string GetInteractionText()
     {
@@ -20,10 +23,30 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteractor interactor)
     {
-        DialogueUI dialogueUI = FindFirstObjectByType<DialogueUI>();
+        var dialogueUI = FindFirstObjectByType<DialogueUI>();
+        if (dialogueUI == null) return;
 
-        // passiamo ANCHE l’animator dell’NPC
-        dialogueUI.StartConversation(conversation, animator);
+        bool lookLeft = IsPlayerOnLeft(interactor.transform);
+
+        // Attiva talking + direzione (gestito da SeatedCharacter)
+        if (seated != null)
+            seated.SetTalking(true, lookLeft);
+
+        var audio = GetComponentInChildren<SeatedCharacterAudio>();
+        if (audio != null) audio.ForceStop();
+
+
+        // Avvia dialogo e quando finisce resetta (e torna al ciclo idle/writing)
+        dialogueUI.StartConversation(conversation, npcAnimator, onFinished: () =>
+        {
+            if (seated != null)
+                seated.SetTalking(false, false);
+        });
     }
 
+    private bool IsPlayerOnLeft(Transform player)
+    {
+        Vector3 local = npcTransform.InverseTransformPoint(player.position);
+        return local.x < 0f;
+    }
 }

@@ -17,6 +17,9 @@ public class SeatedCharacter : MonoBehaviour
     private float _timer;
     private bool _isWriting = false;
 
+    private bool _isTalking = false;
+
+
     // Nomi dei parametri dell'Animator per evitare errori di battitura
     private static readonly int IsWritingHash = Animator.StringToHash("isWriting");
     private static readonly int TalkingHash = Animator.StringToHash("Talking");
@@ -30,6 +33,8 @@ public class SeatedCharacter : MonoBehaviour
 
     private void Update()
     {
+        if (_isTalking) return; // mentre parla non alterna idle/writing
+
         _timer -= Time.deltaTime;
 
         if (_timer <= 0)
@@ -40,6 +45,7 @@ public class SeatedCharacter : MonoBehaviour
                 SetWriting();
         }
     }
+
 
     private void SetIdle()
     {
@@ -66,8 +72,23 @@ public class SeatedCharacter : MonoBehaviour
     // Metodo pubblico per gestire il dialogo via script
     public void SetTalking(bool isTalking, bool lookLeft = true)
     {
+        _isTalking = isTalking;
+
         animator.SetBool(TalkingHash, isTalking);
         animator.SetBool(LeftHash, lookLeft);
+
+        if (isTalking)
+        {
+            // mentre parla: forzo non-scrittura + stop audio tramite evento Idle
+            if (_isWriting)
+                SetIdle();
+            else
+                OnIdleStarted?.Invoke(); // sicurezza: ferma audio anche se era rimasto attivo
+
+            // opzionale: reset timer così quando finisce torna a idle per un po'
+            _timer = idleTime;
+        }
     }
+
 }
 
