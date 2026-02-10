@@ -46,18 +46,20 @@ public class NpcBrain : MonoBehaviour
         GameObject target = _movement.CurrentTarget;
         SeatedCharacter seated = target.GetComponent<SeatedCharacter>();
 
+        Debug.Log($"NpcBrain: Starting social check with target {target.name}, SeatedCharacter component found: {seated != null}");
+
         if (seated != null)
         {
-            // Ruota verso l'NPC seduto
+            
             Vector3 lookPos = seated.transform.position;
             lookPos.y = transform.position.y;
             transform.LookAt(lookPos);
 
-            // Calcola Left/Right (Immagine 1)
+            
             float dot = Vector3.Dot(seated.transform.right, (transform.position - seated.transform.position).normalized);
             seated.SetTalking(true, dot < 0);
 
-            // Attiva Talking (Immagine 2)
+            
             if (_animator != null) _animator.SetBool("Talking", true);
         }
     }
