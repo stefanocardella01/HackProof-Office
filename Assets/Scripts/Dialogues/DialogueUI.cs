@@ -40,6 +40,9 @@ public class DialogueUI : MonoBehaviour
     [Header("Canvas con inventario, interact text e crosshair")]
     public GameObject hudCanvas;
 
+    [Header("Canvas con smartphone")]
+    public GameObject hudSmartphone;
+
     [Header("Audio (Voice Over)")]
     public AudioSource voiceSource;
 
@@ -231,6 +234,12 @@ public class DialogueUI : MonoBehaviour
         // HUD visibile solo quando NON sei in dialogo
         if (hudCanvas != null)
             hudCanvas.SetActive(!active);
+
+        // HUD visibile solo quando NON sei in dialogo
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(!active);
+
+
 
     }
 

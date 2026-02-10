@@ -12,6 +12,9 @@ public class InspectUI : MonoBehaviour
     [Header("Canvas con inventario, interact text e crosshair")]
     public GameObject hudCanvas;
 
+    [Header("Canvas smartphone")]
+    public GameObject hudSmartphone;
+
     [Header("Bloccare movimento mentre ispeziono")]
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
@@ -73,6 +76,10 @@ public class InspectUI : MonoBehaviour
         if (hudCanvas != null)
             hudCanvas.SetActive(false);
 
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(false);
+
         // Blocca il movimento del personaggio
         if (playerController != null)
             playerController.enabled = false;
@@ -108,6 +115,10 @@ public class InspectUI : MonoBehaviour
 
         if (hudCanvas != null)
             hudCanvas.SetActive(false);
+
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(false);
 
         if (playerController != null)
             playerController.enabled = false;
@@ -308,6 +319,10 @@ public class InspectUI : MonoBehaviour
         // Riattiva l'HUD
         if (hudCanvas != null)
             hudCanvas.SetActive(true);
+
+        // Riattiva l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(true);
 
         // Riabilita il movimento del personaggio
         if (playerController != null)
