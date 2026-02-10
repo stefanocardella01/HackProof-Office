@@ -16,40 +16,24 @@ public enum EmailType
 [System.Serializable]
 public class EmailData
 {
-    [Header("Mittente")]
-    [Tooltip("Nome visualizzato del mittente")]
-    public string senderName;
+    [Header("Contenuto Visivo")]
+    [Tooltip("Lo screenshot dell'email preso dal quiz di Google")]
+    public Sprite emailImage;
 
-    [Tooltip("Indirizzo email del mittente")]
-    public string senderEmail;
-
-    [Header("Contenuto")]
-    [Tooltip("Oggetto dell'email")]
+    [Header("Dati per il Report")]
+    [Tooltip("Nome breve per identificare l'email nel report finale")]
     public string subject;
 
-    [Tooltip("Corpo del messaggio")]
-    [TextArea(5, 15)]
-    public string body;
-
-    [Header("URL")]
-    [Tooltip("URL del link (può essere sospetto per email di phishing)")]
-    public string url;
+    [Header("Dati per il Tooltip")]
+    public string visibleUrl;      // Il testo da mostrare nel tooltip (es: "http://falso.com")
 
     [Header("Classificazione")]
-    [Tooltip("Il tipo corretto di questa email")]
     public EmailType correctType;
 
-    [Header("Feedback Educativo")]
-    [Tooltip("Spiegazione del perché questa email è phishing/legittima")]
+    [Header("Feedback")]
     [TextArea(3, 8)]
     public string explanation;
 
-    [Tooltip("Indizi che il giocatore dovrebbe notare")]
-    public string[] hints;
-
-    /// <summary>
-    /// Verifica se la scelta del giocatore è corretta
-    /// </summary>
     public bool IsChoiceCorrect(EmailType playerChoice)
     {
         return playerChoice == correctType;
