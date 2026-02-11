@@ -59,9 +59,10 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+        private Animator _animator;
 
-		// timeout deltatime
-		private float _jumpTimeoutDelta;
+        // timeout deltatime
+        private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
 	
@@ -93,7 +94,8 @@ namespace StarterAssets
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
-		}
+            _animator = GetComponentInChildren<Animator>();
+        }
 
 		private void Start()
 		{
@@ -115,7 +117,9 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+			UpdateAnimation();
+
+        }
 
 		private void LateUpdate()
 		{
@@ -264,5 +268,13 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
-	}
+
+        private void UpdateAnimation()
+        {
+            if (_animator == null) return;
+            _animator.SetFloat("Speed", _speed > 0.1f ? _speed : 0f);
+            _animator.SetBool("Walking", _speed > 0.1f);
+        }
+    }
+
 }
