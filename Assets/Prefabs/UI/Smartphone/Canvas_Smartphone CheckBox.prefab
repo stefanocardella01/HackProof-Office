@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1594729375563641497, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2467251533934813922, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
       propertyPath: m_Name
       value: Canvas_Smartphone CheckBox
@@ -103,6 +107,14 @@ PrefabInstance:
     - target: {fileID: 4059704002736053377, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990235261993992227, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132298575927551427, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8780016989489383014, guid: 6805641acf7d11d40a500637e77a26ec, type: 3}
       propertyPath: m_SizeDelta.y
