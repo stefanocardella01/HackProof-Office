@@ -28,4 +28,11 @@ MonoBehaviour:
     visibleAtStart: 0
     unlockedAfter:
     - m1_talk_receptionist
-  startsAutomatically: 1
+  - objectiveId: m1_login
+    displayText: Esegui il Login
+    requiredCount: 1
+    showCounter: 0
+    visibleAtStart: 0
+    unlockedAfter:
+    - m1_go_to_desk
+  startsAutomatically: 0
