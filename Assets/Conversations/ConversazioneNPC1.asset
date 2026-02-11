@@ -58,7 +58,7 @@ MonoBehaviour:
     - text: Arrivederci.
       nextNodeIndex: 0
       endsDialogue: 1
-      singleUse: 1
+      singleUse: 0
       customId: 
       triggerEvent: 0
       eventId: 

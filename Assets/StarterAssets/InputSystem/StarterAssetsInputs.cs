@@ -36,7 +36,7 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+			JumpInput(false);
 		}
 
 		public void OnSprint(InputValue value)

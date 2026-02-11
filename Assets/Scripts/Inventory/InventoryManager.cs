@@ -124,5 +124,59 @@ public class InventoryManager : MonoBehaviour
         return items[selectedIndex];
     }
 
+    public int RemoveItemsByMissionTag(string missionTag)
+    {
+
+
+        if (string.IsNullOrWhiteSpace(missionTag)) return 0;
+
+        int removed = 0;
+        for (int i = 0; i < MaxSlots; i++)
+        {
+            var it = items[i];
+            if (it == null) continue;
+
+            Debug.Log($"[RemoveByTag] slot {i}: " +
+                      $"name={(it != null ? it.displayName : "null")} " +
+                      $"tag={(it != null ? it.missionTag : "-")} " +
+                      $"removable={(it != null ? it.removable.ToString() : "-")}");
+
+
+            // Richiede InventoryItem.missionTag
+            if (it.missionTag == missionTag && !it.removable)
+            {
+                items[i] = null;
+                removed++;
+            }
+        }
+
+        // se hai rimosso lo slot selezionato, reset selezione
+        if (selectedIndex >= 0 && selectedIndex < MaxSlots && items[selectedIndex] == null)
+            selectedIndex = -1;
+
+        if (removed > 0)
+        {
+            OnInventoryChanged?.Invoke();
+            OnSelectionChanged?.Invoke(selectedIndex);
+        }
+
+        return removed;
+    }
+
+    public int CountItemsByMissionTag(string missionTag)
+    {
+        if (string.IsNullOrWhiteSpace(missionTag)) return 0;
+
+        int count = 0;
+        for (int i = 0; i < MaxSlots; i++)
+        {
+            var it = items[i];
+            if (it != null && it.missionTag == missionTag)
+                count++;
+        }
+        return count;
+    }
+
+
 
 }

@@ -517,6 +517,31 @@ public class DialogueUI : MonoBehaviour
 
         DialogueChoice choice = node.choices[choiceIndex];
 
+        // EVENTO: lancialo appena clicchi la scelta
+        if (choice.triggerEvent)
+        {
+            if (choice.eventChannel != null && !string.IsNullOrWhiteSpace(choice.eventId))
+            {
+                Debug.Log($"[DialogueUI] RAISE -> {choice.eventId} | channel={choice.eventChannel.name} | id={choice.eventChannel.GetInstanceID()}");
+                choice.eventChannel.Raise(choice.eventId);
+            }
+            else
+            {
+                Debug.LogWarning("[DialogueUI] TriggerEvent=TRUE ma manca eventChannel o eventId!");
+            }
+        }
+
+
+        Debug.Log($"[DialogueUI] Click choice: {choice.text} | trigger={choice.triggerEvent} | id={choice.eventId}");
+
+        if (choice.triggerEvent)
+        {
+            Debug.Log($"[DialogueUI] About to raise. id={choice.eventId} channelNull={(choice.eventChannel == null)} channelInstanceID={(choice.eventChannel ? choice.eventChannel.GetInstanceID() : -1)}");
+            // choice.eventChannel.Raise(choice.eventId);  // la tua chiamata
+        }
+
+
+
         // Se è single-use, la segniamo come già usata
         if (choice.singleUse)
         {

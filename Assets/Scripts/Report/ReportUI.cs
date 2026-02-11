@@ -1,29 +1,36 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class ReportUI : MonoBehaviour
 {
-    [Header("Dati report")]
+    [Header("Dati report (uno per missione, nello stesso ordine Mission1, Mission2, ...)")]
     public List<MissionReportData> missions;
+
     public Transform contentParent;
     public GameObject headerPrefab;
     public GameObject rowPrefab;
 
-
-
     [Header("UI")]
-    public GameObject reportRoot;      // es: ReportPanel (o Canvas_Report)
-    public Button continueButton;      // bottone "Continua"
+    public GameObject reportRoot;
+    public Button continueButton;
 
     [Header("Blocco player")]
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
 
     private bool isOpen;
+
+    // quale missione mostrare
+    private int _missionIndexToShow = -1;
+
+    // modalità: report di fine missione vs micro-report (email)
+    private bool _isMissionReport = true;
+    private System.Action _onCloseCallback;
 
     private void Awake()
     {
@@ -33,31 +40,30 @@ public class ReportUI : MonoBehaviour
         if (reportRoot != null)
             reportRoot.SetActive(false);
 
-        // Se non li hai assegnati a mano nell'Inspector, prova a recuperarli
         if (playerController == null)
             playerController = FindFirstObjectByType<FirstPersonController>();
 
         if (starterInputs == null)
             starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
-
-        Debug.Log("[ReportUI] Awake chiamato");
     }
 
-    // CHIAMA QUESTO quando vuoi mostrare il report a fine missione
-    public void OpenReport()
+    // ✅ CHIAMA QUESTO alla fine di una missione (passandogli l’index della missione completata)
+    public void OpenReport(int missionIndex)
     {
+
+        _isMissionReport = true;
+        _onCloseCallback = null;
+
         if (reportRoot == null) return;
+
+        _missionIndexToShow = missionIndex;
 
         reportRoot.SetActive(true);
         isOpen = true;
 
-        Debug.Log("[ReportUI] OpenReport chiamato");
-
-        // mostra cursore
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // blocca player
         if (playerController != null)
             playerController.enabled = false;
 
@@ -68,11 +74,20 @@ public class ReportUI : MonoBehaviour
             starterInputs.look = Vector2.zero;
         }
 
-        Debug.Log($"PlayerInput: {(playerController != null ? "OK" : "NULL")}, StarterInputs enabled: {starterInputs?.enabled}");
-
-
-        Build();
+        BuildSingle(_missionIndexToShow);
     }
+
+    public void OpenReportDelayed(int missionIndex, float delay = 1f)
+    {
+        StartCoroutine(OpenDelayedRoutine(missionIndex, delay));
+    }
+
+    private IEnumerator OpenDelayedRoutine(int missionIndex, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        OpenReport(missionIndex);
+    }
+
 
     public void CloseReport()
     {
@@ -81,11 +96,33 @@ public class ReportUI : MonoBehaviour
         reportRoot.SetActive(false);
         isOpen = false;
 
-        // nascondi cursore
+        // Micro-report (Email): lascia cursore visibile e player bloccato
+        if (!_isMissionReport)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            // NON riabilitare il player qui
+            if (playerController != null)
+                playerController.enabled = false;
+
+            if (starterInputs != null)
+            {
+                starterInputs.cursorInputForLook = false;
+                starterInputs.move = Vector2.zero;
+                starterInputs.look = Vector2.zero;
+            }
+
+            var cb = _onCloseCallback;
+            _onCloseCallback = null;
+            cb?.Invoke();
+            return;
+        }
+
+        // Report fine missione: torna al gameplay normale
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // riabilita player
         if (playerController != null)
             playerController.enabled = true;
 
@@ -95,20 +132,23 @@ public class ReportUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        if (MissionManager.Instance != null)
+            MissionManager.Instance.StartNextMission();
     }
 
     private void Update()
     {
-        // opzionale: ESC chiude il report
         if (isOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseReport();
 
-        if (Input.GetKeyDown(KeyCode.F9))
-            OpenReport();
+        // debug
+        // if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
     }
 
-    public void Build()
+    private void BuildSingle(int missionIndex)
     {
+        // pulizia
         foreach (Transform c in contentParent)
         {
             if (continueButton != null && c.gameObject == continueButton.gameObject)
@@ -117,24 +157,175 @@ public class ReportUI : MonoBehaviour
             Destroy(c.gameObject);
         }
 
-        foreach (var mission in missions)
+        if (missions == null || missions.Count == 0)
         {
-            var h = Instantiate(headerPrefab, contentParent);
-            h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
-
-            foreach (var entry in mission.entries)
-            {
-                bool ok = MissionTracker.Instance.Get(entry.check);
-                string explanation = ok ? entry.okText : entry.badText;
-
-                var row = Instantiate(rowPrefab, contentParent);
-                row.GetComponent<ReportRowUI>()
-                   .Setup(entry.label, ok, explanation);
-            }
+            Debug.LogWarning("[ReportUI] Lista missions vuota!");
+            return;
         }
 
+        if (missionIndex < 0 || missionIndex >= missions.Count)
+        {
+            Debug.LogWarning($"[ReportUI] missionIndex fuori range: {missionIndex} (missions.Count={missions.Count})");
+            missionIndex = Mathf.Clamp(missionIndex, 0, missions.Count - 1);
+        }
+
+        var mission = missions[missionIndex];
+
+        // header
+        var h = Instantiate(headerPrefab, contentParent);
+        h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
+
+        // righe
+        foreach (var entry in mission.entries)
+        {
+            bool ok = MissionTracker.Instance.Get(entry.check);
+
+            // prima assegni explanation "base"
+            string explanation = ok ? entry.okText : entry.badText;
+
+            // poi, se è EmailScore, la sovrascrivi con il testo dinamico
+            if (entry.check == ReportCheck.EmailScore)
+            {
+                explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
+                ok = true; // (opzionale) così la riga risulta “verde” sempre
+            }
+
+            var row = Instantiate(rowPrefab, contentParent);
+            row.GetComponent<ReportRowUI>().Setup(entry.label, ok, explanation);
+        }
+
+        // bottone in fondo
         if (continueButton != null)
             continueButton.transform.SetAsLastSibling();
     }
 
+    public void Build()
+    {
+        // pulizia
+        foreach (Transform c in contentParent)
+        {
+            if (continueButton != null && c.gameObject == continueButton.gameObject)
+                continue;
+
+            Destroy(c.gameObject);
+        }
+
+        if (missions == null || missions.Count == 0)
+        {
+            Debug.LogWarning("[ReportUI] Lista missions vuota!");
+            return;
+        }
+
+        foreach (var mission in missions)
+        {
+            // header
+            var h = Instantiate(headerPrefab, contentParent);
+            h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
+
+            // righe
+            foreach (var entry in mission.entries)
+            {
+                bool ok = MissionTracker.Instance.Get(entry.check);
+
+                // explanation base
+                string explanation = ok ? entry.okText : entry.badText;
+
+                // ✅ caso speciale: punteggio email
+                if (entry.check == ReportCheck.EmailScore)
+                {
+                    explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
+                    ok = true; // sempre verde (informativo)
+                }
+
+                var row = Instantiate(rowPrefab, contentParent);
+                row.GetComponent<ReportRowUI>().Setup(entry.label, ok, explanation);
+            }
+        }
+
+        // bottone in fondo
+        if (continueButton != null)
+            continueButton.transform.SetAsLastSibling();
+    }
+
+    // ✅ Micro-report (es. feedback dopo ogni email)
+    public void OpenSingleFeedback(string title, string label, bool ok, string explanation, System.Action onClosed)
+    {
+        if (reportRoot == null) return;
+
+        _isMissionReport = false;
+        _onCloseCallback = onClosed;
+
+        reportRoot.SetActive(true);
+        isOpen = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (playerController != null)
+            playerController.enabled = false;
+
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = false;
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
+
+        BuildOne(title, label, ok, explanation);
+    }
+
+    private void BuildOne(string title, string label, bool ok, string explanation)
+    {
+        // pulizia
+        foreach (Transform c in contentParent)
+        {
+            if (continueButton != null && c.gameObject == continueButton.gameObject)
+                continue;
+
+            Destroy(c.gameObject);
+        }
+
+        // header
+        var h = Instantiate(headerPrefab, contentParent);
+        h.GetComponent<TextMeshProUGUI>().text = title;
+
+        // singola riga
+        var row = Instantiate(rowPrefab, contentParent);
+        row.GetComponent<ReportRowUI>().Setup(label, ok, explanation);
+
+        // bottone in fondo
+        if (continueButton != null)
+            continueButton.transform.SetAsLastSibling();
+    }
+
+    public void OpenFinalReport()
+    {
+        if (reportRoot == null) return;
+
+        _isMissionReport = false;     // così CloseReport NON chiama StartNextMission
+        _onCloseCallback = null;
+
+        reportRoot.SetActive(true);
+        isOpen = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (playerController != null)
+            playerController.enabled = false;
+
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = false;
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
+
+        Build(); //mostra TUTTE le missioni
+    }
 }
+
+
+
+
+

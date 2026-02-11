@@ -17,13 +17,13 @@ MonoBehaviour:
   objectives:
   - objectiveId: m4_go_to_giulio
     displayText: Vai da Giulio
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
-    visibleAtStart: 0
+    visibleAtStart: 1
     unlockedAfter: []
   - objectiveId: m4_check_email
     displayText: Controlla le email
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:

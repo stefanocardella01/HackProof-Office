@@ -29,6 +29,8 @@ public class PCInterfaceManager : MonoBehaviour
     [SerializeField] private Canvas pcCanvas;
     [SerializeField] private GameObject screenContainer;
 
+    [SerializeField] private ReportUI reportUI;
+
     [Header("Camera e Controlli")]
     [SerializeField] private PCCameraController cameraController;
 
@@ -40,6 +42,8 @@ public class PCInterfaceManager : MonoBehaviour
     [SerializeField] private bool requirePasswordChange = true;
     [SerializeField] private bool require2FA = true;
 
+    [Header("Mission Objectives (HackProof)")]
+    [SerializeField] private string loginObjectiveId = "m1_login";
 
     [Header("Eventi")]
     public UnityEvent OnLoginCompleted;
@@ -92,6 +96,8 @@ public class PCInterfaceManager : MonoBehaviour
 
         if (twoFactorAuthScreenObject != null)
             twoFactorAuthScreen = twoFactorAuthScreenObject.GetComponent<TwoFactorAuthScreen>();
+
+        if (reportUI == null) reportUI = FindFirstObjectByType<ReportUI>();
 
         // Assicura riferimento al ComputerInteractable (serve per disabilitare il PC a fine missione)
         if (computerInteractable == null)
@@ -359,6 +365,15 @@ public class PCInterfaceManager : MonoBehaviour
         loginCompleted = true;
         OnLoginCompleted?.Invoke();
 
+        // completa obiettivo missione login (vale sempre, anche se 2FA viene saltata)
+        if (MissionManager.Instance != null &&
+            !string.IsNullOrWhiteSpace(loginObjectiveId) &&
+            MissionManager.Instance.IsObjectiveVisible(loginObjectiveId) &&
+            !MissionManager.Instance.IsObjectiveCompleted(loginObjectiveId))
+        {
+            MissionManager.Instance.CompleteObjective(loginObjectiveId);
+        }
+
         // Passa alla prossima schermata
         if (requirePasswordChange && !passwordChanged)
         {
@@ -384,6 +399,9 @@ public class PCInterfaceManager : MonoBehaviour
         passwordSkipped = false;
         OnPasswordChanged?.Invoke();
 
+        MissionTracker.Instance.Set(ReportCheck.PasswordChanged, true);
+        //        
+
         // Passa alla prossima schermata o chiudi
         if (require2FA && !twoFactorActivated && !twoFactorSkipped)
         {
@@ -405,6 +423,8 @@ public class PCInterfaceManager : MonoBehaviour
         passwordSkipped = true;
         passwordChanged = false;
         OnPasswordSkipped?.Invoke();
+
+        MissionTracker.Instance.Set(ReportCheck.PasswordChanged, false);
 
         Debug.Log("[PCInterface] Cambio password saltato dall'utente");
 
@@ -430,6 +450,8 @@ public class PCInterfaceManager : MonoBehaviour
         twoFactorSkipped = false;
         On2FAActivated?.Invoke();
 
+        MissionTracker.Instance.Set(ReportCheck.TwoFactorEnabled, true);
+
         CheckAllTasksCompleted();
 
         // Avvia chiusura automatica
@@ -444,6 +466,8 @@ public class PCInterfaceManager : MonoBehaviour
         twoFactorSkipped = true;
         twoFactorActivated = false;
         On2FASkipped?.Invoke();
+
+        MissionTracker.Instance.Set(ReportCheck.TwoFactorEnabled, false);
 
         Debug.Log("[PCInterface] Attivazione 2FA saltata dall'utente");
 
@@ -471,6 +495,10 @@ public class PCInterfaceManager : MonoBehaviour
         OnMission1Finished?.Invoke();
 
         Debug.Log("[PCInterface] Missione 1 terminata. PC non più interagibile.");
+
+        if (reportUI != null)
+            reportUI.OpenReportDelayed(0);
+
     }
 
     /// <summary>

@@ -6,9 +6,42 @@ public class NpcPatrolBrain : MonoBehaviour
     [SerializeField] private float _inspectDuration = 4f;
     [SerializeField] private float _initialIdleWait = 2f;
 
+
     private NpcMovement _movement;
     private Animator _animator;
     private FiniteStateMachine<NpcPatrolBrain> _fsm;
+
+    [Header("Talking Override")]
+    [SerializeField] private string talkBoolParam = "Talking"; // deve esistere nell'Animator
+    private bool _isTalking;
+
+    public void StartTalking()
+    {
+        _isTalking = true;
+
+        if (_movement != null)
+            _movement.StopMovement();
+
+        if (_animator != null)
+        {
+            // spegni parametri di locomotion/altro
+            _animator.SetBool("Walking", false);
+            _animator.SetFloat("Speed", 0f);
+            _animator.SetBool("Looking", false);
+
+            // attiva talking
+            _animator.SetBool(talkBoolParam, true);
+        }
+    }
+
+    public void StopTalking()
+    {
+        _isTalking = false;
+
+        if (_animator != null)
+            _animator.SetBool(talkBoolParam, false);
+    }
+
 
     void Start()
     {
@@ -44,6 +77,9 @@ public class NpcPatrolBrain : MonoBehaviour
     {
         if (this == null || _fsm == null) return;
 
+        if (_isTalking) return;   // <-- IMPORTANTISSIMO: non far andare la patrol mentre parla
+
+
         // Gestione Speed/Walking costante durante il movimento
         // come richiesto per replicare il comportamento di NpcBrain
         UpdateAnimationParameters();
@@ -54,6 +90,8 @@ public class NpcPatrolBrain : MonoBehaviour
     private void UpdateAnimationParameters()
     {
         if (_animator == null || _movement == null) return;
+
+        if (_isTalking) return;
 
         // Se siamo nello stato "Walking", lasciamo che i parametri riflettano il movimento
         // Altrimenti (Idle, Looking, Inspecting) forziamo a zero

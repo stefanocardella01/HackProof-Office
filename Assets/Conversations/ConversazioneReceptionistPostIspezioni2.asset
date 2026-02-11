@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 643a82db76a49b447a40c25f70658ede, type: 3}
-  m_Name: ConversazioneReceptionistPostIspezioni
+  m_Name: ConversazioneReceptionistPostIspezioni2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   speakerName: Receptionist
   startNodeIndex: 0
@@ -25,11 +25,11 @@ MonoBehaviour:
       endsDialogue: 0
       singleUse: 0
       customId: 
-      triggerEvent: 0
-      eventId: 
-      eventChannel: {fileID: 0}
+      triggerEvent: 1
+      eventId: remove_selected_item
+      eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}
     - text: No
-      nextNodeIndex: 0
+      nextNodeIndex: 1
       endsDialogue: 1
       singleUse: 0
       customId: 
@@ -56,6 +56,6 @@ MonoBehaviour:
       endsDialogue: 1
       singleUse: 0
       customId: 
-      triggerEvent: 0
-      eventId: 
-      eventChannel: {fileID: 0}
+      triggerEvent: 1
+      eventId: deliver_m2
+      eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}

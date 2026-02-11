@@ -38,4 +38,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c851b0b8258505d4fbe7b75bfefe6ae3, type: 3}
     - {fileID: 8300000, guid: 8f2baa67961f58f4ca32868acfb62634, type: 3}
     - {fileID: 8300000, guid: 151a49ee8365a0044992fcd62078eec4, type: 3}
-    choices: []
+    choices:
+    - text: Vado a controllare!
+      nextNodeIndex: 0
+      endsDialogue: 1
+      singleUse: 0
+      customId: 
+      triggerEvent: 1
+      eventId: conclude_talk_receptionist
+      eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}

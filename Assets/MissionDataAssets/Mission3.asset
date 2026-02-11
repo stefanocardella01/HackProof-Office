@@ -17,7 +17,7 @@ MonoBehaviour:
   objectives:
   - objectiveId: m3_talk_receptionist
     displayText: Parla con la receptionist
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 1
     unlockedAfter: []
@@ -28,16 +28,16 @@ MonoBehaviour:
     visibleAtStart: 0
     unlockedAfter:
     - m3_talk_receptionist
-  - objectiveId: 'm3_inspect_server '
+  - objectiveId: m3_inspect_server
     displayText: Ispeziona sala server
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:
     - m3_talk_receptionist
   - objectiveId: m3_deliver_items
     displayText: Consegna eventuali oggetti sospetti alla receptionist
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:

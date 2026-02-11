@@ -24,5 +24,6 @@ public enum ReportCheck
     Email6Correct,
     Email7Correct,
     Email8Correct,
-    Email9Correct
+    Email9Correct,
+    EmailScore
 }

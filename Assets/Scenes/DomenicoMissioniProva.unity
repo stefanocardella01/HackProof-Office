@@ -2029,6 +2029,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   npcName: Receptionist
   conversation: {fileID: 11400000, guid: e97e79839f84486479e91e3d48081542, type: 2}
+  isEnabled: 1
+  completeObjectiveIdOnDialogueEnd: 
+  disableAfterDialogue: 0
 --- !u!65 &758739713
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7409,7 +7412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773863126255334375, guid: 862e3cf00fb88014b8e356133e9488b5, type: 3}
       propertyPath: m_Name
-      value: MisisonManager
+      value: MissionManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

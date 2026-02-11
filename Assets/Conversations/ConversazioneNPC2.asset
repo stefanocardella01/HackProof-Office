@@ -41,17 +41,17 @@ MonoBehaviour:
       endsDialogue: 1
       singleUse: 0
       customId: 
-      triggerEvent: 0
-      eventId: 
-      eventChannel: {fileID: 0}
+      triggerEvent: 1
+      eventId: stay_server
+      eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}
     - text: Devi andartene immediatamente da questa sala.
       nextNodeIndex: 0
       endsDialogue: 1
       singleUse: 0
       customId: 
-      triggerEvent: 0
-      eventId: 
-      eventChannel: {fileID: 0}
+      triggerEvent: 1
+      eventId: kick_server
+      eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}
   - lines:
     - 'Sto lavorando, non si vede?
 

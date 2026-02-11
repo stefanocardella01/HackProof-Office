@@ -17,34 +17,34 @@ MonoBehaviour:
   objectives:
   - objectiveId: m2_go_to_paolo
     displayText: Raggiungi la postazione di Paolo
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
-    visibleAtStart: 0
+    visibleAtStart: 1
     unlockedAfter: []
   - objectiveId: m2_inspect_postit
     displayText: Ispeziona Post-it
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:
     - m2_go_to_paolo
   - objectiveId: m2_inspect_headphones
     displayText: Ispeziona Cuffie
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:
     - m2_go_to_paolo
   - objectiveId: m2_inspect_usb
     displayText: Ispeziona USB
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:
     - m2_go_to_paolo
   - objectiveId: m2_deliver_items
     displayText: Consegna oggetti sospetti alla receptionist
-    requiredCount: 0
+    requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
     unlockedAfter:

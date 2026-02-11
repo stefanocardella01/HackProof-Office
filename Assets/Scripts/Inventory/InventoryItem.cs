@@ -8,6 +8,7 @@ public class InventoryItem
     public string displayName; //es: "Chiavetta USB"
     public Sprite icon; //icona da mostrare nello slot dell'inventario
     public bool removable;
+    public string missionTag;
     public GameObject inspectPrefab; //Prefab da mostrare nel pannello inspect
 
 }

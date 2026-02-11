@@ -35,4 +35,4 @@ MonoBehaviour:
     visibleAtStart: 0
     unlockedAfter:
     - m1_go_to_desk
-  startsAutomatically: 0
+  startsAutomatically: 1

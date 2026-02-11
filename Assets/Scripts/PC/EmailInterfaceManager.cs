@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using StarterAssets;
 
 /// <summary>
 /// Manager principale dell'interfaccia email.
@@ -24,6 +25,8 @@ public class EmailInterfaceManager : MonoBehaviour
     [SerializeField] private Canvas emailCanvas;
     [SerializeField] private GameObject screenContainer;
     [SerializeField] private EmailScreen emailScreen;
+
+    [SerializeField] private ReportUI reportUI;
 
     [Header("Camera e Controlli")]
     [SerializeField] private PCCameraController cameraController;
@@ -81,11 +84,13 @@ public class EmailInterfaceManager : MonoBehaviour
         if (emailScreen != null)
             emailScreen.Initialize(this);
 
+        if (reportUI == null) reportUI = FindFirstObjectByType<ReportUI>();
+
         // Popola le email di default se non sono state configurate
-       /* if (emails == null || emails.Length == 0 || emails[0] == null || string.IsNullOrEmpty(emails[0].senderName))
-        {
-            PopulateDefaultEmails();
-        }*/
+        /* if (emails == null || emails.Length == 0 || emails[0] == null || string.IsNullOrEmpty(emails[0].senderName))
+         {
+             PopulateDefaultEmails();
+         }*/
     }
 
     private void SetupCameraController()
@@ -303,35 +308,75 @@ public class EmailInterfaceManager : MonoBehaviour
     /// <summary>
     /// Chiamato quando il giocatore fa una scelta (da EmailScreen)
     /// </summary>
+    /// 
+    private void RestorePlayerControls()
+    {
+        var inputs = FindFirstObjectByType<StarterAssetsInputs>();
+        var fps = FindFirstObjectByType<StarterAssets.FirstPersonController>();
+
+        if (fps != null) fps.enabled = true;
+
+        if (inputs != null)
+        {
+            inputs.cursorInputForLook = true;
+            inputs.move = Vector2.zero;
+            inputs.look = Vector2.zero;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     public void OnPlayerChoice(EmailType choice)
     {
         if (currentState != EmailMissionState.ShowingEmail) return;
 
         EmailData currentEmail = emails[currentEmailIndex];
+        bool isCorrect = currentEmail.IsChoiceCorrect(choice);
 
-        // Registra la scelta nel report
+        // salva nel tuo report interno (già lo fai)
         EmailChoice emailChoice = new EmailChoice(currentEmailIndex, choice, currentEmail);
         report.AddChoice(emailChoice);
 
-        string choiceStr = choice == EmailType.Phishing ? "Phishing" : "Legittimo";
-        string correctStr = currentEmail.correctType == EmailType.Phishing ? "Phishing" : "Legittimo";
-
-        Debug.Log($"[EmailInterfaceManager] Scelta: {choiceStr}, Corretto: {correctStr}, Risultato: {(emailChoice.isCorrect ? "GIUSTO" : "SBAGLIATO")}");
-
-        OnEmailAnswered?.Invoke();
-
-        // Passa alla prossima email o termina
-        currentEmailIndex++;
-
-        if (currentEmailIndex < emails.Length)
+        // ✅ salva anche nel MissionTracker (così il report finale missione 4 può leggerlo)
+        if (MissionTracker.Instance != null)
         {
-            // Prossima email
-            ShowCurrentEmail();
+            var check = (ReportCheck)((int)ReportCheck.Email1Correct + currentEmailIndex);
+            MissionTracker.Instance.Set(check, isCorrect);
+        }
+
+        // ✅ apri micro-report e aspetta "continua"
+        currentState = EmailMissionState.TransitioningOut;
+
+        if (reportUI != null)
+        {
+            reportUI.OpenSingleFeedback(
+                title: $"Email {currentEmailIndex + 1}/{emails.Length}",
+                label: currentEmail.subject,
+                ok: isCorrect,
+                explanation: currentEmail.explanation,
+                onClosed: () =>
+                {
+                    // ora vai avanti
+                    currentEmailIndex++;
+
+                    if (currentEmailIndex < emails.Length)
+                    {
+                        currentState = EmailMissionState.ShowingEmail;
+                        ShowCurrentEmail();
+                    }
+                    else
+                    {
+                        StartCoroutine(CompleteMission());
+                    }
+                }
+            );
         }
         else
         {
-            // Missione completata
-            StartCoroutine(CompleteMission());
+            // fallback: se non c'è reportUI vai avanti senza feedback
+            currentEmailIndex++;
+            if (currentEmailIndex < emails.Length) ShowCurrentEmail();
+            else StartCoroutine(CompleteMission());
         }
     }
 
@@ -351,13 +396,37 @@ public class EmailInterfaceManager : MonoBehaviour
         // Chiudi il PC
         Close();
 
+        RestorePlayerControls();
+
         // Disabilita l'interazione col computer
         DisableComputerInteraction();
+
+        int correct = 0;
+
+        for (int i = 0; i < emails.Length; i++)
+        {
+            var check = (ReportCheck)((int)ReportCheck.Email1Correct + i);
+            if (MissionTracker.Instance.Get(check))
+                correct++;
+        }
+
+        // salva il punteggio in una variabile globale
+        EmailFinalScore.LastScore = correct;
+        EmailFinalScore.LastTotal = emails.Length;
+
+        // segna il check come true così la riga appare nel report
+        MissionTracker.Instance.Set(ReportCheck.EmailScore, true);
 
         // Triggera evento fine missione (il sistema missioni userà il report)
         OnEmailMissionCompleted?.Invoke();
 
+        Debug.Log($"[Email] FinalScore={EmailFinalScore.LastScore}/{EmailFinalScore.LastTotal}");
+
         Debug.Log("[EmailInterfaceManager] Missione email terminata. PC non più interagibile.");
+
+        var reportUI = FindFirstObjectByType<ReportUI>();
+        if (reportUI != null)
+            reportUI.OpenFinalReport();
     }
 
     /// <summary>

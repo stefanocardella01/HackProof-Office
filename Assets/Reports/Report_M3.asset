@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
+  m_Name: Report_M3
+  m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
+  missionTitle: Aree Comuni
+  entries:
+  - label: Badge del tecnico
+    check: 5
+    okText: "Il badge identificativo del tecnico \xE8 stato correttamente individuato
+      come oggetto sospetto e segnalato. Lasciare dispositivi di accesso fisico incustoditi
+      in aree sensibili rappresenta una grave violazione delle procedure di sicurezza
+      e pu\xF2 consentire accessi non autorizzati ai locali aziendali."
+    badText: "Il badge del tecnico non \xE8 stato segnalato. Un dispositivo di accesso
+      lasciato incustodito pu\xF2 essere facilmente utilizzato da persone non autorizzate,
+      esponendo l\u2019azienda a seri rischi di intrusione fisica nelle aree protette."
+  - label: Manuale tecnico
+    check: 6
+    okText: "Il manuale tecnico \xE8 stato correttamente riconosciuto come materiale
+      informativo non pericoloso. La presenza di documentazione tecnica in un ambiente
+      di lavoro non costituisce una minaccia per la sicurezza fisica."
+    badText: "Il manuale tecnico \xE8 stato erroneamente segnalato come oggetto sospetto.
+      \xC8 importante distinguere tra materiali informativi legittimi e oggetti che
+      rappresentano un reale rischio per la sicurezza."
+  - label: Cacciavite
+    check: 7
+    okText: "Il cacciavite \xE8 stato correttamente identificato come strumento di
+      lavoro non pericoloso. Gli utensili utilizzati dal personale tecnico non rappresentano
+      una minaccia per la sicurezza dell\u2019ambiente."
+    badText: "Il cacciavite \xE8 stato segnalato come oggetto sospetto senza motivo.
+      \xC8 necessario saper distinguere tra strumenti di lavoro e oggetti che possono
+      realmente compromettere la sicurezza."
+  - label: "Allontanamento dell\u2019intruso dalla sala server"
+    check: 8
+    okText: "La persona non autorizzata presente nella sala server \xE8 stata correttamente
+      identificata e invitata ad allontanarsi. Il controllo degli accessi fisici
+      alle aree sensibili \xE8 fondamentale per garantire la sicurezza delle infrastrutture
+      aziendali."
+    badText: "La presenza di una persona non autorizzata nella sala server non \xE8
+      stata gestita correttamente. La mancata verifica dell\u2019identit\xE0 e del
+      motivo della presenza in un\u2019area sensibile espone l\u2019azienda a gravi
+      rischi di sicurezza."
