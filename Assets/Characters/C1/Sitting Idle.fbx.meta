@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 52305a9df46a80842970976a01277988
+=======
+<<<<<<<< Updated upstream:Assets/Models_FBX/Cacciavite.fbx.meta
+guid: 4d0e6d6cd242b9a4fb427883744358e9
+========
+guid: 52305a9df46a80842970976a01277988
+>>>>>>>> Stashed changes:Assets/Characters/C1/Sitting Idle.fbx.meta
+>>>>>>> Stashed changes
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -82,6 +90,7 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
+<<<<<<< Updated upstream
     human:
     - boneName: mixamorig:Hips
       humanName: Hips
@@ -840,6 +849,10 @@ ModelImporter:
       position: {x: 2.0682636e-10, y: 0.07571203, z: -7.7521156e-11}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+=======
+    human: []
+    skeleton: []
+>>>>>>> Stashed changes
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

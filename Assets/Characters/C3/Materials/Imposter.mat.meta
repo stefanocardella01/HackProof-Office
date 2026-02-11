@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Characters/C3/Materials/Imposter.mat.meta
 guid: ac3e5101ce8c9e344b4ec7d59661512b
+========
+guid: 3770bcf7ddd123d469c1b4637668ded2
+>>>>>>>> Stashed changes:Assets/Characters/C1/Materials/Worker1.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

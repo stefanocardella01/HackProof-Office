@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat.meta
 guid: c4efddc40978b5849ba8197de2ffe290
+========
+guid: 586e47fb57612a74fa702e01c46d24cb
+>>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

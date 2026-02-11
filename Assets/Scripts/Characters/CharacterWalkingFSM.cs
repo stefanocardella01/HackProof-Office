@@ -46,6 +46,8 @@ public class NpcBrain : MonoBehaviour
         GameObject target = _movement.CurrentTarget;
         SeatedCharacter seated = target.GetComponent<SeatedCharacter>();
 
+        Debug.Log($"NpcBrain: Starting social check with target {target.name}, SeatedCharacter component found: {seated != null}");
+
         if (seated != null)
         {
             
