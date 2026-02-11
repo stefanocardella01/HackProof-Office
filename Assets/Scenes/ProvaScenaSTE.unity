@@ -866,6 +866,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29663239}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &122809719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6912532611197669632, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
+  m_PrefabInstance: {fileID: 1234800270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &124197516 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8344136815207150276, guid: cb510011c0e7fa342b5e5ceef6286dae, type: 3}
@@ -1689,6 +1694,7 @@ GameObject:
   - component: {fileID: 308278678}
   - component: {fileID: 308278677}
   - component: {fileID: 308278676}
+  - component: {fileID: 308278679}
   m_Layer: 0
   m_Name: Canvas_Missioni
   m_TagString: Untagged
@@ -1779,6 +1785,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &308278679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308278674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6af1df54dc0a544b00901c0dbae540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChecklistUI
+  checklistPanel: {fileID: 122809719}
+  missionTitleText: {fileID: 1351713477}
+  objectivesContainer: {fileID: 845287220}
+  checklistItemPrefab: {fileID: 3406344035280447810, guid: 46bc978ad9d142345840a01dcf9ca315, type: 3}
+  itemRevealDelay: 0.3
+  itemFadeDuration: 0.2
 --- !u!1 &308931371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +3465,10 @@ PrefabInstance:
       propertyPath: inspectCamera
       value: 
       objectReference: {fileID: 129481214}
+    - target: {fileID: 7234359365922581622, guid: f81ef23c489295448a29b3ed6c0331e0, type: 3}
+      propertyPath: hudMissionCheckList
+      value: 
+      objectReference: {fileID: 122809719}
     - target: {fileID: 7875409502756598103, guid: f81ef23c489295448a29b3ed6c0331e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3957,6 +3985,12 @@ MonoBehaviour:
   continueButton: {fileID: 873847432}
   playerController: {fileID: 0}
   starterInputs: {fileID: 0}
+  hudCanvas: {fileID: 271139412}
+  hudSmartphone: {fileID: 2123629139}
+  hudMissionCheckList: {fileID: 122809719}
+  inventoryRoot: {fileID: 0}
+  smartphoneRoot: {fileID: 0}
+  missionChecklistRoot: {fileID: 0}
 --- !u!114 &823591669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4046,6 +4080,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830094127}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!224 &845287220 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4671312927257914936, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
+  m_PrefabInstance: {fileID: 1234800270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &846444632
 GameObject:
   m_ObjectHideFlags: 0
@@ -7239,11 +7278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8467254140658856529, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 370.5056
+      value: 265
       objectReference: {fileID: 0}
     - target: {fileID: 8467254140658856529, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -238.07727
+      value: -172
       objectReference: {fileID: 0}
     - target: {fileID: 8467254140658856529, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7257,7 +7296,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5752171253335420728, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -7936,6 +7976,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349339170}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1351713477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5146918947705342384, guid: 6d3dc9fb4f1d0ec40a9fef54816c9a1e, type: 3}
+  m_PrefabInstance: {fileID: 1234800270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1358858902
 GameObject:
   m_ObjectHideFlags: 0
@@ -10714,6 +10765,10 @@ PrefabInstance:
       propertyPath: testConversation
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4481327090164313714, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
+      propertyPath: hudMissionCheckList
+      value: 
+      objectReference: {fileID: 122809719}
     - target: {fileID: 7316326483904960309, guid: 0a5cbf7d07d7ef5488808c1513dd0cf0, type: 3}
       propertyPath: m_Name
       value: DialogueUIManager

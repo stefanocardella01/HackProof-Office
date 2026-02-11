@@ -45,6 +45,9 @@ public class DialogueUI : MonoBehaviour
     [Header("Canvas con smartphone")]
     public GameObject hudSmartphone;
 
+    [Header("Canvas Mission CheckList")]
+    public GameObject hudMissionCheckList;
+
     [Header("Audio (Voice Over)")]
     public AudioSource voiceSource;
 
@@ -243,6 +246,10 @@ public class DialogueUI : MonoBehaviour
         // HUD visibile solo quando NON sei in dialogo
         if (hudSmartphone != null)
             hudSmartphone.SetActive(!active);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(!active);
 
 
 

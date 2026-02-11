@@ -23,6 +23,19 @@ public class ReportUI : MonoBehaviour
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
 
+    [Header("Canvas con inventario, interact text e crosshair")]
+    public GameObject hudCanvas;
+
+    [Header("Canvas smartphone")]
+    public GameObject hudSmartphone;
+    [Header("Canvas MissionCheckList")]
+    public GameObject hudMissionCheckList;
+
+    [Header("Altre UI da disattivare quando il report è aperto")]
+    [SerializeField] private GameObject inventoryRoot;
+    [SerializeField] private GameObject smartphoneRoot;
+    [SerializeField] private GameObject missionChecklistRoot;
+
     private bool isOpen;
 
     // quale missione mostrare
@@ -50,6 +63,19 @@ public class ReportUI : MonoBehaviour
     // ✅ CHIAMA QUESTO alla fine di una missione (passandogli l’index della missione completata)
     public void OpenReport(int missionIndex)
     {
+
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
+            hudCanvas.SetActive(false);
+
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(false);
+
+        //Nascondi mission check list
+        if(hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(false);
+
 
         _isMissionReport = true;
         _onCloseCallback = null;
@@ -132,6 +158,18 @@ public class ReportUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
+            hudCanvas.SetActive(true);
+
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(true);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(true);
 
         if (MissionManager.Instance != null)
             MissionManager.Instance.StartNextMission();
@@ -271,6 +309,18 @@ public class ReportUI : MonoBehaviour
             starterInputs.look = Vector2.zero;
         }
 
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
+            hudCanvas.SetActive(false);
+
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(false);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(false);
+
         BuildOne(title, label, ok, explanation);
     }
 
@@ -320,6 +370,18 @@ public class ReportUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        // Nascondi l'HUD (E + inventario + crosshair)
+        if (hudCanvas != null)
+            hudCanvas.SetActive(false);
+
+        // Nascondi l'HUD (smartphone)
+        if (hudSmartphone != null)
+            hudSmartphone.SetActive(false);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(false);
 
         Build(); //mostra TUTTE le missioni
     }

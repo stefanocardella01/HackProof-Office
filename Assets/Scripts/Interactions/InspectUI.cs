@@ -15,6 +15,9 @@ public class InspectUI : MonoBehaviour
     [Header("Canvas smartphone")]
     public GameObject hudSmartphone;
 
+    [Header("Canvas Mission CheckList")]
+    public GameObject hudMissionCheckList;
+
     [Header("Bloccare movimento mentre ispeziono")]
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
@@ -80,6 +83,10 @@ public class InspectUI : MonoBehaviour
         if (hudSmartphone != null)
             hudSmartphone.SetActive(false);
 
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(false);
+
         // Blocca il movimento del personaggio
         if (playerController != null)
             playerController.enabled = false;
@@ -119,6 +126,10 @@ public class InspectUI : MonoBehaviour
         // Nascondi l'HUD (smartphone)
         if (hudSmartphone != null)
             hudSmartphone.SetActive(false);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(false);
 
         if (playerController != null)
             playerController.enabled = false;
@@ -323,6 +334,10 @@ public class InspectUI : MonoBehaviour
         // Riattiva l'HUD (smartphone)
         if (hudSmartphone != null)
             hudSmartphone.SetActive(true);
+
+        //Nascondi mission check list
+        if (hudMissionCheckList != null)
+            hudMissionCheckList.SetActive(true);
 
         // Riabilita il movimento del personaggio
         if (playerController != null)
