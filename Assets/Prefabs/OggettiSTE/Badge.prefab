@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 51814366193043795, guid: c836ada0ae0c1304e87f7b08d7ada5bc, type: 3}
       propertyPath: m_Name
-      value: Badge Variant
+      value: Badge
       objectReference: {fileID: 0}
     - target: {fileID: 51814366193043795, guid: c836ada0ae0c1304e87f7b08d7ada5bc, type: 3}
       propertyPath: m_Layer
@@ -200,6 +200,10 @@ MonoBehaviour:
   inspectImage: {fileID: 0}
   inventoryIcon: {fileID: 21300000, guid: d36126d79c841c4428dccbeebe0d8908, type: 3}
   itemId: badgePersonale
+  objectremovable: 0
+  missionTag: 
+  objectiveIdOnInspect: 
+  advanceAmount: 1
   inspectPrefab: {fileID: 0}
 --- !u!65 &7184173945584723658
 BoxCollider:

@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoorAudio
   _openingSound: {fileID: 8300000, guid: 724d0aa45d5cec049a0bf5e56c1d398c, type: 3}
   _closingSound: {fileID: 8300000, guid: fb12976860433ef46a7c60ec3240ebbc, type: 3}
+  _UnlockDoor: {fileID: 8300000, guid: 8a4fda119b1b918459fe0d252d8dcf13, type: 3}
 --- !u!114 &-378270341477999876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,9 @@ MonoBehaviour:
   inventoryIcon: {fileID: 0}
   itemId: item_default
   objectremovable: 0
+  missionTag: 
+  objectiveIdOnInspect: 
+  advanceAmount: 1
   inspectPrefab: {fileID: 0}
 --- !u!65 &3373485496463114137
 BoxCollider:
@@ -257,8 +261,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7398267
-      value: 0.67366755
+      time: 0.6064954
+      value: 0.5141827
       inSlope: -2.6610932
       outSlope: -2.6610932
       tangentMode: 0

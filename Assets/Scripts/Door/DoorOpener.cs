@@ -79,7 +79,6 @@ public class DoorOpener : MonoBehaviour, IInteractable
         bool wasEmpty = actorsInside.Count == 0;
         actorsInside.Add(root);
 
-        Debug.Log($"ENTER: {root.name}");
 
         if (wasEmpty && !door.IsOpen)
         {
@@ -101,7 +100,6 @@ public class DoorOpener : MonoBehaviour, IInteractable
 
         actorsInside.Remove(root);
 
-        Debug.Log($"EXIT: {root.name}");
 
         // Se nessun attore è rimasto dentro → chiudi
         if (actorsInside.Count == 0 && door.IsOpen)
@@ -112,4 +110,9 @@ public class DoorOpener : MonoBehaviour, IInteractable
     {
         return root.CompareTag("Player") || root.CompareTag("NPC");
     }
+
+    public bool Badge()
+    {
+        return requiresBadge;
+    } 
 }
