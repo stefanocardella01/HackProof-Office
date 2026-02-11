@@ -10047,6 +10047,10 @@ PrefabInstance:
       propertyPath: inspectPrefab
       value: 
       objectReference: {fileID: 4297266118915576058, guid: 1717751cdff00664db6fb911ed1cbbe8, type: 3}
+    - target: {fileID: 5909450747191172444, guid: 1717751cdff00664db6fb911ed1cbbe8, type: 3}
+      propertyPath: objectremovable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12331,6 +12335,10 @@ PrefabInstance:
       propertyPath: inspectPrefab
       value: 
       objectReference: {fileID: 4961864169748719499, guid: 66f542e799a538542b9993c4101ff4a6, type: 3}
+    - target: {fileID: 8294018492573491582, guid: 66f542e799a538542b9993c4101ff4a6, type: 3}
+      propertyPath: objectremovable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

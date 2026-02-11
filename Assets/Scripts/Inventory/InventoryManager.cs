@@ -43,7 +43,7 @@ public class InventoryManager : MonoBehaviour
         if(selectedIndex >= 0 && selectedIndex < 5)
         {
             //Controllo che l'oggetto selezionato (che deve essere rimosso) esista 
-            if (items[selectedIndex] != null)
+            if (items[selectedIndex] != null && items[selectedIndex].removable == false)
             {
                 //Se esiste, allora lo elimino
                 items[selectedIndex] = null;

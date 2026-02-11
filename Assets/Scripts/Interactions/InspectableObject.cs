@@ -7,6 +7,7 @@ public class InspectableObject : MonoBehaviour, IInteractable
     public Sprite inspectImage;  //Immagine mostrata a schermo intero nella UI di ispeziona
     public Sprite inventoryIcon; //Icona per lo slot dell'inventario
     public string itemId = "item_default"; //id logico
+    public bool objectremovable = false;
 
     [Header("Prefab 3D per ispezione")]
     public GameObject inspectPrefab;
@@ -42,6 +43,7 @@ public class InspectableObject : MonoBehaviour, IInteractable
             id = itemId,
             displayName = objectName,
             icon = inventoryIcon,
+            removable = objectremovable,
             inspectPrefab = inspectPrefab != null ? inspectPrefab : gameObject
         };
     }
