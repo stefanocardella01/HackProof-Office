@@ -28,14 +28,12 @@ public class NpcBrain : MonoBehaviour
 
     void Update()
     {
-        // Se l'oggetto è nullo o la FSM è stata pulita, interrompi tutto
         if (this == null || _fsm == null) return;
         _fsm.Tik();
     }
 
     private void OnDestroy()
     {
-        // Pulizia della FSM per evitare MissingReferenceException
         _fsm = null;
     }
 
@@ -48,31 +46,27 @@ public class NpcBrain : MonoBehaviour
 
         if (seated != null)
         {
-            
             Vector3 lookPos = seated.transform.position;
             lookPos.y = transform.position.y;
             transform.LookAt(lookPos);
 
-            
             float dot = Vector3.Dot(seated.transform.right, (transform.position - seated.transform.position).normalized);
-            seated.SetTalking(true, dot < 0);
 
-            
-            if (_animator != null) _animator.SetBool("Talking", true);
+            seated.SetTalking(true, dot < 0); 
         }
     }
 
     public void EndSocialCheck()
     {
-        if (_animator != null) _animator.SetBool("Talking", false);
-
         if (_movement != null && _movement.CurrentTarget != null)
         {
             SeatedCharacter seated = _movement.CurrentTarget.GetComponent<SeatedCharacter>();
-            if (seated != null) seated.SetTalking(false);
+            if (seated != null)
+                seated.SetTalking(false);
         }
     }
 }
+
 
 
 

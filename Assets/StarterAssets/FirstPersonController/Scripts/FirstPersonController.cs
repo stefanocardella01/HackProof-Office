@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -59,13 +60,15 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
-        private Animator _animator;
+		private Animator _animator;
 
-        // timeout deltatime
-        private float _jumpTimeoutDelta;
+		// timeout deltatime
+		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
-	
+		public event Action<bool> OnWalking;
+		private bool _isWalking = false;
+
 #if ENABLE_INPUT_SYSTEM
 		private PlayerInput _playerInput;
 #endif
@@ -79,11 +82,11 @@ namespace StarterAssets
 		{
 			get
 			{
-				#if ENABLE_INPUT_SYSTEM
+#if ENABLE_INPUT_SYSTEM
 				return _playerInput.currentControlScheme == "KeyboardMouse";
-				#else
+#else
 				return false;
-				#endif
+#endif
 			}
 		}
 
@@ -94,8 +97,8 @@ namespace StarterAssets
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
-            _animator = GetComponentInChildren<Animator>();
-        }
+			_animator = GetComponentInChildren<Animator>();
+		}
 
 		private void Start()
 		{
@@ -104,7 +107,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
 #else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+			Debug.LogError("Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
 			// reset our timeouts on start
@@ -118,7 +121,7 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			UpdateAnimation();
-
+			UpdateAudio();
         }
 
 		private void LateUpdate()
@@ -140,7 +143,7 @@ namespace StarterAssets
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-				
+
 				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
 
@@ -200,6 +203,8 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+
 		}
 
 		private void JumpAndGravity()
@@ -269,12 +274,31 @@ namespace StarterAssets
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 
-        private void UpdateAnimation()
-        {
-            if (_animator == null) return;
-            _animator.SetFloat("Speed", _speed > 0.1f ? _speed : 0f);
-            _animator.SetBool("Walking", _speed > 0.1f);
-        }
-    }
+		private void UpdateAnimation()
+		{
+			if (_animator == null) return;
+			_animator.SetFloat("Speed", _speed > 0.1f ? _speed : 0f);
+			_animator.SetBool("Walking", _speed > 0.1f);
+		}
 
+		private void UpdateAudio()
+		{	
+			if (_speed > 0.1f)
+			{
+				if (!_isWalking)
+				{
+					_isWalking = true;
+					OnWalking?.Invoke(true);
+				}
+			}
+			else
+			{
+				if (_isWalking)
+				{
+					_isWalking = false;
+					OnWalking?.Invoke(false);
+				}
+			}
+		}
+	}
 }

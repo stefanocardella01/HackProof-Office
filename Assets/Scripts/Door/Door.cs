@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
     [SerializeField] private float _openingTime = 1f;
     [SerializeField] private float _closingTime = 0.5f;
 
-    // EVENTI CHIARI
+    // EVENTI 
     public event Action DoorOpening;
     public event Action DoorClosing;
     public event Action DoorOpened;
@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     private bool _isRotating = false;
     private bool _closeRequested = false;
 
-    private bool _opening; // direzione attuale
+    private bool _opening; 
 
     private Quaternion _startRotation;
     private Quaternion _targetRotation;

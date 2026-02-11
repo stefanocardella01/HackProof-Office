@@ -3,8 +3,9 @@ using UnityEngine;
 public class SeatedCharacterAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip writingClip;
-    private AudioSource audioSource;
+    [SerializeField] private AudioClip talkingClip;
 
+    private AudioSource audioSource;
     private SeatedCharacter seatedCharacter;
 
     private void Start()
@@ -16,29 +17,40 @@ public class SeatedCharacterAudio : MonoBehaviour
             return;
 
         seatedCharacter.OnWritingStarted += PlayWritingSound;
-        seatedCharacter.OnIdleStarted += StopWritingSound;
+        seatedCharacter.OnIdleStarted += StopSound;
+        seatedCharacter.OnTalking += HandleTalkingSound; 
     }
-
-    public void ForceStop()
-    {
-        if (audioSource != null && audioSource.isPlaying)
-            audioSource.Stop();
-    }
-
 
     private void PlayWritingSound()
     {
-        if (writingClip == null)
+        Play(writingClip);
+    }
+
+    private void HandleTalkingSound(bool isTalking)
+    {
+        if (isTalking)
+            Play(talkingClip);
+        else
+            StopSound();
+    }
+
+    private void Play(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        
+        if (audioSource.isPlaying && audioSource.clip == clip)
             return;
 
-        audioSource.clip = writingClip;
+        audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
     }
 
-    private void StopWritingSound()
+    private void StopSound()
     {
-        audioSource.Stop();
+        if (audioSource.isPlaying)
+            audioSource.Stop();
     }
 
     private void OnDestroy()
@@ -47,7 +59,15 @@ public class SeatedCharacterAudio : MonoBehaviour
             return;
 
         seatedCharacter.OnWritingStarted -= PlayWritingSound;
-        seatedCharacter.OnIdleStarted -= StopWritingSound;
+        seatedCharacter.OnIdleStarted -= StopSound;
+        seatedCharacter.OnTalking -= HandleTalkingSound;
+    }
+
+    public void ForceStop()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+            audioSource.Stop();
     }
 }
+
 

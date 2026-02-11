@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class NpcMovement : MonoBehaviour
@@ -12,6 +13,10 @@ public class NpcMovement : MonoBehaviour
     private NavMeshAgent _agent;
     private Animator _animator;
     private int _currentTargetIndex = 0;
+
+    public event Action<bool> OnWalking;
+    private bool _isWalking = false;
+    private float speed;
 
     public GameObject CurrentTarget => (_targets != null && _currentTargetIndex < _targets.Count) ? _targets[_currentTargetIndex] : null;
 
@@ -34,7 +39,9 @@ public class NpcMovement : MonoBehaviour
     private void Update()
     {
         if (_agent == null || !_agent.isActiveAndEnabled) return;
+        speed = _agent.velocity.magnitude / _agent.speed;
         UpdateAnimation();
+        UpdateAudio();
         RotateTowardsMovement();
     }
 
@@ -68,9 +75,29 @@ public class NpcMovement : MonoBehaviour
     private void UpdateAnimation()
     {
         if (_animator == null || _agent == null) return;
-        float speed = _agent.velocity.magnitude / _agent.speed;
+        
         _animator.SetFloat("Speed", speed > 0.1f ? speed : 0f);
         _animator.SetBool("Walking", speed > 0.1f);
+    }
+
+    private void UpdateAudio()
+    {   
+        if (speed > 0.1f)
+        {
+            if (!_isWalking)
+            {
+                _isWalking = true;
+                OnWalking?.Invoke(true);
+            }
+        }
+        else
+        {
+            if (_isWalking)
+            {
+                _isWalking = false;
+                OnWalking?.Invoke(false);
+            }
+        }
     }
 
     private void RotateTowardsMovement()

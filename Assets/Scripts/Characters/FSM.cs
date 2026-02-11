@@ -29,7 +29,7 @@ public class FiniteStateMachine<T>
             return;
 
         _currentState?.Exit();
-        Debug.Log($"FSM: {typeof(T).Name} Changing State FROM:{_currentState?.Name} --> TO:{state.Name}");
+        
         _currentState = state;
 
         _transitions.TryGetValue(_currentState.Name, out _currentTransitions);
@@ -50,9 +50,6 @@ public class FiniteStateMachine<T>
 
     private State GetNextState()
     {
-        if (_currentTransitions == null)
-            Debug.LogError($"Current State {_currentState.Name} has NO transitions");
-
         foreach (Transition transition in _currentTransitions)
         {
             if (transition.Condition())
