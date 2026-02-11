@@ -8421,13 +8421,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
     - target: {fileID: 4555231884053857160, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 21c20a11512004a4e8ee3ea587d8a8fb, type: 3}
-=======
->>>>>>> Stashed changes
     - target: {fileID: 4617201613077839281, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -8500,13 +8497,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
     - target: {fileID: 5921636571161340781, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-=======
->>>>>>> Stashed changes
     - target: {fileID: 6170673483575446965, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -8997,7 +8991,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfdbe4ca4d636243a9ca299c45c7f29, type: 3}
-<<<<<<< Updated upstream
 --- !u!1001 &4740589075666432408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9055,8 +9048,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ac484bd6b1051147b6dda5d39e24384, type: 3}
-=======
->>>>>>> Stashed changes
 --- !u!1001 &5677132644659376342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9129,13 +9120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Imposter
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
     - target: {fileID: 7585350412789650436, guid: 1bf4480d62a12dc4cb44e54b164c1670, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ac3e5101ce8c9e344b4ec7d59661512b, type: 2}
-=======
->>>>>>> Stashed changes
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9474,7 +9462,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84a952a56f56a604a96a2233accf22cb, type: 3}
-<<<<<<< Updated upstream
 --- !u!1001 &8427963593788646815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9639,8 +9626,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 630392577}
   m_SourcePrefab: {fileID: 100100000, guid: 618ebe22d6f6e3b47a02129f4df7a08b, type: 3}
-=======
->>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9675,7 +9660,4 @@ SceneRoots:
   - {fileID: 1348374352}
   - {fileID: 591348260}
   - {fileID: 369185872}
-<<<<<<< Updated upstream
   - {fileID: 8427963593788646815}
-=======
->>>>>>> Stashed changes

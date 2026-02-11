@@ -103,7 +103,6 @@ AnimatorStateTransition:
   m_TransitionOffset: 0
   m_ExitTime: 0.7580645
   m_HasExitTime: 0
-<<<<<<< Updated upstream
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -129,8 +128,6 @@ AnimatorStateTransition:
   m_TransitionOffset: 0.0046935966
   m_ExitTime: 0.90753394
   m_HasExitTime: 0
-=======
->>>>>>> Stashed changes
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -282,10 +279,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 5937190251057345323}
   - {fileID: -6851620887919017524}
-<<<<<<< Updated upstream
   - {fileID: 8423046106981918675}
-=======
->>>>>>> Stashed changes
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -372,7 +366,6 @@ AnimatorStateTransition:
   m_TransitionOffset: 0
   m_ExitTime: 0.93801653
   m_HasExitTime: 0
-<<<<<<< Updated upstream
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -398,8 +391,6 @@ AnimatorStateTransition:
   m_TransitionOffset: 0.03173252
   m_ExitTime: 0.9514012
   m_HasExitTime: 0
-=======
->>>>>>> Stashed changes
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

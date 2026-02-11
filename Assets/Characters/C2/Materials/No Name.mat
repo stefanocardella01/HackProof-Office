@@ -7,11 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat
   m_Name: No Name
-========
-  m_Name: Worker4
->>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -31,19 +27,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat
         m_Texture: {fileID: 2800000, guid: 4eba48b170eae794fb1e90a9da37896c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: e443a78aeb8a3c44b9d0859059b781c7, type: 3}
-========
-        m_Texture: {fileID: 2800000, guid: b0cadc1eabe17c0459fa69dce4a85a9d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 95cbc1312dd6a5641be0f4730abfa44c, type: 3}
->>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -63,11 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat
         m_Texture: {fileID: 2800000, guid: 4eba48b170eae794fb1e90a9da37896c, type: 3}
-========
-        m_Texture: {fileID: 2800000, guid: b0cadc1eabe17c0459fa69dce4a85a9d, type: 3}
->>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -105,11 +89,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat
     - _BumpScale: 0.3
-========
-    - _BumpScale: 0.2
->>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -143,11 +123,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<<< Updated upstream:Assets/Characters/C2/Materials/No Name.mat
 --- !u!114 &41435228515603537
-========
---- !u!114 &4491120850104502977
->>>>>>>> Stashed changes:Assets/Characters/C4/Materials/Worker4.mat
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
