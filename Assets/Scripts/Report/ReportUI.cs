@@ -180,8 +180,8 @@ public class ReportUI : MonoBehaviour
         if (isOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseReport();
 
-        // debug
-        // if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
+         //debug
+         //if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
     }
 
     private void BuildSingle(int missionIndex)
@@ -233,9 +233,7 @@ public class ReportUI : MonoBehaviour
             row.GetComponent<ReportRowUI>().Setup(entry.label, ok, explanation);
         }
 
-        // bottone in fondo
-        if (continueButton != null)
-            continueButton.transform.SetAsLastSibling();
+      
     }
 
     public void Build()
@@ -281,9 +279,7 @@ public class ReportUI : MonoBehaviour
             }
         }
 
-        // bottone in fondo
-        if (continueButton != null)
-            continueButton.transform.SetAsLastSibling();
+       
     }
 
     // ✅ Micro-report (es. feedback dopo ogni email)
@@ -344,9 +340,8 @@ public class ReportUI : MonoBehaviour
         var row = Instantiate(rowPrefab, contentParent);
         row.GetComponent<ReportRowUI>().Setup(label, ok, explanation);
 
-        // bottone in fondo
-        if (continueButton != null)
-            continueButton.transform.SetAsLastSibling();
+       
+      
     }
 
     public void OpenFinalReport()

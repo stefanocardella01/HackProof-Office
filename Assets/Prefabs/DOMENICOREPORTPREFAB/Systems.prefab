@@ -63,8 +63,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a208f5e477356124a9785ab393f93d52, type: 2}
   - {fileID: 11400000, guid: 109007d97773e234f9fe76da52dd05b4, type: 2}
   contentParent: {fileID: 0}
-  headerPrefab: {fileID: 331752512617699378, guid: 0ff3181192275714aa6114509103c2da, type: 3}
-  rowPrefab: {fileID: 7790990635752422484, guid: eb52f0f0eac593b498ceec701616e515, type: 3}
+  headerPrefab: {fileID: 331752512617699378, guid: 7b791a521660bae40bd2dfb175f53638, type: 3}
+  rowPrefab: {fileID: 7790990635752422484, guid: 56de8a26c4c373c4ca4d9cc2bf8b8aee, type: 3}
   reportRoot: {fileID: 0}
   continueButton: {fileID: 0}
   playerController: {fileID: 0}

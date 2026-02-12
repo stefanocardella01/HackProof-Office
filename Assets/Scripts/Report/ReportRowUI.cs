@@ -4,10 +4,7 @@ using UnityEngine.UI;
 
 public class ReportRowUI : MonoBehaviour
 {
-    [Header("Icona")]
-    public Image resultIcon;
-    public Sprite okSprite;
-    public Sprite badSprite;
+ 
 
     [Header("Testi")]
     public TextMeshProUGUI labelText;
@@ -24,7 +21,6 @@ public class ReportRowUI : MonoBehaviour
         labelText.text = label;
         explanationText.text = explanation;
 
-        resultIcon.sprite = ok ? okSprite : badSprite;
 
         if (rowBackground != null)
             rowBackground.color = ok ? okColor : badColor;   // <-- QUESTA È LA MODIFICA
