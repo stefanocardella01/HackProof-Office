@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
   m_Name: Report_M3
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
-  missionTitle: Aree Comuni
+  missionTitle: 'Missione 3: Aree Comuni'
   entries:
   - label: Badge del tecnico
     check: 5

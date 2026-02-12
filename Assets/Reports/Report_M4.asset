@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
   m_Name: Report_M4
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
-  missionTitle: Classificazione Mail
+  missionTitle: 'Missione 4: Classificazione Mail'
   entries:
   - label: Classificazione Mail
     check: 18
+    expectedValue: 1
     okText: 
     badText: 
