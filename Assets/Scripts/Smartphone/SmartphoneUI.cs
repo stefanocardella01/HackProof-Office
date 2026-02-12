@@ -173,6 +173,20 @@ public class SmartphoneUI : MonoBehaviour
 
     }
 
+    private bool EnsureUIActive()
+    {
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+
+        if (smartphonePanel != null && !smartphonePanel.activeSelf)
+            smartphonePanel.SetActive(true);
+
+        if (smartphoneRect == null && smartphonePanel != null)
+            smartphoneRect = smartphonePanel.GetComponent<RectTransform>();
+
+        return isActiveAndEnabled && gameObject.activeInHierarchy;
+    }
+
     #region Animation
 
     /// <summary>
@@ -180,6 +194,8 @@ public class SmartphoneUI : MonoBehaviour
     /// </summary>
     private void SlideUp()
     {
+        if (!EnsureUIActive()) return;
+
         // Interrompi animazione corrente se in corso(apertura e chiusara rapida di seguito)
         if (isAnimating)
         {
@@ -193,6 +209,8 @@ public class SmartphoneUI : MonoBehaviour
     /// </summary>
     private void SlideDown()
     {
+        if (!EnsureUIActive()) return;
+
         if (isAnimating)
         {
             StopCoroutine(currentAnimation);
@@ -285,6 +303,12 @@ public class SmartphoneUI : MonoBehaviour
 
     private void HandleSmartphoneOpened()
     {
+        if (!EnsureUIActive())
+        {
+            Debug.LogWarning("[SmartphoneUI] UI inattiva, impossibile aprire lo smartphone.");
+            return;
+        }
+
         // Nascondi SUBITO il banner quando si apre lo smartphone
         if (notificationBanner != null)
             notificationBanner.SetActive(false);
