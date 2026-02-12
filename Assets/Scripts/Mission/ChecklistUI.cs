@@ -37,19 +37,13 @@ public class ChecklistUI : MonoBehaviour
     // Mappa objectiveId → ChecklistItemUI istanziato
     private Dictionary<string, ChecklistItemUI> spawnedItems = new();
 
-    private MissionManager missionManager;
-
-    private void OnEnable()
+    private IEnumerator WaitForMissionManager()
     {
+        while (MissionManager.Instance == null)
+            yield return null; // aspetta un frame
+
         missionManager = MissionManager.Instance;
 
-        if (missionManager == null)
-        {
-            Debug.LogError("[ChecklistUI] MissionManager.Instance non trovato!");
-            return;
-        }
-
-        // Iscrizione agli eventi (prima possibile)
         missionManager.OnMissionStarted += HandleMissionStarted;
         missionManager.OnObjectiveRevealed += HandleObjectiveRevealed;
         missionManager.OnObjectiveUpdated += HandleObjectiveUpdated;
@@ -57,34 +51,19 @@ public class ChecklistUI : MonoBehaviour
         missionManager.OnMissionCompleted += HandleMissionCompleted;
         missionManager.OnAllMissionsCompleted += HandleAllMissionsCompleted;
 
-        // Sync immediato dallo stato corrente (vedi Cambio 2)
-        //SyncFromCurrentState();
+        SyncFromCurrentState();
     }
 
-    private void Start()
+    private MissionManager missionManager;
+
+    private void OnEnable()
     {
-        missionManager = MissionManager.Instance;
-
-        if (missionManager == null)
-        {
-            Debug.LogError("[ChecklistUI] MissionManager.Instance non trovato!");
-            return;
-        }
-
-        //// Iscrizione agli eventi
-        //missionManager.OnMissionStarted += HandleMissionStarted;
-        //missionManager.OnObjectiveRevealed += HandleObjectiveRevealed;
-        //missionManager.OnObjectiveUpdated += HandleObjectiveUpdated;
-        //missionManager.OnObjectiveCompleted += HandleObjectiveCompleted;
-        //missionManager.OnMissionCompleted += HandleMissionCompleted;
-        //missionManager.OnAllMissionsCompleted += HandleAllMissionsCompleted;
-
-        // Nascondi all'inizio se non c'è una missione attiva
-        if (!missionManager.IsMissionActive && checklistPanel != null)
-            checklistPanel.SetActive(false);
+        StartCoroutine(WaitForMissionManager());
     }
 
-    private void OnDestroy()
+
+
+    private void OnDisable()
     {
         if (missionManager == null) return;
 
@@ -95,6 +74,63 @@ public class ChecklistUI : MonoBehaviour
         missionManager.OnMissionCompleted -= HandleMissionCompleted;
         missionManager.OnAllMissionsCompleted -= HandleAllMissionsCompleted;
     }
+
+    private void SyncFromCurrentState()
+    {
+        if (missionManager == null) return;
+
+        // se nessuna missione attiva -> nascondi e pulisci
+        if (!missionManager.IsMissionActive || missionManager.CurrentMissionData == null)
+        {
+            ClearAllItems();
+            if (checklistPanel != null) checklistPanel.SetActive(false);
+            return;
+        }
+
+        // mostra pannello e titolo
+        if (checklistPanel != null) checklistPanel.SetActive(true);
+        if (missionTitleText != null)
+            missionTitleText.text = missionManager.CurrentMissionData.missionTitle;
+
+        // ricostruisci gli obiettivi visibili già creati a runtime
+        ClearAllItems();
+
+        foreach (var obj in missionManager.CurrentObjectives)
+        {
+            if (obj != null && obj.IsVisible)
+                SpawnItemInstant(obj);
+        }
+    }
+
+    private void SpawnItemInstant(MissionObjective objective)
+    {
+        if (checklistItemPrefab == null || objectivesContainer == null)
+        {
+            Debug.LogError("[ChecklistUI] Prefab o container non assegnato!");
+            return;
+        }
+
+        if (spawnedItems.ContainsKey(objective.ObjectiveId))
+            return;
+
+        GameObject itemGO = Instantiate(checklistItemPrefab, objectivesContainer);
+        var itemUI = itemGO.GetComponent<ChecklistItemUI>();
+
+        if (itemUI == null)
+        {
+            Debug.LogError("[ChecklistUI] Il prefab non ha il componente ChecklistItemUI!");
+            Destroy(itemGO);
+            return;
+        }
+
+        itemUI.Setup(objective);
+        spawnedItems[objective.ObjectiveId] = itemUI;
+
+        // (opzionale) se vuoi essere sicuro che sia subito visibile
+        var cg = itemGO.GetComponent<CanvasGroup>() ?? itemGO.AddComponent<CanvasGroup>();
+        cg.alpha = 1f;
+    }
+
 
     // ─────────────────────────────────────────────────────────
     #region Event Handlers

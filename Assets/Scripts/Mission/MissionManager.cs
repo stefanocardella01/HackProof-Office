@@ -61,18 +61,26 @@ public class MissionManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
+        // 🔎 DEBUG — verifica se le missioni esistono davvero in build
+        Debug.Log($"[MissionManager] Awake -> missions.Count = {missions.Count}");
+
+        if (missions.Count > 0)
+        {
+            Debug.Log($"[MissionManager] First mission autoStart = {missions[0].startsAutomatically}");
+        }
+
         // Avvia automaticamente la prima missione se configurata
         if (missions.Count > 0 && missions[0].startsAutomatically)
         {
+            Debug.Log("[MissionManager] Starting Mission 0");
             StartMission(0);
         }
     }
+
 
     #endregion
 
