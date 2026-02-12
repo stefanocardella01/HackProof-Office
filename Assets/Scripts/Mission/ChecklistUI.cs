@@ -39,6 +39,28 @@ public class ChecklistUI : MonoBehaviour
 
     private MissionManager missionManager;
 
+    private void OnEnable()
+    {
+        missionManager = MissionManager.Instance;
+
+        if (missionManager == null)
+        {
+            Debug.LogError("[ChecklistUI] MissionManager.Instance non trovato!");
+            return;
+        }
+
+        // Iscrizione agli eventi (prima possibile)
+        missionManager.OnMissionStarted += HandleMissionStarted;
+        missionManager.OnObjectiveRevealed += HandleObjectiveRevealed;
+        missionManager.OnObjectiveUpdated += HandleObjectiveUpdated;
+        missionManager.OnObjectiveCompleted += HandleObjectiveCompleted;
+        missionManager.OnMissionCompleted += HandleMissionCompleted;
+        missionManager.OnAllMissionsCompleted += HandleAllMissionsCompleted;
+
+        // Sync immediato dallo stato corrente (vedi Cambio 2)
+        //SyncFromCurrentState();
+    }
+
     private void Start()
     {
         missionManager = MissionManager.Instance;
@@ -49,13 +71,13 @@ public class ChecklistUI : MonoBehaviour
             return;
         }
 
-        // Iscrizione agli eventi
-        missionManager.OnMissionStarted += HandleMissionStarted;
-        missionManager.OnObjectiveRevealed += HandleObjectiveRevealed;
-        missionManager.OnObjectiveUpdated += HandleObjectiveUpdated;
-        missionManager.OnObjectiveCompleted += HandleObjectiveCompleted;
-        missionManager.OnMissionCompleted += HandleMissionCompleted;
-        missionManager.OnAllMissionsCompleted += HandleAllMissionsCompleted;
+        //// Iscrizione agli eventi
+        //missionManager.OnMissionStarted += HandleMissionStarted;
+        //missionManager.OnObjectiveRevealed += HandleObjectiveRevealed;
+        //missionManager.OnObjectiveUpdated += HandleObjectiveUpdated;
+        //missionManager.OnObjectiveCompleted += HandleObjectiveCompleted;
+        //missionManager.OnMissionCompleted += HandleMissionCompleted;
+        //missionManager.OnAllMissionsCompleted += HandleAllMissionsCompleted;
 
         // Nascondi all'inizio se non c'è una missione attiva
         if (!missionManager.IsMissionActive && checklistPanel != null)
