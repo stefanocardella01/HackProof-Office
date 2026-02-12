@@ -2687,6 +2687,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 348196124}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: missionCheckList
+      value: 
+      objectReference: {fileID: 122809719}
     - target: {fileID: 4478067899059504875, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5191,6 +5195,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 348196124}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: missionCheckList
+      value: 
+      objectReference: {fileID: 122809719}
     - target: {fileID: 3670611494424927146, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: m_Name
       value: PcMission1

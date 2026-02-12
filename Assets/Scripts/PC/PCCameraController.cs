@@ -21,6 +21,9 @@ public class PCCameraController : MonoBehaviour
     [Tooltip("Canvas della UI principale da nascondere (HUD, inventario, ecc)")]
     [SerializeField] private GameObject mainUICanvas;
 
+    [Tooltip("Canvas della mision check list da nascondere")]
+    [SerializeField] private GameObject missionCheckList;
+
     [Header("Transizione")]
     [SerializeField] private bool useFade = false;
     [SerializeField] private float fadeDuration = 0.2f;
@@ -196,6 +199,12 @@ public class PCCameraController : MonoBehaviour
             Debug.Log("[PCCameraController] UI principale nascosta");
         }
 
+        if (missionCheckList != null)
+        {
+            missionCheckList.SetActive(false);
+            Debug.Log("[PCCameraController] UI principale nascosta");
+        }
+
         // Piccola pausa per effetto (opzionale)
         if (useFade)
         {
@@ -265,6 +274,13 @@ public class PCCameraController : MonoBehaviour
             mainUICanvas.SetActive(true);
             Debug.Log("[PCCameraController] UI principale riattivata");
         }
+
+        if (missionCheckList != null)
+        {
+            missionCheckList.SetActive(true);
+            Debug.Log("[PCCameraController] UI principale riattivata");
+        }
+
 
         isTransitioning = false;
         isAtScreen = false;
