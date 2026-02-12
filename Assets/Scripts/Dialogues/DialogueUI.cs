@@ -61,6 +61,8 @@ public class DialogueUI : MonoBehaviour
     private bool isTyping = false;
     private string currentFullLine = "";
 
+    public bool IsDialogueActive => isDialogueActive;
+
     [Header("NPC Animation")]
     private Animator npcAnimator;
 
@@ -263,6 +265,9 @@ public class DialogueUI : MonoBehaviour
 
     public void StartConversation(DialogueConversation conversation, Action onFinished = null)
     {
+        if (isDialogueActive)  // evita restart
+            return;
+
         if (conversation == null || conversation.nodes == null || conversation.nodes.Length == 0)
         {
             Debug.LogWarning("DialogueUI: conversazione nulla o senza nodi.");
