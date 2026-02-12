@@ -3950,6 +3950,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   pcCanvas: {fileID: 2013351898278589240}
   mainUICanvas: {fileID: 0}
+  missionCheckList: {fileID: 0}
   useFade: 1
   fadeDuration: 0.2
   playerObject: {fileID: 0}
@@ -9340,6 +9341,7 @@ MonoBehaviour:
   screenOnMaterial: {fileID: 0}
   screenOffMaterial: {fileID: 0}
   screenRenderer: {fileID: 0}
+  mixer: {fileID: 6636602130080139432, guid: f9f4b080e10425841aea024fa1057af6, type: 3}
 --- !u!65 &6195651176836687534
 BoxCollider:
   m_ObjectHideFlags: 0

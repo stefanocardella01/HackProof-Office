@@ -17,6 +17,7 @@ public class SmartphoneManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip notificationSound;  // Suono nuova notifica
     [SerializeField] private AudioClip buttonClickSound;   // Suono click UI
+    [SerializeField] private ManagerAudio mixer;
 
     private AudioSource audioSource;
 
@@ -123,6 +124,7 @@ public class SmartphoneManager : MonoBehaviour
         OnSmartphoneOpened?.Invoke();
 
         Debug.Log("[SmartphoneManager] Smartphone aperto");
+        mixer.SetDialog();
     }
 
     // Chiude lo smartphone.
@@ -134,6 +136,7 @@ public class SmartphoneManager : MonoBehaviour
         OnSmartphoneClosed?.Invoke();
 
         Debug.Log("[SmartphoneManager] Smartphone chiuso");
+        mixer.SetNormal();
     }
 
     // Toggle apertura/chiusura.

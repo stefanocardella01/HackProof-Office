@@ -20,19 +20,15 @@ public class ManagerAudio : MonoBehaviour
         _dialog = _mainMixer.FindSnapshot("Dialog");
 }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SetDialog()
-    {
+    {   
+        Debug.Log("Dialog");
         _dialog.TransitionTo(4f);
     }
 
     public void SetNormal()
-    {
+    {       
+        Debug.Log("Normal");
         _soundtrack.TransitionTo(4f);
     }
 }

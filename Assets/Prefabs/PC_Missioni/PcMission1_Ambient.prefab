@@ -5856,11 +5856,13 @@ MonoBehaviour:
   desktopScreenObject: {fileID: 4438963952059787902}
   pcCanvas: {fileID: 8617729893746091331}
   screenContainer: {fileID: 4438963952059787902}
+  reportUI: {fileID: 0}
   cameraController: {fileID: 0}
   computerInteractable: {fileID: 0}
   requireLogin: 1
   requirePasswordChange: 1
   require2FA: 1
+  loginObjectiveId: m1_login
   OnLoginCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -5904,6 +5906,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   pcCanvas: {fileID: 8617729893746091331}
   mainUICanvas: {fileID: 0}
+  missionCheckList: {fileID: 0}
   useFade: 1
   fadeDuration: 0.2
   playerObject: {fileID: 0}
@@ -9371,7 +9374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7ad5949f6352d144bafb541f529503f, type: 3}
       propertyPath: m_Name
-      value: PcMission1
+      value: PcMission1_Ambient
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7ad5949f6352d144bafb541f529503f, type: 3}
       propertyPath: m_Layer
@@ -9480,6 +9483,7 @@ MonoBehaviour:
   screenOnMaterial: {fileID: 0}
   screenOffMaterial: {fileID: 0}
   screenRenderer: {fileID: 0}
+  mixer: {fileID: 6636602130080139432, guid: f9f4b080e10425841aea024fa1057af6, type: 3}
 --- !u!65 &7924097478910170262
 BoxCollider:
   m_ObjectHideFlags: 0

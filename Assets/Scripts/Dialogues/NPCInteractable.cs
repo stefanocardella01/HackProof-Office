@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class NPCInteractable : MonoBehaviour, IInteractable
 {
@@ -27,6 +28,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     private NpcMovement movement;
 
     private DialogueUI dialogueUI; // cache
+
+    [SerializeField] private ManagerAudio mixer;
 
     private void Awake()
     {
@@ -68,6 +71,9 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
         bool lookLeft = IsPlayerOnLeft(interactor.transform);
 
+        //Audio 
+        mixer.SetDialog();
+
         // Attiva talking + direzione
         if (seated != null)
             seated.SetTalking(true, lookLeft);
@@ -97,7 +103,9 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             // Disabilita interazione dopo dialogo (opzionale)
             if (disableAfterDialogue)
                 SetEnabled(false);
+            mixer.SetNormal();
         });
+        
     }
 
     public void SetEnabled(bool enabled)

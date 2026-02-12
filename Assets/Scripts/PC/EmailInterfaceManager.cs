@@ -60,6 +60,9 @@ public class EmailInterfaceManager : MonoBehaviour
     public int TotalEmails => emails.Length;
     public EmailMissionReport Report => report;
 
+    // Audio
+    [SerializeField] private ManagerAudio mixer;
+
     private void Awake()
     {
         // Setup camera controller
@@ -233,6 +236,7 @@ public class EmailInterfaceManager : MonoBehaviour
     public void Open(PlayerInteractor interactor)
     {
         Debug.Log("[EmailInterfaceManager] Open() chiamato");
+        mixer.SetDialog();
 
         if (isOpen)
         {
@@ -437,6 +441,7 @@ public class EmailInterfaceManager : MonoBehaviour
         if (!isOpen) return;
 
         currentState = EmailMissionState.TransitioningOut;
+        mixer.SetNormal();
 
         // Nascondi UI
         if (screenContainer != null)

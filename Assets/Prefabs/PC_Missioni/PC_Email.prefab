@@ -1076,20 +1076,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c6b87db6a0c6641855aeaf9e6ebce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmailScreen
-  questionText: {fileID: 6145148566439359010}
-  hintText: {fileID: 5356079129272180222}
   progressText: {fileID: 7757885896166456859}
+  emailImageDisplay: {fileID: 0}
+  emailContentContainer: {fileID: 3433511798232322066}
+  manualHotspots: []
+  tooltipPanel: {fileID: 0}
+  tooltipText: {fileID: 0}
   phishingButton: {fileID: 8399473347662281611}
   legitimateButton: {fileID: 4866262430252692521}
-  senderNameText: {fileID: 398339181305196068}
-  senderEmailText: {fileID: 3368736737629275590}
-  timestampText: {fileID: 3528555354696001913}
-  subjectText: {fileID: 1189215283452109852}
-  bodyText: {fileID: 2974260219060597520}
-  urlText: {fileID: 0}
-  emailContentContainer: {fileID: 3433511798232322066}
-  questionTemplate: "Questa email \xE8 legittima o \xE8 un tentativo di phishing?"
-  hintTemplate: Analizza attentamente mittente, contenuto e link.
 --- !u!1 &3248084970838365648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,41 +1656,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmailInterfaceManager
   emails:
-  - senderName: 
-    senderEmail: 
+  - emailImage: {fileID: 0}
     subject: 
-    body: 
-    url: 
+    visibleUrl: 
     correctType: 0
     explanation: 
-    hints: []
-  - senderName: 
-    senderEmail: 
+  - emailImage: {fileID: 0}
     subject: 
-    body: 
-    url: 
+    visibleUrl: 
     correctType: 0
     explanation: 
-    hints: []
-  - senderName: 
-    senderEmail: 
+  - emailImage: {fileID: 0}
     subject: 
-    body: 
-    url: 
+    visibleUrl: 
     correctType: 0
     explanation: 
-    hints: []
-  - senderName: 
-    senderEmail: 
+  - emailImage: {fileID: 0}
     subject: 
-    body: 
-    url: 
+    visibleUrl: 
     correctType: 0
     explanation: 
-    hints: []
   emailCanvas: {fileID: 2291715178965262649}
   screenContainer: {fileID: 6083450551203545744}
   emailScreen: {fileID: 6192962049897649992}
+  reportUI: {fileID: 0}
   cameraController: {fileID: 1952435818097740116}
   computerInteractable: {fileID: 0}
   closeDelay: 0.5
@@ -1715,6 +1698,7 @@ MonoBehaviour:
   OnInterfaceClosed:
     m_PersistentCalls:
       m_Calls: []
+  mixer: {fileID: 6636602130080139432, guid: f9f4b080e10425841aea024fa1057af6, type: 3}
 --- !u!114 &1952435818097740116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,6 +1715,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   pcCanvas: {fileID: 2291715178965262649}
   mainUICanvas: {fileID: 0}
+  missionCheckList: {fileID: 0}
   useFade: 0
   fadeDuration: 0.2
   playerObject: {fileID: 0}
@@ -2144,6 +2129,10 @@ MonoBehaviour:
   inspectImage: {fileID: 0}
   inventoryIcon: {fileID: 0}
   itemId: item_pc
+  objectremovable: 0
+  missionTag: 
+  objectiveIdOnInspect: 
+  advanceAmount: 1
   inspectPrefab: {fileID: 3397794668357964319, guid: a5ac041b79f79364ca8481b503332787, type: 3}
 --- !u!1 &5932491660192197398
 GameObject:

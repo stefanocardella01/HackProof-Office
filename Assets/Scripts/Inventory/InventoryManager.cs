@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.Audio;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -14,19 +15,34 @@ public class InventoryManager : MonoBehaviour
     public event Action OnInventoryChanged;
     public event Action<int> OnSelectionChanged;
 
+    //Audio 
+    [SerializeField] private AudioClip pickUpClip;
+    [SerializeField] private AudioClip dropClip;
+    private AudioSource audioSource;
+
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     //Funzione per aggiungere un oggetto nell'inventario nel primo spazio libero (ma solo se c'è spazio)
     public bool AddItem(InventoryItem newItem)
     {
 
         for(int i = 0; i < MaxSlots; i++)
         {
-
+            audioSource.PlayOneShot(pickUpClip);
             if (items[i] == null)
             {
 
                 items[i] = newItem;
                 //Debug.Log($"[Inventory] Aggiunto '{newItem.displayName}' nello slot {i}");
                 OnInventoryChanged?.Invoke();
+                
                 return true;
 
             }
@@ -56,6 +72,7 @@ public class InventoryManager : MonoBehaviour
 
                 OnInventoryChanged?.Invoke();
                 OnSelectionChanged?.Invoke(selectedIndex);
+                audioSource.PlayOneShot(dropClip);
 
                 return true;
             }

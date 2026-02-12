@@ -22,6 +22,8 @@ public class ComputerInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Material screenOffMaterial;
     [SerializeField] private Renderer screenRenderer;
 
+    [SerializeField] private ManagerAudio mixer;
+
     private void Start()
     {
         // Se non è stato assegnato manualmente, cerca il PCInterfaceManager
@@ -68,11 +70,13 @@ public class ComputerInteractable : MonoBehaviour, IInteractable
         {
             // Se già aperto, chiudi
             pcInterface.Close();
+            mixer.SetNormal();
         }
         else
         {
             // Apri l'interfaccia
             pcInterface.Open(interactor);
+            mixer.SetDialog();
         }
     }
 
