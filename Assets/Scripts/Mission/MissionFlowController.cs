@@ -171,12 +171,16 @@ public class MissionFlowController : MonoBehaviour
         // ── Missione 3 ─────────────────────────
         else if (id == obj_m3_talk_receptionist)
         {
+
+            Debug.Log("Entro qui dopo che parlo con lei nella missione 3");
             SetActiveGO(conversazioneReception2GO, false);
             SetObjectsActive(mission3Objects, true);
             SetNpcEnabled(intrusoNpc, true); // se qui per te è l’NPC 4, cambia reference
 
-            receptionist1.SetEnabled(true);
+
             receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
+
+            receptionist1.SetEnabled(false);
 
         }
         else if (id == obj_m3_inspect_server)
@@ -184,12 +188,16 @@ public class MissionFlowController : MonoBehaviour
             if (intrusoNpcRoot != null)
                 intrusoNpcRoot.SetActive(false);
             else
-                SetNpcEnabled(intrusoNpc, false); // fallback
+                SetNpcEnabled(intrusoNpc, true); // fallback
+
+            receptionist1.SetEnabled(true);
         }
         else if (id == obj_m3_deliver_items)
         {
             SetObjectsActive(mission3Objects, false);
             mm.StartNextMission();
+
+
         }
 
         // ── Missione 4 ─────────────────────────
@@ -278,6 +286,7 @@ public class MissionFlowController : MonoBehaviour
         SetObjectsActive(mission3Objects, false);
         SetPcEmailEnabled(false);
         SetNpcEnabled(giulioNpc, true);
+        receptionist1.SetEnabled(false);
         SetFx(fxGiulio, true);
     }
 
