@@ -30,17 +30,15 @@ MonoBehaviour:
       eventChannel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}
     - text: No
       nextNodeIndex: 1
-      endsDialogue: 1
+      endsDialogue: 0
       singleUse: 0
       customId: 
       triggerEvent: 0
       eventId: 
       eventChannel: {fileID: 0}
   - lines:
-    - Grazie per la segnalazione!
-    - "Hai qualcos\u2019altro da consegnarmi?"
+    - "Hai qualcos\u2019altro da segnalarmi?"
     lineVoiceOvers:
-    - {fileID: 8300000, guid: f8f1ea0970bd479499a418df9deb1261, type: 3}
     - {fileID: 8300000, guid: 1081c2a7028ce7b4798fec11cd0b73c4, type: 3}
     choices:
     - text: "S\xEC, torno tra poco"

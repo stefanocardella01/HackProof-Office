@@ -192,11 +192,11 @@ public class DialogueChoiceEventListener : MonoBehaviour
         int removed = inventory.RemoveItemsByMissionTag(missionTag);
         Debug.Log($"[Deliver] removed(tag={missionTag})={removed}");
 
-        if (removed <= 0)
-        {
-            Debug.LogWarning("[Deliver] Nessun item rimosso, quindi NON completo l'obiettivo.");
-            return;
-        }
+        //if (removed <= 0)
+        //{
+        //    Debug.LogWarning("[Deliver] Nessun item rimosso, quindi NON completo l'obiettivo.");
+        //    return;
+        //}
 
         int missionIndex = mm.CurrentMissionIndex; // missione attiva al momento della consegna
         reportUI.OpenReportDelayed(missionIndex);
