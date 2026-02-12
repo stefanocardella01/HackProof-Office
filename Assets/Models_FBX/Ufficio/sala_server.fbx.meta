@@ -3,7 +3,12 @@ guid: 2ca2722f912217a438bcd429504c15c3
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sala_server
+    second: {fileID: 2100000, guid: 1a423aa386fd72446a8aceef8cf2c3f8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

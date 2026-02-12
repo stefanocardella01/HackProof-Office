@@ -42,6 +42,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Sala_server
+    second: {fileID: 2100000, guid: 1a423aa386fd72446a8aceef8cf2c3f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Stanza_capo_1
     second: {fileID: 2100000, guid: fbe4466289b5dbd458ac85535871b7bf, type: 2}
   - first:
