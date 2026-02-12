@@ -4776,6 +4776,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 198294615}
     m_Modifications:
+    - target: {fileID: 1299107724832025397, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: currentPassword
+      value: '@john.doe'
+      objectReference: {fileID: 0}
     - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: mainUICanvas
       value: 
