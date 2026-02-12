@@ -300,5 +300,35 @@ namespace StarterAssets
 				}
 			}
 		}
-	}
+
+        public void ForceStopWalking()
+        {
+            // reset input (così non rimane W “appeso”)
+            if (_input != null)
+            {
+                _input.move = Vector2.zero;
+                _input.look = Vector2.zero;
+                _input.jump = false;
+                _input.sprint = false;
+            }
+
+            // reset speed interno
+            _speed = 0f;
+
+            // reset animazione
+            if (_animator != null)
+            {
+                _animator.SetFloat("Speed", 0f);
+                _animator.SetBool("Walking", false);
+            }
+
+            // forza evento audio “stop”
+            if (_isWalking)
+            {
+                _isWalking = false;
+                OnWalking?.Invoke(false);
+            }
+        }
+
+    }
 }

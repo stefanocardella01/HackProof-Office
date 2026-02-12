@@ -233,6 +233,7 @@ public class DialogueUI : MonoBehaviour
         // (opzionale) blocca player + input mentre parli
         if (playerController != null)
             playerController.enabled = !active;
+            playerController.ForceStopWalking();
 
         if (starterInputs != null)
         {

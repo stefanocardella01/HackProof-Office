@@ -94,6 +94,7 @@ public class ReportUI : MonoBehaviour
 
         if (playerController != null)
             playerController.enabled = false;
+            playerController.ForceStopWalking();
 
         if (starterInputs != null)
         {
@@ -300,6 +301,7 @@ public class ReportUI : MonoBehaviour
 
         if (playerController != null)
             playerController.enabled = false;
+            playerController.ForceStopWalking();
 
         if (starterInputs != null)
         {
@@ -361,6 +363,7 @@ public class ReportUI : MonoBehaviour
 
         if (playerController != null)
             playerController.enabled = false;
+            playerController.ForceStopWalking();
 
         if (starterInputs != null)
         {

@@ -100,6 +100,7 @@ public class InspectUI : MonoBehaviour
         // Blocca il movimento del personaggio
         if (playerController != null)
             playerController.enabled = false;
+            playerController.ForceStopWalking();
 
         // Blocca l'input di look e movimento dagli Starter Assets
         if (starterInputs != null)
@@ -147,6 +148,7 @@ public class InspectUI : MonoBehaviour
 
         if (playerController != null)
             playerController.enabled = false;
+            playerController.ForceStopWalking();
 
         if (starterInputs != null)
         {

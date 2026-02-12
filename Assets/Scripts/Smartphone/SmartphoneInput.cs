@@ -96,6 +96,7 @@ public class SmartphoneInput : MonoBehaviour
         {
             wasControllerEnabled = playerController.enabled;
             playerController.enabled = false;
+            playerController.ForceStopWalking();
         }
 
         // Disabilita l'input

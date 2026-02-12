@@ -30,7 +30,7 @@ public class PCCameraController : MonoBehaviour
 
     [Header("Riferimenti Player (Auto-trovati se vuoti)")]
     [SerializeField] private GameObject playerObject;
-    [SerializeField] private MonoBehaviour firstPersonController;
+    [SerializeField] private StarterAssets.FirstPersonController firstPersonController;
     [SerializeField] private MonoBehaviour playerInput;
     [SerializeField] private MonoBehaviour playerInteractor;
     [SerializeField] private MonoBehaviour smartphoneInput;
@@ -66,15 +66,8 @@ public class PCCameraController : MonoBehaviour
         {
             Debug.Log($"[PCCameraController] Player trovato: {playerObject.name}");
 
-            // Cerca FirstPersonController
-            if (firstPersonController == null)
-            {
-                firstPersonController = playerObject.GetComponent("FirstPersonController") as MonoBehaviour;
-                if (firstPersonController == null)
-                    firstPersonController = playerObject.GetComponent("FPSController") as MonoBehaviour;
-                if (firstPersonController == null)
-                    firstPersonController = playerObject.GetComponent("PlayerController") as MonoBehaviour;
-            }
+            if (firstPersonController == null && playerObject != null)
+                firstPersonController = playerObject.GetComponent<StarterAssets.FirstPersonController>();
 
             if (firstPersonController != null)
                 Debug.Log($"[PCCameraController] Controller trovato: {firstPersonController.GetType().Name}");
@@ -295,6 +288,10 @@ public class PCCameraController : MonoBehaviour
     private void SetPlayerControlsEnabled(bool enabled)
     {
         Debug.Log($"[PCCameraController] SetPlayerControlsEnabled({enabled})");
+        if (!enabled && firstPersonController != null)
+        {
+            firstPersonController.ForceStopWalking();
+        }
 
         // Disabilita FirstPersonController
         if (firstPersonController != null)
