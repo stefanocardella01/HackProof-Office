@@ -47,7 +47,6 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         patrolBrain = GetComponent<NpcPatrolBrain>();
         movement = GetComponent<NpcMovement>();
 
-        // non è un problema se è null qui: lo ritroviamo al bisogno
         dialogueUI = FindFirstObjectByType<DialogueUI>();
     }
 
@@ -63,7 +62,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         conversation = newConversation;
         completeObjectiveIdOnDialogueEnd = completeObjectiveOnEnd;
         disableAfterDialogue = disableAfter;
-        SetEnabled(newConversation != null); // se vuoi disabilitare quando non ha conversazione
+        SetEnabled(newConversation != null); 
     }
 
 
@@ -126,7 +125,6 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     private IEnumerator InteractFaceThenTalk(PlayerInteractor interactor)
     {
-        // fermalo subito così non “lotta” con la rotazione di movimento
         if (movement != null) movement.StopMovement();
 
         float t = 0f;

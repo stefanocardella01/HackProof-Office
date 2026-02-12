@@ -60,7 +60,6 @@ public class InspectUI : MonoBehaviour
     {
         inventory = FindFirstObjectByType<InventoryManager>();
 
-        // Se non li hai assegnati a mano nell'Inspector, prova a recuperarli
         if (playerController == null)
             playerController = FindFirstObjectByType<FirstPersonController>();
 
@@ -223,7 +222,7 @@ public class InspectUI : MonoBehaviour
             float radius = Mathf.Max(bounds.extents.x, bounds.extents.y, bounds.extents.z);
             if (radius > 0.0001f)
             {
-                float targetRadius = 0.4f;              // quanto grande lo vuoi nello spazio ispezione
+                float targetRadius = 0.4f;              
                 float scaleFactor = targetRadius / radius;
                 scaleFactor = Mathf.Clamp(scaleFactor, 0.1f, 10f);
 
@@ -344,9 +343,7 @@ public class InspectUI : MonoBehaviour
         //  e l'oggetto non è stato distrutto, lo riattivo.
         if (!openedFromInventory && currentObject != null)
         {
-            // Se in TryAddToInventory hai fatto Destroy(currentObject.gameObject),
-            // allora qui currentObject risulta null (per l'overload di == in Unity)
-            // e non entrerà in questo if.
+
             currentObject.gameObject.SetActive(true);
         }
 

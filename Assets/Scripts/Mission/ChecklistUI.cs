@@ -3,23 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// UI della checklist missione (HUD in alto a sinistra).
-/// Si iscrive agli eventi del MissionManager e aggiorna la lista degli obiettivi.
-/// 
-/// SETUP IN UNITY:
-///   Canvas (Screen Space - Overlay)
-///     └── ChecklistPanel (ancorato in alto a sinistra)
-///           ├── MissionTitleText (TMP)
-///           └── ObjectivesContainer (VerticalLayoutGroup)
-///                 └── (gli item vengono istanziati qui)
-/// 
-/// Assegnare:
-///   - checklistPanel: il pannello contenitore
-///   - missionTitleText: il testo del titolo missione
-///   - objectivesContainer: il parent con VerticalLayoutGroup
-///   - checklistItemPrefab: il prefab di ChecklistItemUI
-/// </summary>
+
 public class ChecklistUI : MonoBehaviour
 {
     [Header("Riferimenti UI")]

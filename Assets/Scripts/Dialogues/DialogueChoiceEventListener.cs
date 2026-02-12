@@ -43,8 +43,7 @@ public class DialogueChoiceEventListener : MonoBehaviour
         switch (eventId)
         {
             case "open_email_minigame":
-                // Qui puoi: abilitare PC Email / aprire UI / ecc.
-                // (meglio: chiama un tuo FlowController)
+
                 break;
 
             case "remove_selected_item":
@@ -113,9 +112,7 @@ public class DialogueChoiceEventListener : MonoBehaviour
             return;
         }
 
-        // SCEGLI UN CRITERIO STABILE: item.id (consigliato)
-        // Assicurati che negli InspectableObject tu abbia itemId coerenti:
-        // es: "postit", "headphones", "usb"
+
 
         switch (item.id)
         {
@@ -134,7 +131,6 @@ public class DialogueChoiceEventListener : MonoBehaviour
                 Debug.Log("[Report] Set UsbDelivered = true");
                 break;
 
-            // Missione 3 esempi (se vuoi):
             case "badgeTecnico":
                 MissionTracker.Instance.Set(ReportCheck.BadgeDelivered, true);
                 break;
@@ -160,15 +156,7 @@ public class DialogueChoiceEventListener : MonoBehaviour
         Debug.Log("[Deliver] MissionManager=" + (mm ? "OK" : "NULL"));
         if (mm == null) return;
 
-        //bool vis = mm.IsObjectiveVisible(objectiveId);
-        //bool comp = mm.IsObjectiveCompleted(objectiveId);
-        //Debug.Log($"[Deliver] objectiveId={objectiveId} visible={vis} completed={comp}");
 
-        //if (!vis || comp)
-        //{
-        //    Debug.LogWarning($"[Deliver] BLOCCATO dal gating: visible={vis} completed={comp}");
-        //    return;
-        //}
 
         if (inventory == null)
             inventory = FindFirstObjectByType<InventoryManager>();
@@ -186,11 +174,7 @@ public class DialogueChoiceEventListener : MonoBehaviour
         int removed = inventory.RemoveItemsByMissionTag(missionTag);
         Debug.Log($"[Deliver] removed(tag={missionTag})={removed}");
 
-        //if (removed <= 0)
-        //{
-        //    Debug.LogWarning("[Deliver] Nessun item rimosso, quindi NON completo l'obiettivo.");
-        //    return;
-        //}
+
 
         int missionIndex = mm.CurrentMissionIndex; // missione attiva al momento della consegna
         reportUI.OpenReportDelayed(missionIndex);

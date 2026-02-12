@@ -13,7 +13,7 @@ public class DialogueChoice
 
     [Header("Uso singolo (opzionale)")]
     public bool singleUse = false;  // se true: dopo averla scelta non la mostro più
-    public string customId;         // opzionale: ID leggibile, altrimenti ne generiamo uno
+    public string customId;         // opzionale: ID leggibile
 
     [Header("Evento (opzionale)")]
     public bool triggerEvent = false;

@@ -99,7 +99,6 @@ public class DialogueUI : MonoBehaviour
     private HashSet<int> visitedNodes = new HashSet<int>();
 
     // Scelte single-use già usate, identificate da string ID (custom o generato)
-    // Esempio ID auto-generato: "nodeIndex_choiceIndex"
     private HashSet<string> usedSingleUseChoices = new HashSet<string>();
 
     private CursorLockMode prevLockState;
@@ -134,7 +133,6 @@ public class DialogueUI : MonoBehaviour
             dialogueRoot.SetActive(false);
         }
 
-        // Se non li hai assegnati a mano nell'Inspector, prova a recuperarli
         if (playerController == null)
             playerController = FindFirstObjectByType<FirstPersonController>();
 
@@ -278,12 +276,10 @@ public class DialogueUI : MonoBehaviour
         // salva callback
         onDialogueFinished = onFinished;
 
-        // (IMPORTANTE) qui il nome del bool deve combaciare col tuo Animator!
-        // Tu stai usando "IsTalking"
+
         if (npcAnimator != null)
         {
             npcAnimator.SetBool("Talking", true);
-            //npcAnimator.SetBool("Left", false); // default, poi lo setti da NPCInteractable se vuoi
         }
 
         currentConversation = conversation;
@@ -530,7 +526,6 @@ public class DialogueUI : MonoBehaviour
 
         DialogueChoice choice = node.choices[choiceIndex];
 
-        // EVENTO: lancialo appena clicchi la scelta
         if (choice.triggerEvent)
         {
             if (choice.eventChannel != null && !string.IsNullOrWhiteSpace(choice.eventId))
@@ -667,7 +662,5 @@ public class DialogueUI : MonoBehaviour
         ApplyDialogueInputState(false);
 
 
-        // Qui potresti anche lanciare un evento per notificare altri sistemi:
-        // es. sbloccare movimento player, ecc.
     }
 }

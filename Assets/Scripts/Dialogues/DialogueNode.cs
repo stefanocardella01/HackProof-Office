@@ -14,12 +14,10 @@ public class DialogueNode
     public DialogueChoice[] choices;
 
 #if UNITY_EDITOR
-    // opzionale: ti avvisa se non sono allineati
     public void Validate()
     {
         if (lines == null) lines = new string[0];
         if (lineVoiceOvers == null) lineVoiceOvers = new AudioClip[0];
-        // non forzo resize automatico (a volte vuoi meno clip), ma potresti farlo
     }
 #endif
 }

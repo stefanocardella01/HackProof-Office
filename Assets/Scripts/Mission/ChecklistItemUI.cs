@@ -2,16 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Componente UI per una singola riga della checklist.
-/// Gestisce l'aspetto visivo di un obiettivo: icona, testo, contatore, strikethrough.
-/// Va assegnato al prefab ChecklistItem.
-/// 
-/// STRUTTURA PREFAB CONSIGLIATA:
-///   ChecklistItem (HorizontalLayoutGroup)
-///     ├── CheckIcon (Image) — icona ☐/☑
-///     └── ObjectiveText (TextMeshProUGUI) — testo dell'obiettivo
-/// </summary>
+
 public class ChecklistItemUI : MonoBehaviour
 {
     [Header("Riferimenti UI")]
@@ -19,13 +10,13 @@ public class ChecklistItemUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI objectiveText;
 
     [Header("Icone")]
-    [SerializeField] private Sprite uncheckedIcon;   // ☐
-    [SerializeField] private Sprite checkedIcon;     // ☑
+    [SerializeField] private Sprite uncheckedIcon;   
+    [SerializeField] private Sprite checkedIcon;     
 
     [Header("Colori")]
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color completedColor = new Color(0.5f, 0.5f, 0.5f, 0.7f);
-    [SerializeField] private Color counterColor = new Color(1f, 0.85f, 0.4f, 1f); // giallino per contatori attivi
+    [SerializeField] private Color counterColor = new Color(1f, 0.85f, 0.4f, 1f); 
 
     [Header("Strikethrough")]
     [SerializeField] private bool useStrikethrough = true;

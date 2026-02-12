@@ -18,7 +18,6 @@ public class DoorOpener : MonoBehaviour, IInteractable
     [SerializeField] private bool autoOpen = true;
     [SerializeField] private bool autoClose = true;
 
-    // Tiene traccia SOLO degli attori unici (Player / NPC)
     private HashSet<Transform> actorsInside = new HashSet<Transform>();
 
     private void Awake()
@@ -35,7 +34,6 @@ public class DoorOpener : MonoBehaviour, IInteractable
         var item = inventory.GetSelectedItem();
         if (item == null) return false;
 
-        // scegli una delle due righe a seconda di come definisci InventoryItem
         if(item.id == "badgePersonale")
         {
             return true;
@@ -101,7 +99,7 @@ public class DoorOpener : MonoBehaviour, IInteractable
         actorsInside.Remove(root);
 
 
-        // Se nessun attore è rimasto dentro → chiudi
+        // Se nessun attore è rimasto dentro chiudi
         if (actorsInside.Count == 0 && door.IsOpen)
             door.CloseDoor();
     }

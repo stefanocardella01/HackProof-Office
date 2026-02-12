@@ -12,7 +12,7 @@ public class MissionDebugShortcuts : MonoBehaviour
             var mm = MissionManager.Instance;
             if (mm == null) { Debug.LogWarning("[MissionDebug] MissionManager.Instance null"); return; }
 
-            mm.DebugCompleteCurrentMission(); // metodo che aggiungiamo sotto
+            mm.DebugCompleteCurrentMission(); // 
         }
     }
 }

@@ -11,8 +11,7 @@ public class ReportRowUI : MonoBehaviour
     public TextMeshProUGUI explanationText;
 
     [Header("Sfondo riga")]
-    public Image rowBackground;  // <-- AGGIUNGI QUESTO
-
+    public Image rowBackground; 
     public Color okColor = new Color(0.65f, 0.85f, 0.65f, 0.85f);   // verde tenue
     public Color badColor = new Color(0.90f, 0.65f, 0.65f, 0.85f);   // rosso tenue
 
@@ -23,6 +22,6 @@ public class ReportRowUI : MonoBehaviour
 
 
         if (rowBackground != null)
-            rowBackground.color = ok ? okColor : badColor;   // <-- QUESTA È LA MODIFICA
+            rowBackground.color = ok ? okColor : badColor;   
     }
 }

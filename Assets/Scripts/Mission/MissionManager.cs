@@ -65,7 +65,6 @@ public class MissionManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // 🔎 DEBUG — verifica se le missioni esistono davvero in build
         Debug.Log($"[MissionManager] Awake -> missions.Count = {missions.Count}");
 
         if (missions.Count > 0)

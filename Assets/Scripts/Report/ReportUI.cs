@@ -65,7 +65,6 @@ public class ReportUI : MonoBehaviour
             starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
     }
 
-    // ✅ CHIAMA QUESTO alla fine di una missione (passandogli l’index della missione completata)
     public void OpenReport(int missionIndex)
     {
 
@@ -293,7 +292,6 @@ public class ReportUI : MonoBehaviour
        
     }
 
-    // ✅ Micro-report (es. feedback dopo ogni email)
     public void OpenSingleFeedback(string title, string label, bool ok, string explanation, System.Action onClosed)
     {
         if (reportRoot == null) return;

@@ -168,7 +168,6 @@ public class MissionFlowController : MonoBehaviour
 
 
 
-            // opzionale: rendi visibile "consegna" appena finisce dialogo
             // mm.RevealObjective(obj_m2_deliver_items);
         }
         
@@ -396,8 +395,7 @@ public class MissionFlowController : MonoBehaviour
         if (m3InspectServerDone && m3InspectRelaxDone)
         {
             receptionist1.SetEnabled(true);
-            // se vuoi anche cambiare conversazione qui, fallo qui
-            // receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
+ 
         }
     }
 
@@ -408,8 +406,6 @@ public class MissionFlowController : MonoBehaviour
             receptionist1.SetEnabled(true);
             receptionist1.SetConversation(convReceptionistPostIspezioni2, completeObjectiveOnEnd: "", disableAfter: false);
 
-            // se vuoi anche cambiare conversazione qui, fallo qui
-            // receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
         }
     }
 

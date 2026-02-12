@@ -24,7 +24,6 @@ public class NpcPatrolBrain : MonoBehaviour
 
         if (_animator != null)
         {
-            // spegni parametri di locomotion/altro
             _animator.SetBool("Walking", false);
             _animator.SetFloat("Speed", 0f);
             _animator.SetBool("Looking", false);
@@ -56,7 +55,6 @@ public class NpcPatrolBrain : MonoBehaviour
         var lookBehindState = new LookingBehindState("LookingBehind", _animator, _movement);
         var inspectingState = new InspectingState("Inspecting", _animator, _movement, _inspectDuration);
 
-        // --- LOGICA TRANSIZIONI ---
 
         // Idle -> Walking (dopo il caricamento/attesa iniziale)
         _fsm.AddTransition(idleState, moveState, () => Time.timeSinceLevelLoad > _initialIdleWait);
@@ -77,11 +75,9 @@ public class NpcPatrolBrain : MonoBehaviour
     {
         if (this == null || _fsm == null) return;
 
-        if (_isTalking) return;   // <-- IMPORTANTISSIMO: non far andare la patrol mentre parla
+        if (_isTalking) return;  
 
 
-        // Gestione Speed/Walking costante durante il movimento
-        // come richiesto per replicare il comportamento di NpcBrain
         UpdateAnimationParameters();
 
         _fsm.Tik();
@@ -93,11 +89,9 @@ public class NpcPatrolBrain : MonoBehaviour
 
         if (_isTalking) return;
 
-        // Se siamo nello stato "Walking", lasciamo che i parametri riflettano il movimento
-        // Altrimenti (Idle, Looking, Inspecting) forziamo a zero
+
         if (_fsm.CurrentStateName == "Walking")
         {
-            // Reclutiamo la logica di calcolo velocità dall'agente
             var agent = _movement.GetComponent<UnityEngine.AI.NavMeshAgent>();
             if (agent != null)
             {
@@ -118,7 +112,7 @@ public class LookingBehindState : State
     private NpcMovement _movement;
     private bool _isDone;
     private float _timer;
-    private const float ANIM_DURATION = 2.5f; // Durata stimata della clip LookBehind
+    private const float ANIM_DURATION = 2.5f; 
 
     public LookingBehindState(string name, Animator animator, NpcMovement movement) : base(name)
     {
@@ -128,7 +122,7 @@ public class LookingBehindState : State
 
     public override void Enter()
     {
-        _movement.StopMovement(); // Forza lo stop e resetta i parametri walking nell'animator
+        _movement.StopMovement(); 
         _isDone = false;
         _timer = 0f;
 
@@ -168,8 +162,7 @@ public class InspectingState : State
     public override void Enter()
     {
         _timer = 0f;
-        // In questo stato l'animator è in Idle (Walking=false, Looking=false)
-        // come da transizioni del tuo schema.
+
     }
 
     public override void Tik() => _timer += Time.deltaTime;
@@ -178,7 +171,6 @@ public class InspectingState : State
 
     public override void Exit()
     {
-        // Prepariamo il prossimo obiettivo prima di uscire
         if (_movement != null)
             _movement.GoToNextWaypoint();
     }

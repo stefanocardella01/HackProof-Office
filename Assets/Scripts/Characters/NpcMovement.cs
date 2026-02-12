@@ -71,7 +71,6 @@ public class NpcMovement : MonoBehaviour
         int count = _targets.Count;
         int start = (fromIndex + 1) % count;
 
-        // sicurezza: massimo N tentativi, così non loopi infinito
         for (int i = 0; i < count; i++)
         {
             int idx = (start + i) % count;
@@ -79,7 +78,6 @@ public class NpcMovement : MonoBehaviour
                 return idx;
         }
 
-        // Se sono tutti "bloccati", resta dove sei (fallback)
         return fromIndex;
     }
 
@@ -90,16 +88,12 @@ public class NpcMovement : MonoBehaviour
         GameObject t = _targets[idx];
         if (t == null) return false;
 
-        // Se non c'è MissionManager, non bloccare nulla
         var mm = MissionManager.Instance;
         if (mm == null || !mm.IsMissionActive) return true;
 
-        // Se il waypoint non ha gate, è sempre ok
         var gate = t.GetComponent<WaypointMissionGate>();
         if (gate == null) return true;
 
-        // Regola richiesta:
-        // "Se il prossimo target appartiene alla missione corrente, passa al successivo."
         return gate.missionIndexOwner != mm.CurrentMissionIndex;
     }
 
