@@ -13,6 +13,7 @@ public class MissionFlowController : MonoBehaviour
     [SerializeField] private NPCInteractable paoloNpc;                   // npc missione 2
     [SerializeField] private NPCInteractable intrusoNpc;                 // npc missione 3 (se serve)
     [SerializeField] private NPCInteractable giulioNpc;                  // npc missione 4
+    [SerializeField] private GameObject intrusoNpcRoot; // trascina qui il GO del personaggio
 
     [Header("Refs - Conversations (optional, if you enable/disable GO)")]
     [SerializeField] private GameObject conversazioneReceptionist1GO;
@@ -43,6 +44,7 @@ public class MissionFlowController : MonoBehaviour
     [SerializeField] private string obj_m2_deliver_items = "m2_deliver_items";
 
     [SerializeField] private string obj_m3_talk_receptionist = "m3_talk_receptionist";
+    [SerializeField] private string obj_m3_inspect_server = "m3_inspect_server";
     [SerializeField] private string obj_m3_deliver_items = "m3_deliver_items";
 
     [SerializeField] private string obj_m4_talk_giulio = "m4_go_to_giulio";
@@ -106,7 +108,7 @@ public class MissionFlowController : MonoBehaviour
         Debug.Log($"[MissionFlow] compare to obj_m2_talk_paolo='{obj_m2_talk_paolo}' -> {(id == obj_m2_talk_paolo)}");
         Debug.Log($"[MissionFlow] lengths: id={id.Length} obj={obj_m2_talk_paolo.Length}");
 
-
+        Debug.Log($"[MissionFlow] ObjectiveCompleted id='{id}' | expect='{obj_m4_talk_giulio}' | equal={(id == obj_m4_talk_giulio)}");
         // ── Missione 1 ─────────────────────────
         if (id == obj_m1_talk_receptionist)
         {
@@ -125,18 +127,18 @@ public class MissionFlowController : MonoBehaviour
         }
         else if (id == obj_m1_login_done)
         {
-            // fine login: disabilita pc login e avvia missione 2
-            SetPcLoginEnabled(false);
+            //// fine login: disabilita pc login e avvia missione 2
+            //SetPcLoginEnabled(false);
 
-            // abilita paolo + fx
-            SetNpcEnabled(paoloNpc, true);
-            SetFx(fxPaoloDesk, true);
+            //// abilita paolo + fx
+            //SetNpcEnabled(paoloNpc, true);
+            //SetFx(fxPaoloDesk, true);
 
-            SetActiveGO(conversazioneReceptionPostIspezioniGO, true);
+            //SetActiveGO(conversazioneReceptionPostIspezioniGO, true);
 
-            // se preferisci: mm.StartNextMission() SOLO quando si chiude il report
-            // qui la versione semplice: start subito
-            mm.StartNextMission();
+            //// se preferisci: mm.StartNextMission() SOLO quando si chiude il report
+            //// qui la versione semplice: start subito
+            //mm.StartNextMission();
         }
 
         // ── Missione 2 ─────────────────────────
@@ -176,6 +178,13 @@ public class MissionFlowController : MonoBehaviour
             receptionist1.SetEnabled(true);
             receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
 
+        }
+        else if (id == obj_m3_inspect_server)
+        {
+            if (intrusoNpcRoot != null)
+                intrusoNpcRoot.SetActive(false);
+            else
+                SetNpcEnabled(intrusoNpc, false); // fallback
         }
         else if (id == obj_m3_deliver_items)
         {
@@ -253,6 +262,7 @@ public class MissionFlowController : MonoBehaviour
     {
         Debug.Log("[MissionFlow] SetupMission3Start");
 
+        SetObjectsActive(mission2Objects, false); // li accendiamo dopo dialogo paolo
         SetObjectsActive(mission3Objects, false);
         SetActiveGO(conversazioneReception2GO, true);
         // gli npc/effetti specifici li accendi quando completi obiettivo dialogo receptionist
@@ -265,7 +275,7 @@ public class MissionFlowController : MonoBehaviour
     private void SetupMission4Start()
     {
         Debug.Log("[MissionFlow] SetupMission4Start");
-
+        SetObjectsActive(mission3Objects, false);
         SetPcEmailEnabled(false);
         SetNpcEnabled(giulioNpc, true);
         SetFx(fxGiulio, true);

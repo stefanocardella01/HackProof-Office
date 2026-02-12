@@ -346,4 +346,34 @@ public class MissionManager : MonoBehaviour
     }
 
     #endregion
+
+    public void DebugCompleteCurrentMission()
+    {
+        if (!missionActive || currentObjectives == null || currentObjectives.Count == 0)
+        {
+            Debug.LogWarning("[MissionManager] DebugCompleteCurrentMission: nessuna missione attiva.");
+            return;
+        }
+
+        Debug.Log($"[MissionManager] DEBUG: completo tutti gli obiettivi della missione {currentMissionIndex + 1}");
+
+        // 1) rendi visibili tutti (così CompleteObjective non fallisce per IsVisible)
+        foreach (var o in currentObjectives)
+        {
+            if (o == null) continue;
+            if (!o.IsVisible) o.Reveal(); // scatena OnStateChanged -> OnObjectiveUpdated
+            OnObjectiveRevealed?.Invoke(o); // assicura UI aggiornata anche se qualcuno non ascolta Update
+        }
+
+        // 2) completa tutto (anche quelli con counter)
+        foreach (var o in currentObjectives)
+        {
+            if (o == null) continue;
+            if (!o.IsCompleted) o.Complete(); // scatena OnStateChanged -> Completed + unlock + mission complete
+        }
+
+        StartNextMission();
+
+        // Nota: CheckMissionCompletion viene chiamato dentro HandleObjectiveStateChanged
+    }
 }

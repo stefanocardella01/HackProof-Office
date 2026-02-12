@@ -2375,6 +2375,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6686376112335971094, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
   m_PrefabInstance: {fileID: 562335363}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &562335367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2525608947504829243, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 562335363}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bed222c18fcfb140bb0cd64dc23c30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmailComputerInteractable
 --- !u!1 &565535461
 GameObject:
   m_ObjectHideFlags: 0
@@ -8846,6 +8857,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5872353701744318839, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1790515513}
+    - targetCorrespondingSourceObject: {fileID: 5872353701744318839, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1790515517}
   m_SourcePrefab: {fileID: 100100000, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
 --- !u!1 &1790515512 stripped
 GameObject:
@@ -8866,12 +8880,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionFlowController
   smartphoneRoot: {fileID: 2123629139}
   pcLogin: {fileID: 949276427}
-  pcEmail: {fileID: 0}
+  pcEmail: {fileID: 562335367}
   badgePickupRoot: {fileID: 597214382}
   receptionist1: {fileID: 57106514}
   paoloNpc: {fileID: 1060081682}
   intrusoNpc: {fileID: 2065112317}
   giulioNpc: {fileID: 1944084476}
+  intrusoNpcRoot: {fileID: 2065112310}
   conversazioneReceptionist1GO: {fileID: 0}
   conversazioneReceptionPostIspezioniGO: {fileID: 0}
   conversazioneReception2GO: {fileID: 0}
@@ -8892,13 +8907,27 @@ MonoBehaviour:
   fxGiulio: {fileID: 1811997166}
   obj_m1_talk_receptionist: m1_talk_receptionist
   obj_m1_go_desk: m1_go_to_desk
-  obj_m1_login_done: m1_login_done
+  obj_m1_login_done: m1_login
   obj_m2_talk_paolo: m2_go_to_paolo
   obj_m2_deliver_items: m2_deliver_items
   obj_m3_talk_receptionist: m3_talk_receptionist
+  obj_m3_inspect_server: m3_inspect_server
   obj_m3_deliver_items: m3_deliver_items
-  obj_m4_talk_giulio: m4_talk_giulio
-  obj_m4_check_emails: m4_check_emails
+  obj_m4_talk_giulio: m4_go_to_giulio
+  obj_m4_check_emails: m4_check_email
+--- !u!114 &1790515517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790515512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7585a669ff39c84193cf5797b9ec61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionDebugShortcuts
+  completeCurrentMissionKey: 285
 --- !u!224 &1802913275 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5600804992540517781, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
