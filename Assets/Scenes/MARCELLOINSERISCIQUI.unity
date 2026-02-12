@@ -915,6 +915,7 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m1_talk_receptionist
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  mixer: {fileID: 0}
 --- !u!1001 &60852483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10852,6 +10853,7 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m2_go_to_paolo
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  mixer: {fileID: 0}
 --- !u!1001 &1064242364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18783,6 +18785,7 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m4_go_to_giulio
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  mixer: {fileID: 0}
 --- !u!1 &1947955320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9149944837154861801, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
@@ -19786,6 +19789,7 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: 
   disableAfterDialogue: 0
   disableCollidersWhenDisabled: 1
+  mixer: {fileID: 0}
 --- !u!1001 &2068575445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20589,6 +20593,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: ad8ec8e084bccfa45b0ba5d39a713bd9, type: 2}
     - target: {fileID: 2867763049640306464, guid: 0511dfdf027884946aa260d94b40516d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad8ec8e084bccfa45b0ba5d39a713bd9, type: 2}
+    - target: {fileID: 3514185864796226738, guid: 0511dfdf027884946aa260d94b40516d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ad8ec8e084bccfa45b0ba5d39a713bd9, type: 2}
