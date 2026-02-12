@@ -42,6 +42,10 @@ public class MissionFlowController : MonoBehaviour
     [SerializeField] private string obj_m1_login_done = "m1_login_done";
 
     [SerializeField] private string obj_m2_talk_paolo = "m2_go_to_paolo";
+    [SerializeField] private string obj_m2_inspect_postit = "m2_inspect_postit";
+    [SerializeField] private string obj_m2_inspect_headphones = "m2_inspect_headphones";
+    [SerializeField] private string obj_m2_inspect_usb = "m2_inspect_usb";
+
     [SerializeField] private string obj_m2_deliver_items = "m2_deliver_items";
 
     [SerializeField] private string obj_m3_talk_receptionist = "m3_talk_receptionist";
@@ -56,6 +60,10 @@ public class MissionFlowController : MonoBehaviour
 
     private bool m3InspectServerDone = false;
     private bool m3InspectRelaxDone = false;
+
+    private bool m2Inspectpostit = false;
+    private bool m2Inspectheadphones = false;
+    private bool m2Inspectusb = false;
 
     private void Awake()
     {
@@ -155,12 +163,34 @@ public class MissionFlowController : MonoBehaviour
             Debug.Log("Se mi leggi dovrei attivare gli oggetti");
             SetObjectsActive(mission2Objects, true);
 
-            receptionist1.SetEnabled(true);
-            receptionist1.SetConversation(convReceptionistPostIspezioni2, completeObjectiveOnEnd: "", disableAfter: false);
+            
+
+
 
 
             // opzionale: rendi visibile "consegna" appena finisce dialogo
             // mm.RevealObjective(obj_m2_deliver_items);
+        }
+        
+        else if(id == obj_m2_inspect_postit)
+        {
+            //receptionist1.SetEnabled(true);
+            m2Inspectpostit = true;
+            TryEnableReceptionistAfterM2Inspections();
+        }
+        else if (id == obj_m2_inspect_headphones)
+        {
+            //receptionist1.SetEnabled(true);
+            m2Inspectheadphones = true;
+            TryEnableReceptionistAfterM2Inspections();
+
+        }
+        else if (id == obj_m2_inspect_usb)
+        {
+            //receptionist1.SetEnabled(true);
+            m2Inspectusb = true;
+            TryEnableReceptionistAfterM2Inspections();
+
         }
         else if (id == obj_m2_deliver_items)
         {
@@ -280,6 +310,8 @@ public class MissionFlowController : MonoBehaviour
         SetObjectsActive(mission2Objects, false); // li accendiamo dopo dialogo paolo
         SetActiveGO(conversazioneReceptionPostIspezioniGO, true);
 
+        receptionist1.SetEnabled(false);
+
         SmartphoneManager.Instance.ReceiveMessage("Paolo Corti", "Ciao, puoi venire alla mia postazione? Ho bisogno del tuo aiuto con degli oggetti!");
     }
 
@@ -364,6 +396,18 @@ public class MissionFlowController : MonoBehaviour
         if (m3InspectServerDone && m3InspectRelaxDone)
         {
             receptionist1.SetEnabled(true);
+            // se vuoi anche cambiare conversazione qui, fallo qui
+            // receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
+        }
+    }
+
+    private void TryEnableReceptionistAfterM2Inspections()
+    {
+        if (m2Inspectpostit && m2Inspectheadphones && m2Inspectusb)
+        {
+            receptionist1.SetEnabled(true);
+            receptionist1.SetConversation(convReceptionistPostIspezioni2, completeObjectiveOnEnd: "", disableAfter: false);
+
             // se vuoi anche cambiare conversazione qui, fallo qui
             // receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
         }
