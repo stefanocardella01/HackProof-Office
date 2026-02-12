@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f06b0c30c7c81514d962c344585efd44
+guid: 2b25519f5433dc14e9bff0b5b6361eb4
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,18 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Acciaio_nero
-    second: {fileID: 2100000, guid: bf2fb400605134d4fa53d847c919827e, type: 2}
+      name: Luci
+    second: {fileID: 2100000, guid: 808c6f0768285c347b980b107dcff2b3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Acciaio_nero.001
+      name: Nero
     second: {fileID: 2100000, guid: bf2fb400605134d4fa53d847c919827e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: LUCI
-    second: {fileID: 2100000, guid: b77d5ddb9f2461c4c8f5314971442a5a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -87,7 +82,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
