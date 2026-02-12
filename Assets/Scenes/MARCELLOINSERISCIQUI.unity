@@ -25528,7 +25528,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -25538,7 +25538,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9a0ce2eb9bd55554f82b335167d74dd6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a908e40e46d81ac40b008abf08b7c569, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &2060616767
 MeshCollider:
