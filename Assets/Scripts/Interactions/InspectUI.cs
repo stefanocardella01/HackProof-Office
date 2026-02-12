@@ -36,6 +36,9 @@ public class InspectUI : MonoBehaviour
     public float minZoomDistance = 0.5f;
     public float maxZoomDistance = 3f;
 
+    // Audio
+    [SerializeField] private ManagerAudio mixer;
+
     public bool IsOpen;
 
     private InspectableObject currentObject;
@@ -110,6 +113,8 @@ public class InspectUI : MonoBehaviour
             starterInputs.look = Vector2.zero;
         }
 
+        mixer.SetDialog();
+
         SpawnModel(obj.inspectPrefab);
 
         gameObject.SetActive(true);
@@ -156,6 +161,8 @@ public class InspectUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        mixer.SetDialog();
 
         SpawnModel(item.inspectPrefab);
 
@@ -366,6 +373,8 @@ public class InspectUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        mixer.SetNormal();
 
         IsOpen = false;
         openedFromInventory = false;

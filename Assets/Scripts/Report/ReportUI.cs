@@ -36,6 +36,9 @@ public class ReportUI : MonoBehaviour
     [SerializeField] private GameObject smartphoneRoot;
     [SerializeField] private GameObject missionChecklistRoot;
 
+    // Audio
+    [SerializeField] private ManagerAudio mixer;
+
     private bool isOpen;
 
     public bool IsOpen => isOpen;
@@ -77,6 +80,8 @@ public class ReportUI : MonoBehaviour
         //Nascondi mission check list
         if(hudMissionCheckList != null)
             hudMissionCheckList.SetActive(false);
+
+        mixer.SetDialog();
 
 
         _isMissionReport = true;
@@ -147,6 +152,9 @@ public class ReportUI : MonoBehaviour
             cb?.Invoke();
             return;
         }
+
+        mixer.SetNormal();
+
 
         // Report fine missione: torna al gameplay normale
         Cursor.lockState = CursorLockMode.Locked;
@@ -322,6 +330,9 @@ public class ReportUI : MonoBehaviour
         if (hudMissionCheckList != null)
             hudMissionCheckList.SetActive(false);
 
+        mixer.SetDialog();
+
+
         BuildOne(title, label, ok, explanation);
     }
 
@@ -371,6 +382,9 @@ public class ReportUI : MonoBehaviour
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
         }
+
+        mixer.SetDialog();
+
 
         // Nascondi l'HUD (E + inventario + crosshair)
         if (hudCanvas != null)

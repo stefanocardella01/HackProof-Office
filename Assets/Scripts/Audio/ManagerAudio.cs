@@ -10,15 +10,23 @@ public class ManagerAudio : MonoBehaviour
     [SerializeField] private AudioMixer _mainMixer;
 
     private AudioMixerSnapshot _soundtrack;
-    private AudioMixerSnapshot _environment;
     private AudioMixerSnapshot _dialog;
 
 
-    void Start()
+    private void Awake()
     {
+        if (_mainMixer == null)
+        {
+            Debug.LogError("[ManagerAudio] MainMixer non assegnato!");
+            return;
+        }
+
         _soundtrack = _mainMixer.FindSnapshot("Normal");
         _dialog = _mainMixer.FindSnapshot("Dialog");
-}
+
+        if (_soundtrack == null) Debug.LogError("[ManagerAudio] Snapshot Normal non trovato!");
+        if (_dialog == null) Debug.LogError("[ManagerAudio] Snapshot Dialog non trovato!");
+    }
 
     public void SetDialog()
     {   
