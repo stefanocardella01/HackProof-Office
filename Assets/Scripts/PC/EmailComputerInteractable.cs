@@ -39,7 +39,7 @@ public class EmailComputerInteractable : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         if (!isEnabled)
-            return disabledText;
+            return "";
 
         return interactionText;
     }
@@ -72,6 +72,11 @@ public class EmailComputerInteractable : MonoBehaviour, IInteractable
     {
         isEnabled = enabled;
         Debug.Log($"[EmailComputerInteractable] Interazione {(enabled ? "abilitata" : "disabilitata")}");
+
+        if (!enabled)
+        {
+            this.enabled = false;
+        }
     }
 
     /// <summary>
