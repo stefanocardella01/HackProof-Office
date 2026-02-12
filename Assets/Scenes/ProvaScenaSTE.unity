@@ -600,6 +600,9 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m1_talk_receptionist
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  rotateTowardsPlayerBeforeTalking: 1
+  faceDuration: 0.4
+  faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
 --- !u!1 &122809719 stripped
 GameObject:
@@ -6357,6 +6360,9 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m2_go_to_paolo
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  rotateTowardsPlayerBeforeTalking: 0
+  faceDuration: 0.15
+  faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
 --- !u!1 &1064522940
 GameObject:
@@ -10685,6 +10691,9 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: m4_go_to_giulio
   disableAfterDialogue: 1
   disableCollidersWhenDisabled: 1
+  rotateTowardsPlayerBeforeTalking: 0
+  faceDuration: 0.15
+  faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
 --- !u!1 &1947955320 stripped
 GameObject:
@@ -11414,6 +11423,9 @@ MonoBehaviour:
   completeObjectiveIdOnDialogueEnd: 
   disableAfterDialogue: 0
   disableCollidersWhenDisabled: 1
+  rotateTowardsPlayerBeforeTalking: 1
+  faceDuration: 0.4
+  faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
 --- !u!1 &2091555006 stripped
 GameObject:

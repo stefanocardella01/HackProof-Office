@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -18,6 +19,12 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     [Tooltip("Se true, quando disabilitato spegne i collider (niente raycast).")]
     [SerializeField] private bool disableCollidersWhenDisabled = true;
+
+    [Header("Optional Facing")]
+    [SerializeField] private bool rotateTowardsPlayerBeforeTalking = false;
+    [SerializeField] private float faceDuration = 0.15f;
+    [SerializeField] private float faceTurnSpeed = 12f;
+
 
 
     private SeatedCharacter seated;
@@ -69,10 +76,18 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             dialogueUI = FindFirstObjectByType<DialogueUI>();
         if (dialogueUI == null) return;
 
+        if (rotateTowardsPlayerBeforeTalking)
+            StartCoroutine(InteractFaceThenTalk(interactor));
+        else
+            StartConversationNow(interactor);
+    }
+
+    private void StartConversationNow(PlayerInteractor interactor)
+    {
         bool lookLeft = IsPlayerOnLeft(interactor.transform);
 
-        //Audio 
-        mixer.SetDialog();
+        // Audio
+        if (mixer != null) mixer.SetDialog();
 
         // Attiva talking + direzione
         if (seated != null)
@@ -90,7 +105,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             if (seated != null)
                 seated.SetTalking(false, false);
 
-            if (patrolBrain != null) patrolBrain.StopTalking();
+            if (patrolBrain != null)
+                patrolBrain.StopTalking();
 
             var mm = MissionManager.Instance;
 
@@ -103,9 +119,37 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             // Disabilita interazione dopo dialogo (opzionale)
             if (disableAfterDialogue)
                 SetEnabled(false);
-            mixer.SetNormal();
+
+            if (mixer != null) mixer.SetNormal();
         });
-        
+    }
+
+    private IEnumerator InteractFaceThenTalk(PlayerInteractor interactor)
+    {
+        // fermalo subito così non “lotta” con la rotazione di movimento
+        if (movement != null) movement.StopMovement();
+
+        float t = 0f;
+        while (t < faceDuration)
+        {
+            Vector3 dir = interactor.transform.position - npcTransform.position;
+            dir.y = 0f;
+
+            if (dir.sqrMagnitude > 0.0001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(dir.normalized);
+                npcTransform.rotation = Quaternion.Slerp(
+                    npcTransform.rotation,
+                    targetRot,
+                    Time.deltaTime * faceTurnSpeed
+                );
+            }
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        StartConversationNow(interactor);
     }
 
     public void SetEnabled(bool enabled)
