@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Audio;
 
 public class ManagerAudio : MonoBehaviour
@@ -12,8 +16,7 @@ public class ManagerAudio : MonoBehaviour
 
     void Start()
     {
-        _soundtrack = _mainMixer.FindSnapshot("Soundtrack");
-        _environment = _mainMixer.FindSnapshot("Enviroment");
+        _soundtrack = _mainMixer.FindSnapshot("Normal");
         _dialog = _mainMixer.FindSnapshot("Dialog");
 }
 
@@ -21,5 +24,15 @@ public class ManagerAudio : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetDialog()
+    {
+        _dialog.TransitionTo(4f);
+    }
+
+    public void SetNormal()
+    {
+        _soundtrack.TransitionTo(4f);
     }
 }
