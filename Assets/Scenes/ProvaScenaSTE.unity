@@ -5199,6 +5199,14 @@ PrefabInstance:
       propertyPath: missionCheckList
       value: 
       objectReference: {fileID: 122809719}
+    - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: correctPassword
+      value: '@john.doe'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: correctUsername
+      value: '@john.doe'
+      objectReference: {fileID: 0}
     - target: {fileID: 3670611494424927146, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: m_Name
       value: PcMission1
