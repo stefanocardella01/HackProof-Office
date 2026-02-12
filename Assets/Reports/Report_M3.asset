@@ -16,6 +16,7 @@ MonoBehaviour:
   entries:
   - label: Badge del tecnico
     check: 5
+    expectedValue: 1
     okText: "Il badge identificativo del tecnico \xE8 stato correttamente individuato
       come oggetto sospetto e segnalato. Lasciare dispositivi di accesso fisico incustoditi
       in aree sensibili rappresenta una grave violazione delle procedure di sicurezza
@@ -25,6 +26,7 @@ MonoBehaviour:
       esponendo l\u2019azienda a seri rischi di intrusione fisica nelle aree protette."
   - label: Manuale tecnico
     check: 6
+    expectedValue: 0
     okText: "Il manuale tecnico \xE8 stato correttamente riconosciuto come materiale
       informativo non pericoloso. La presenza di documentazione tecnica in un ambiente
       di lavoro non costituisce una minaccia per la sicurezza fisica."
@@ -33,6 +35,7 @@ MonoBehaviour:
       rappresentano un reale rischio per la sicurezza."
   - label: Cacciavite
     check: 7
+    expectedValue: 0
     okText: "Il cacciavite \xE8 stato correttamente identificato come strumento di
       lavoro non pericoloso. Gli utensili utilizzati dal personale tecnico non rappresentano
       una minaccia per la sicurezza dell\u2019ambiente."
@@ -41,6 +44,7 @@ MonoBehaviour:
       realmente compromettere la sicurezza."
   - label: "Allontanamento dell\u2019intruso dalla sala server"
     check: 8
+    expectedValue: 1
     okText: "La persona non autorizzata presente nella sala server \xE8 stata correttamente
       identificata e invitata ad allontanarsi. Il controllo degli accessi fisici
       alle aree sensibili \xE8 fondamentale per garantire la sicurezza delle infrastrutture

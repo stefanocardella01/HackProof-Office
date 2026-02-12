@@ -16,6 +16,7 @@ MonoBehaviour:
   entries:
   - label: Post-it con password consegnato
     check: 2
+    expectedValue: 1
     okText: "Il post-it contenente credenziali di accesso \xE8 stato correttamente
       identificato e consegnato. Annotare password in chiaro su supporti visibili
       costituisce una grave vulnerabilit\xE0 di sicurezza fisica, poich\xE9 consente
@@ -30,6 +31,7 @@ MonoBehaviour:
       protezione fisica delle informazioni sensibili viene trascurata."
   - label: Cuffie personali
     check: 4
+    expectedValue: 0
     okText: "Le cuffie personali non sono state segnalate come minaccia. L\u2019utilizzo
       di dispositivi audio privi di memoria interna e non collegabili come unit\xE0
       di archiviazione non rappresenta una vulnerabilit\xE0 diretta per la sicurezza
@@ -44,6 +46,7 @@ MonoBehaviour:
       verso minacce effettive."
   - label: Chiavetta USB trovata nel parcheggio consegnata
     check: 3
+    expectedValue: 1
     okText: "La chiavetta USB trovata all\u2019esterno dell\u2019azienda \xE8 stata
       correttamente segnalata e non utilizzata. I dispositivi di archiviazione rimovibili
       sconosciuti rappresentano uno dei vettori pi\xF9 comuni per la diffusione di

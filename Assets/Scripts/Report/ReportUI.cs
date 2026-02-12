@@ -216,7 +216,8 @@ public class ReportUI : MonoBehaviour
         // righe
         foreach (var entry in mission.entries)
         {
-            bool ok = MissionTracker.Instance.Get(entry.check);
+            bool value = MissionTracker.Instance.Get(entry.check);
+            bool ok = (value == entry.expectedValue);
 
             // prima assegni explanation "base"
             string explanation = ok ? entry.okText : entry.badText;
