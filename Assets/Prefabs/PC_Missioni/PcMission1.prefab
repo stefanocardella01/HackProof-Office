@@ -3321,9 +3321,9 @@ MonoBehaviour:
   loginButton: {fileID: 3412391356713927760}
   feedbackText: {fileID: 1467009113882790371}
   loadingIndicator: {fileID: 638681935373964749}
-  correctUsername: 1
-  correctPassword: 1
-  loginDelay: 1.5
+  correctUsername: '@jhon.doe'
+  correctPassword: '@jhon.doe'
+  loginDelay: 1
   welcomeMessage: Benvenuto! Effettua il login per accedere.
   errorMessage: Username o password non corretti.
   emptyFieldsMessage: Inserisci username e password.
@@ -3900,11 +3900,13 @@ MonoBehaviour:
   desktopScreenObject: {fileID: 5756382297032609012}
   pcCanvas: {fileID: 2013351898278589240}
   screenContainer: {fileID: 5756382297032609012}
+  reportUI: {fileID: 0}
   cameraController: {fileID: 0}
   computerInteractable: {fileID: 0}
   requireLogin: 1
   requirePasswordChange: 1
   require2FA: 1
+  loginObjectiveId: m1_login
   OnLoginCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -9234,7 +9236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7ad5949f6352d144bafb541f529503f, type: 3}
       propertyPath: m_Name
-      value: PcMission1 1
+      value: PcMission1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7ad5949f6352d144bafb541f529503f, type: 3}
       propertyPath: m_Layer

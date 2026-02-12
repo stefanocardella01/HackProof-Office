@@ -28,17 +28,7 @@ public class SmartphoneTester : MonoBehaviour
     {
         if (manager == null) return;
 
-        // Premi M per inviare un messaggio di test
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            SendTestMessage();
-        }
 
-        // Premi N per inviare un messaggio predefinito random
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            SendRandomPredefinedMessage();
-        }
     }
 
     /// <summary>
