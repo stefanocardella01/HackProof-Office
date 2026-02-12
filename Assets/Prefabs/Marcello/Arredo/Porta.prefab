@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cc0f8c3d8424043a2e836e87c98baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  _doorBody: {fileID: 0}
+  _doorBody: {fileID: 3311888881911352681}
   _openingTime: 1
   _closingTime: 0.5
 --- !u!114 &1176725894284601227
@@ -144,8 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc5839223cfa5e46896fcdcd4662585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorOpener
-  door: {fileID: 0}
+  door: {fileID: 8683804649735984859}
   openRotation: 90
+  inventory: {fileID: 0}
   requiresBadge: 0
   badgeAcquired: 0
   autoOpen: 0
@@ -162,8 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea20c9664c3554f81451e9882b792c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorAudio
-  _openingSound: {fileID: 0}
-  _closingSound: {fileID: 0}
+  _openingSound: {fileID: 8300000, guid: 724d0aa45d5cec049a0bf5e56c1d398c, type: 3}
+  _closingSound: {fileID: 8300000, guid: fb12976860433ef46a7c60ec3240ebbc, type: 3}
+  _UnlockDoor: {fileID: 8300000, guid: 8a4fda119b1b918459fe0d252d8dcf13, type: 3}
 --- !u!114 &-378270341477999876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +182,10 @@ MonoBehaviour:
   inspectImage: {fileID: 0}
   inventoryIcon: {fileID: 0}
   itemId: item_default
+  objectremovable: 0
+  missionTag: 
+  objectiveIdOnInspect: 
+  advanceAmount: 1
   inspectPrefab: {fileID: 0}
 --- !u!65 &3373485496463114137
 BoxCollider:
