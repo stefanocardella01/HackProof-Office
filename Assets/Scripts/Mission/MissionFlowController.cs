@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Xml;
+using UnityEngine;
 
 public class MissionFlowController : MonoBehaviour
 {
@@ -264,6 +265,8 @@ public class MissionFlowController : MonoBehaviour
         SetFx(fxPaoloDesk, true);
         SetObjectsActive(mission2Objects, false); // li accendiamo dopo dialogo paolo
         SetActiveGO(conversazioneReceptionPostIspezioniGO, true);
+
+        SmartphoneManager.Instance.ReceiveMessage("Paolo Corti", "Ciao, puoi venire alla mia postazione? Ho bisogno del tuo aiuto con degli oggetti!");
     }
 
     private void SetupMission3Start()
@@ -288,6 +291,9 @@ public class MissionFlowController : MonoBehaviour
         SetNpcEnabled(giulioNpc, true);
         receptionist1.SetEnabled(false);
         SetFx(fxGiulio, true);
+
+        SmartphoneManager.Instance.ReceiveMessage("Giulio Verdoni", "Ciao, ho ricevuto diverse mail e non capisco quali siano di phishing, vieni ad aiutarmi?");
+
     }
 
     // ─────────────────────────────────────────────────────────
