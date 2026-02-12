@@ -38,6 +38,8 @@ public class ReportUI : MonoBehaviour
 
     private bool isOpen;
 
+    public bool IsOpen => isOpen;
+
     // quale missione mostrare
     private int _missionIndexToShow = -1;
 

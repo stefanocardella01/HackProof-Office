@@ -50,6 +50,9 @@ public class InspectUI : MonoBehaviour
     private float currentZoomDistance = 1f;
     private float targetZoomDistance = 1f;
 
+    private DialogueUI dialogueUI;
+    private ReportUI reportUI;
+
     private void Awake()
     {
         inventory = FindFirstObjectByType<InventoryManager>();
@@ -61,6 +64,9 @@ public class InspectUI : MonoBehaviour
         if (starterInputs == null)
             starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
 
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
+        reportUI = FindFirstObjectByType<ReportUI>();
+
         inspectLayer = LayerMask.NameToLayer(inspectLayerName);
 
         CloseImmediate();
@@ -68,6 +74,10 @@ public class InspectUI : MonoBehaviour
 
     public void Open(InspectableObject obj)
     {
+        if ((dialogueUI != null && dialogueUI.IsDialogueActive) ||
+            (reportUI != null && reportUI.IsOpen))
+            return;
+
         openedFromInventory = false;
         currentObject = obj;
 
@@ -117,7 +127,10 @@ public class InspectUI : MonoBehaviour
     // Metodo per ispezionare oggetti già nell'inventario
     public void OpenFromInventory(InventoryItem item)
     {
-        openedFromInventory = true;
+
+        if ((dialogueUI != null && dialogueUI.IsDialogueActive) ||
+            (reportUI != null && reportUI.IsOpen))
+            return; openedFromInventory = true;
         currentObject = null; // non stiamo guardando un oggetto nel mondo
 
         if (hudCanvas != null)

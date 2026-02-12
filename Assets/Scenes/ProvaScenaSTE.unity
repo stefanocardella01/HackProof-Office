@@ -4641,7 +4641,8 @@ PrefabInstance:
       propertyPath: playerInteractor
       value: 
       objectReference: {fileID: 137997619}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7195546345362639281, guid: cca0b77c9fd1d45459eff12b6b5f98d2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -9220,7 +9221,7 @@ MonoBehaviour:
   mission3Objects:
   - {fileID: 6728898634240602829}
   - {fileID: 9169385514515138945}
-  - {fileID: 3586404753848427740}
+  - {fileID: 0}
   fxPlayerDesk: {fileID: 880136472}
   fxPaoloDesk: {fileID: 1163751146}
   fxGiulio: {fileID: 1811997166}
@@ -11192,11 +11193,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
---- !u!1 &3586404753848427740 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4286844150776883385, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
-  m_PrefabInstance: {fileID: 3586404753848427739}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4352338216837014932
 PrefabInstance:
   m_ObjectHideFlags: 0

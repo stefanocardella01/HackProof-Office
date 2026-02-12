@@ -21,6 +21,9 @@ public class SmartphoneInput : MonoBehaviour
     private bool wasControllerEnabled;
     private bool wasCursorLocked;
 
+    private DialogueUI dialogueUI;
+    private ReportUI reportUI;
+
     private void Start()
     {
         manager = SmartphoneManager.Instance;
@@ -50,6 +53,9 @@ public class SmartphoneInput : MonoBehaviour
         {
             playerInteractor = FindFirstObjectByType<PlayerInteractor>();
         }
+
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
+        reportUI = FindFirstObjectByType<ReportUI>();
     }
 
     private void OnDestroy()
@@ -148,6 +154,11 @@ public class SmartphoneInput : MonoBehaviour
         // !TODO: Aggiungi condizioni specifiche se necessario
         // Esempio: non aprire durante l'ispezione di un oggetto
         // if (FindFirstObjectByType<InspectUI>()?.IsOpen == true) return false;
+
+        if ((dialogueUI != null && dialogueUI.IsDialogueActive) || (reportUI != null && reportUI.IsOpen))
+            return false;
+
+
 
         return true;
     }

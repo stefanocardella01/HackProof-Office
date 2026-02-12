@@ -52,28 +52,23 @@ public class DialogueChoiceEventListener : MonoBehaviour
                 break;
 
             case "deliver_m2":
-                Debug.LogError("### SONO NEL CASE deliver_m2 ###");
                 TryDeliver(missionTag: "m2", objectiveId: "m2_deliver_items");
                 break;
 
             case "deliver_m3":
-                Debug.LogError("### SONO NEL CASE deliver_m3 ###");
                 TryDeliver(missionTag: "m3", objectiveId: "m3_deliver_items");
                 break;
 
             case "conclude_talk_receptionist":
-                Debug.LogError("Provo a concludere dal listener");
                 MissionManager.Instance.CompleteObjective("m3_talk_receptionist");
                 break;
 
             case "stay_server":
-                Debug.LogError("Faccio rimanere l'intruso e completo sala server");
                 MissionTracker.Instance.Set(ReportCheck.IntruderKicked, false);
                 MissionManager.Instance.CompleteObjective("m3_inspect_server");
                 break;
 
             case "kick_server":
-                Debug.LogError("Caccio l'intruso e completo sala server");
                 MissionTracker.Instance.Set(ReportCheck.IntruderKicked, true);
                 MissionManager.Instance.CompleteObjective("m3_inspect_server");
                 break;
@@ -160,7 +155,6 @@ public class DialogueChoiceEventListener : MonoBehaviour
 
     private void TryDeliver(string missionTag, string objectiveId)
     {
-        Debug.LogError("### ENTRO IN TryDeliver ###");
 
         var mm = MissionManager.Instance;
         Debug.Log("[Deliver] MissionManager=" + (mm ? "OK" : "NULL"));
