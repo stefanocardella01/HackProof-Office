@@ -2281,6 +2281,11 @@ Transform:
   - {fileID: 1237493915}
   m_Father: {fileID: 1459228648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &516996389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8682631846092139056, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
+  m_PrefabInstance: {fileID: 3586404753848427739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &555883379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6745491886508514645, guid: c136d5392d383f5428962591c20d379b, type: 3}
@@ -9221,7 +9226,7 @@ MonoBehaviour:
   mission3Objects:
   - {fileID: 6728898634240602829}
   - {fileID: 9169385514515138945}
-  - {fileID: 0}
+  - {fileID: 516996389}
   fxPlayerDesk: {fileID: 880136472}
   fxPaoloDesk: {fileID: 1163751146}
   fxGiulio: {fileID: 1811997166}
@@ -9231,6 +9236,7 @@ MonoBehaviour:
   obj_m2_talk_paolo: m2_go_to_paolo
   obj_m2_deliver_items: m2_deliver_items
   obj_m3_talk_receptionist: m3_talk_receptionist
+  obj_m3_inspect_relax: m3_inspect_relax
   obj_m3_inspect_server: m3_inspect_server
   obj_m3_deliver_items: m3_deliver_items
   obj_m4_talk_giulio: m4_go_to_giulio
@@ -11188,6 +11194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cacciavite
       objectReference: {fileID: 0}
+    - target: {fileID: 7267594130838256393, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
+      propertyPath: inspectPrefab
+      value: 
+      objectReference: {fileID: 8682631846092139056, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

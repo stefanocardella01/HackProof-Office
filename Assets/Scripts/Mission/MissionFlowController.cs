@@ -45,6 +45,7 @@ public class MissionFlowController : MonoBehaviour
     [SerializeField] private string obj_m2_deliver_items = "m2_deliver_items";
 
     [SerializeField] private string obj_m3_talk_receptionist = "m3_talk_receptionist";
+    [SerializeField] private string obj_m3_inspect_relax = "m3_inspect_relax";
     [SerializeField] private string obj_m3_inspect_server = "m3_inspect_server";
     [SerializeField] private string obj_m3_deliver_items = "m3_deliver_items";
 
@@ -52,6 +53,9 @@ public class MissionFlowController : MonoBehaviour
     [SerializeField] private string obj_m4_check_emails = "m4_check_emails";
 
     private MissionManager mm;
+
+    private bool m3InspectServerDone = false;
+    private bool m3InspectRelaxDone = false;
 
     private void Awake()
     {
@@ -184,14 +188,24 @@ public class MissionFlowController : MonoBehaviour
             receptionist1.SetEnabled(false);
 
         }
+
+        else if (id == obj_m3_inspect_relax)
+        {
+            m3InspectRelaxDone = true;
+            TryEnableReceptionistAfterM3Inspections();
+        }
+
         else if (id == obj_m3_inspect_server)
         {
+            m3InspectServerDone = true;
+
             if (intrusoNpcRoot != null)
                 intrusoNpcRoot.SetActive(false);
             else
                 SetNpcEnabled(intrusoNpc, true); // fallback
 
-            receptionist1.SetEnabled(true);
+            TryEnableReceptionistAfterM3Inspections();
+
         }
         else if (id == obj_m3_deliver_items)
         {
@@ -273,6 +287,9 @@ public class MissionFlowController : MonoBehaviour
     {
         Debug.Log("[MissionFlow] SetupMission3Start");
 
+        m3InspectServerDone = false;
+        m3InspectRelaxDone = false;
+
         SetObjectsActive(mission2Objects, false); // li accendiamo dopo dialogo paolo
         SetObjectsActive(mission3Objects, false);
         SetActiveGO(conversazioneReception2GO, true);
@@ -340,6 +357,16 @@ public class MissionFlowController : MonoBehaviour
     {
         if (badgePickupRoot != null)
             badgePickupRoot.SetActive(enabled);
+    }
+
+    private void TryEnableReceptionistAfterM3Inspections()
+    {
+        if (m3InspectServerDone && m3InspectRelaxDone)
+        {
+            receptionist1.SetEnabled(true);
+            // se vuoi anche cambiare conversazione qui, fallo qui
+            // receptionist1.SetConversation(convReceptionistPostIspezioni3, completeObjectiveOnEnd: "", disableAfter: false);
+        }
     }
 
 }
