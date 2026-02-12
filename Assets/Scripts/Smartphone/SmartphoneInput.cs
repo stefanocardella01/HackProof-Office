@@ -23,6 +23,7 @@ public class SmartphoneInput : MonoBehaviour
 
     private DialogueUI dialogueUI;
     private ReportUI reportUI;
+    private InspectUI inspectUI;
 
     private void Start()
     {
@@ -56,6 +57,7 @@ public class SmartphoneInput : MonoBehaviour
 
         dialogueUI = FindFirstObjectByType<DialogueUI>();
         reportUI = FindFirstObjectByType<ReportUI>();
+        inspectUI = FindFirstObjectByType<InspectUI>();
     }
 
     private void OnDestroy()
@@ -151,14 +153,23 @@ public class SmartphoneInput : MonoBehaviour
     /// </summary>
     public bool CanOpenSmartphone()
     {
-        // !TODO: Aggiungi condizioni specifiche se necessario
-        // Esempio: non aprire durante l'ispezione di un oggetto
-        // if (FindFirstObjectByType<InspectUI>()?.IsOpen == true) return false;
+        // Se i riferimenti non sono stati trovati (o sono stati distrutti), riprova
+        if (dialogueUI == null) dialogueUI = FindFirstObjectByType<DialogueUI>();
+        if (reportUI == null) reportUI = FindFirstObjectByType<ReportUI>();
+        if (inspectUI == null)
+        {
+            // includeInactive: TRUE così lo trova anche se il GameObject è disattivato
+            inspectUI = FindFirstObjectByType<InspectUI>(FindObjectsInactive.Include);
+        }
 
-        if ((dialogueUI != null && dialogueUI.IsDialogueActive) || (reportUI != null && reportUI.IsOpen))
+        if (dialogueUI != null && dialogueUI.IsDialogueActive)
             return false;
 
+        if (reportUI != null && reportUI.IsOpen)
+            return false;
 
+        if (inspectUI != null && inspectUI.IsOpen)
+            return false;
 
         return true;
     }

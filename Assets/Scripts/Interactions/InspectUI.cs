@@ -130,7 +130,8 @@ public class InspectUI : MonoBehaviour
 
         if ((dialogueUI != null && dialogueUI.IsDialogueActive) ||
             (reportUI != null && reportUI.IsOpen))
-            return; openedFromInventory = true;
+            return;
+        openedFromInventory = true;
         currentObject = null; // non stiamo guardando un oggetto nel mondo
 
         if (hudCanvas != null)
