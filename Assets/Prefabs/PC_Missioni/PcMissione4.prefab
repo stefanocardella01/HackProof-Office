@@ -1114,7 +1114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2983239460359208478
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 15.147522, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1233,7 +1233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3389883197369953866
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1251,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 580.64, y: 100}
+  m_AnchoredPosition: {x: 516, y: 100}
   m_SizeDelta: {x: 1000, y: 40.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &836970698865671350
@@ -2416,6 +2416,7 @@ MonoBehaviour:
   emailCanvas: {fileID: 5928806730658433930}
   screenContainer: {fileID: 8386065819437936105}
   emailScreen: {fileID: 5154516000190974412}
+  reportUI: {fileID: 0}
   cameraController: {fileID: 2119542527100597039}
   computerInteractable: {fileID: 2525608947504829243}
   closeDelay: 0.5
@@ -2450,6 +2451,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   pcCanvas: {fileID: 5928806730658433930}
   mainUICanvas: {fileID: 0}
+  missionCheckList: {fileID: 0}
   useFade: 0
   fadeDuration: 0.2
   playerObject: {fileID: 0}
