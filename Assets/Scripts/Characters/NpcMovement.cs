@@ -47,17 +47,62 @@ public class NpcMovement : MonoBehaviour
 
     public void MoveToNextTarget()
     {
-        if (_agent == null || !_agent.isOnNavMesh || CurrentTarget == null) return;
+        if (_agent == null || !_agent.isOnNavMesh) return;
+
+        var target = CurrentTarget;
+        if (target == null) return;
+
         _agent.isStopped = false;
-        _agent.SetDestination(CurrentTarget.transform.position);
+        _agent.SetDestination(target.transform.position);
     }
 
     public void GoToNextWaypoint()
     {
         if (_targets == null || _targets.Count == 0) return;
-        _currentTargetIndex = (_currentTargetIndex + 1) % _targets.Count;
+
+        int nextIndex = GetNextAllowedIndex(_currentTargetIndex);
+        _currentTargetIndex = nextIndex;
+
         MoveToNextTarget();
     }
+
+    private int GetNextAllowedIndex(int fromIndex)
+    {
+        int count = _targets.Count;
+        int start = (fromIndex + 1) % count;
+
+        // sicurezza: massimo N tentativi, così non loopi infinito
+        for (int i = 0; i < count; i++)
+        {
+            int idx = (start + i) % count;
+            if (IsAllowedTargetIndex(idx))
+                return idx;
+        }
+
+        // Se sono tutti "bloccati", resta dove sei (fallback)
+        return fromIndex;
+    }
+
+    private bool IsAllowedTargetIndex(int idx)
+    {
+        if (_targets == null || idx < 0 || idx >= _targets.Count) return false;
+
+        GameObject t = _targets[idx];
+        if (t == null) return false;
+
+        // Se non c'è MissionManager, non bloccare nulla
+        var mm = MissionManager.Instance;
+        if (mm == null || !mm.IsMissionActive) return true;
+
+        // Se il waypoint non ha gate, è sempre ok
+        var gate = t.GetComponent<WaypointMissionGate>();
+        if (gate == null) return true;
+
+        // Regola richiesta:
+        // "Se il prossimo target appartiene alla missione corrente, passa al successivo."
+        return gate.missionIndexOwner != mm.CurrentMissionIndex;
+    }
+
 
     public void StopMovement()
     {

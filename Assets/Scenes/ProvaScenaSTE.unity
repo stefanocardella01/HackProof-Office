@@ -2550,6 +2550,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9084067343224991144, guid: 7dfdbe4ca4d636243a9ca299c45c7f29, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1060081682}
+    - targetCorrespondingSourceObject: {fileID: 9084067343224991144, guid: 7dfdbe4ca4d636243a9ca299c45c7f29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1060081689}
   m_SourcePrefab: {fileID: 100100000, guid: 7dfdbe4ca4d636243a9ca299c45c7f29, type: 3}
 --- !u!1001 &490042773
 PrefabInstance:
@@ -4982,6 +4985,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6097416584201250587, guid: 84a952a56f56a604a96a2233accf22cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1944084476}
+    - targetCorrespondingSourceObject: {fileID: 6097416584201250587, guid: 84a952a56f56a604a96a2233accf22cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1944084483}
   m_SourcePrefab: {fileID: 100100000, guid: 84a952a56f56a604a96a2233accf22cb, type: 3}
 --- !u!1 &862718532 stripped
 GameObject:
@@ -6364,6 +6370,19 @@ MonoBehaviour:
   faceDuration: 0.15
   faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
+--- !u!114 &1060081689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060081675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29254f2e127cddf48adea02d25f00593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointMissionGate
+  missionIndexOwner: 1
 --- !u!1 &1064522940
 GameObject:
   m_ObjectHideFlags: 0
@@ -10695,6 +10714,19 @@ MonoBehaviour:
   faceDuration: 0.15
   faceTurnSpeed: 12
   mixer: {fileID: 1223146774}
+--- !u!114 &1944084483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944084469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29254f2e127cddf48adea02d25f00593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointMissionGate
+  missionIndexOwner: 3
 --- !u!1 &1947955320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9149944837154861801, guid: 461291ff7662af24286ff72b1b862ca1, type: 3}
