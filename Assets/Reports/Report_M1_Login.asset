@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
   m_Name: Report_M1_Login
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
-  missionTitle: 'Missione 1: Login'
+  missionTitle: 'Missione 1: Primo accesso'
   entries:
   - label: Cambio password effettuato
     check: 0
+    expectedValue: 1
     okText: "La password predefinita \xE8 stata sostituita con una credenziale personale.
       Questa operazione riduce in modo significativo il rischio di accessi non autorizzati,
       poich\xE9 le password di default sono spesso note, prevedibili o reperibili
@@ -30,6 +31,7 @@ MonoBehaviour:
       di default espone il sistema a compromissioni immediate e automatizzate."
   - label: Autenticazione a due fattori attivata
     check: 1
+    expectedValue: 1
     okText: "L\u2019autenticazione a due fattori \xE8 stata correttamente attivata.
       Questo meccanismo aggiunge un secondo livello di verifica oltre alla password,
       richiedendo un elemento aggiuntivo come un codice temporaneo o un dispositivo

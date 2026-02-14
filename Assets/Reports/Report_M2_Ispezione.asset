@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22f1fe5245a3f7409f701aa37f01912, type: 3}
   m_Name: Report_M2_Ispezione
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
-  missionTitle: 'Missione 2: Ispezione oggetti'
+  missionTitle: Missione 2 - Sicurezza postazione
   entries:
   - label: Post-it con password consegnato
     check: 2

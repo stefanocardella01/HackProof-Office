@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mission4
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionId: mission_4
-  missionTitle: Missione 4 - Email
+  missionTitle: 'Missione 4: Classificazione Mail'
   objectives:
   - objectiveId: m4_go_to_giulio
     displayText: Vai da Giulio

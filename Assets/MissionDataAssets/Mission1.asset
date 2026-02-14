@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mission1
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionId: mission_1
-  missionTitle: Missione 1 - Primo giorno
+  missionTitle: 'Missione 1: Primo accesso'
   objectives:
   - objectiveId: m1_talk_receptionist
     displayText: Parla con la receptionist
