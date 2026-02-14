@@ -352,6 +352,10 @@ MonoBehaviour:
   inspectImage: {fileID: 0}
   inventoryIcon: {fileID: 21300000, guid: 8f61eafc80e23cf4aa07fa737d52766b, type: 3}
   itemId: manuale
+  objectremovable: 0
+  missionTag: 
+  objectiveIdOnInspect: 
+  advanceAmount: 1
   inspectPrefab: {fileID: 3896263939353769721}
 --- !u!65 &5839758884499612767
 BoxCollider:
@@ -372,8 +376,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.33, y: -0.09, z: 0.35}
-  m_Center: {x: 0, y: 0.03, z: 0}
+  m_Size: {x: 0.29, y: 0.06, z: 0.31}
+  m_Center: {x: 0.05, y: 0.03, z: -0.03}
 --- !u!1 &6508804909873403193
 GameObject:
   m_ObjectHideFlags: 0

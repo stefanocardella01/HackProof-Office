@@ -36,6 +36,17 @@ public class InspectUI : MonoBehaviour
     public float minZoomDistance = 0.5f;
     public float maxZoomDistance = 3f;
 
+    [Header("Fit & Zoom (dinamico per oggetto)")]
+    public float targetBoxDiagonal = 1.2f;     // diagonale desiderata dopo normalizzazione (prova 1.0–1.6)
+    public float fitPadding = 1.15f;           // margine anti-taglio (1.10–1.30)
+    public float zoomOutMultiplier = 3f;       // quanto puoi allontanarti rispetto al fit
+    public bool autoComputeZoomLimits = true;
+
+    private float runtimeMinZoom;
+    private float runtimeMaxZoom;
+
+
+
     // Audio
     [SerializeField] private ManagerAudio mixer;
 
@@ -129,6 +140,8 @@ public class InspectUI : MonoBehaviour
         Cursor.visible = true;
     }
 
+
+
     // Metodo per ispezionare oggetti già nell'inventario
     public void OpenFromInventory(InventoryItem item)
     {
@@ -192,10 +205,10 @@ public class InspectUI : MonoBehaviour
             return;
         }
 
-        // reset pivot
+        // reset anchor
         modelAnchor.rotation = Quaternion.identity;
 
-        // Istanzio come figlio dell'anchor
+        // istanzio come figlio dell'anchor
         currentModelInstance = Instantiate(prefab, modelAnchor);
         currentModelInstance.transform.localPosition = Vector3.zero;
         currentModelInstance.transform.localRotation = Quaternion.identity;
@@ -203,54 +216,107 @@ public class InspectUI : MonoBehaviour
 
         SetLayerRecursively(currentModelInstance, inspectLayer);
 
-        // --- Calcolo bounds per CENTRARE il modello e normalizzare la scala ---
-        var renderers = currentModelInstance.GetComponentsInChildren<Renderer>();
-        if (renderers.Length > 0)
+
+        BoxCollider box = currentModelInstance.GetComponentInChildren<BoxCollider>(true);
+        if (box == null)
         {
-            Bounds bounds = renderers[0].bounds;
-            for (int i = 1; i < renderers.Length; i++)
-                bounds.Encapsulate(renderers[i].bounds);
-
-            // 1) centro dei bounds in world-space
-            Vector3 worldCenter = bounds.center;
-            // 2) lo trasformo nello spazio locale dell'anchor
-            Vector3 localCenter = modelAnchor.InverseTransformPoint(worldCenter);
-            // 3) sposto il modello in modo che il centro sia sull'anchor
-            currentModelInstance.transform.localPosition = -localCenter;
-
-            // 4) normalizzo la scala se vuoi tenere dimensioni simili
-            float radius = Mathf.Max(bounds.extents.x, bounds.extents.y, bounds.extents.z);
-            if (radius > 0.0001f)
-            {
-                float targetRadius = 0.4f;              
-                float scaleFactor = targetRadius / radius;
-                scaleFactor = Mathf.Clamp(scaleFactor, 0.1f, 10f);
-
-                currentModelInstance.transform.localScale *= scaleFactor;
-            }
+            Debug.LogWarning("[InspectUI] Nessun BoxCollider trovato sul prefab di ispezione.");
+            return;
         }
 
+        // centro reale in world (rispetta box.center != 0)
+        Vector3 worldCenter = box.transform.TransformPoint(box.center);
+        Vector3 localCenter = modelAnchor.InverseTransformPoint(worldCenter);
+        currentModelInstance.transform.localPosition = -localCenter;
 
-        // ORIENTAMENTO INIZIALE CORRETTO PER L'ISPEZIONE
-        Vector3 worldFaceDir = -inspectCamera.transform.forward;  // la faccia guarda la camera
-        Vector3 worldUpDir = inspectCamera.transform.up;        // "su" in schermo
+        // funzione per ottenere size world del BoxCollider (dopo centratura/scala)
+        Vector3 GetWorldSizeFromBox(BoxCollider b)
+        {
+            Vector3 ls = b.transform.lossyScale;
+            return new Vector3(
+                Mathf.Abs(b.size.x * ls.x),
+                Mathf.Abs(b.size.y * ls.y),
+                Mathf.Abs(b.size.z * ls.z)
+            );
+        }
+
+    
+        Vector3 worldSize = GetWorldSizeFromBox(box);
+        float diag = worldSize.magnitude;
+
+        if (diag > 0.0001f)
+        {
+            float scaleFactor = targetBoxDiagonal / diag;
+
+            // clamp: evita oggetti invisibili o giganteschi
+            scaleFactor = Mathf.Clamp(scaleFactor, 0.1f, 10f);
+
+            currentModelInstance.transform.localScale *= scaleFactor;
+        }
+
+        // ricalcolo size dopo la scala
+        worldSize = GetWorldSizeFromBox(box);
+
+
+        Vector3 worldFaceDir = -inspectCamera.transform.forward;
+        Vector3 worldUpDir = inspectCamera.transform.up;
 
         Quaternion worldRot = Quaternion.LookRotation(worldFaceDir, worldUpDir);
-
-        // Correzione dagli assi locali del modello (+Y front, +Z up) allo spazio mondo
         Quaternion fix = Quaternion.Inverse(Quaternion.LookRotation(modelFaceAxis, modelUpAxis));
-
-        // Applico la rotazione all'anchor
         modelAnchor.rotation = worldRot * fix;
 
 
-        // Posiziono la camera a una distanza base
-        currentZoomDistance = Mathf.Clamp(1f, minZoomDistance, maxZoomDistance);
+        // bounding sphere radius dal box (robusto per tutte le rotazioni)
+        float radius = worldSize.magnitude * 0.5f;
+
+        // FOV verticale
+        float vFov = inspectCamera.fieldOfView * Mathf.Deg2Rad;
+
+        // FOV orizzontale calcolato dall’aspect (RT 900x900 => aspect ~ 1)
+        float aspect = inspectCamera.aspect;
+        float hFov = 2f * Mathf.Atan(Mathf.Tan(vFov * 0.5f) * aspect);
+
+        // uso l’FOV più “stretto” per garantire che stia dentro sia in verticale che in orizzontale
+        float minFov = Mathf.Min(vFov, hFov);
+
+        // distanza minima per far entrare la sfera nel frustum
+        float fitDistance = (radius / Mathf.Tan(minFov * 0.5f)) * fitPadding;
+
+        // evita che la near-clip tagli quando sei troppo vicino
+        float nearSafe = radius + inspectCamera.nearClipPlane * 1.5f;
+        fitDistance = Mathf.Max(fitDistance, nearSafe);
+
+        if (autoComputeZoomLimits)
+        {
+            runtimeMinZoom = fitDistance;
+
+            // max zoom = quanto vuoi allontanarti
+            runtimeMaxZoom = fitDistance * Mathf.Max(1f, zoomOutMultiplier);
+        }
+        else
+        {
+            runtimeMinZoom = minZoomDistance;
+            runtimeMaxZoom = maxZoomDistance;
+            fitDistance = Mathf.Clamp(fitDistance, runtimeMinZoom, runtimeMaxZoom);
+        }
+
+        // clamp solo “di sicurezza”, NON legato a maxZoomDistance
+        runtimeMinZoom = Mathf.Max(runtimeMinZoom, minZoomDistance);          // evita troppo vicino
+        runtimeMaxZoom = Mathf.Max(runtimeMaxZoom, runtimeMinZoom + 0.001f);  // coerente
+
+
+        currentZoomDistance = Mathf.Clamp(fitDistance, runtimeMinZoom, runtimeMaxZoom);
         targetZoomDistance = currentZoomDistance;
 
+        // posiziono camera
+        inspectCamera.transform.LookAt(modelAnchor.position);
         inspectCamera.transform.position = modelAnchor.position - inspectCamera.transform.forward * currentZoomDistance;
         inspectCamera.transform.LookAt(modelAnchor.position);
+
+
     }
+
+
 
     private void SetLayerRecursively(GameObject obj, int layer)
     {
@@ -306,7 +372,8 @@ public class InspectUI : MonoBehaviour
         if (Mathf.Abs(scroll) > 0.001f)
         {
             targetZoomDistance -= scroll * zoomSpeed;
-            targetZoomDistance = Mathf.Clamp(targetZoomDistance, minZoomDistance, maxZoomDistance);
+            targetZoomDistance = Mathf.Clamp(targetZoomDistance, runtimeMinZoom, runtimeMaxZoom);
+
         }
 
         currentZoomDistance = Mathf.Lerp(currentZoomDistance, targetZoomDistance, Time.deltaTime * 10f);
