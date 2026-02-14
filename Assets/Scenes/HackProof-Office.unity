@@ -2164,7 +2164,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1299107724832025397, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: currentPassword
-      value: '@john.doe'
+      value: john.doe
       objectReference: {fileID: 0}
     - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: mainUICanvas
@@ -2180,11 +2180,11 @@ PrefabInstance:
       objectReference: {fileID: 122809719}
     - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: correctPassword
-      value: '@john.doe'
+      value: john.doe
       objectReference: {fileID: 0}
     - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: correctUsername
-      value: '@john.doe'
+      value: john.doe
       objectReference: {fileID: 0}
     - target: {fileID: 3650936840593641506, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: mixer
