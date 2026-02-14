@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
   missionTitle: 'Missione 1: Primo accesso'
   entries:
-  - label: Cambio password effettuato
+  - label: Cambio password
     check: 0
     expectedValue: 1
     okText: "La password predefinita \xE8 stata sostituita con una credenziale personale.
@@ -29,7 +29,7 @@ MonoBehaviour:
       attacchi informatici, in quanto facilmente reperibili e frequentemente utilizzate
       dagli aggressori per ottenere accessi non autorizzati. Mantenere una password
       di default espone il sistema a compromissioni immediate e automatizzate."
-  - label: Autenticazione a due fattori attivata
+  - label: Autenticazione a due fattori
     check: 1
     expectedValue: 1
     okText: "L\u2019autenticazione a due fattori \xE8 stata correttamente attivata.

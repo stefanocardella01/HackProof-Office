@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionReportData
   missionTitle: Missione 2 - Sicurezza postazione
   entries:
-  - label: Post-it con password consegnato
+  - label: Post-it con password
     check: 2
     expectedValue: 1
     okText: "Il post-it contenente credenziali di accesso \xE8 stato correttamente
@@ -44,7 +44,7 @@ MonoBehaviour:
       non hanno capacit\xE0 di memorizzazione o esecuzione di codice. Una valutazione
       errata del rischio pu\xF2 generare falsi allarmi e ridurre l\u2019attenzione
       verso minacce effettive."
-  - label: Chiavetta USB trovata nel parcheggio consegnata
+  - label: Chiavetta USB trovata nel parcheggio
     check: 3
     expectedValue: 1
     okText: "La chiavetta USB trovata all\u2019esterno dell\u2019azienda \xE8 stata

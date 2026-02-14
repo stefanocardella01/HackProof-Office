@@ -42,7 +42,7 @@ MonoBehaviour:
     badText: "Il cacciavite \xE8 stato segnalato come oggetto sospetto senza motivo.
       \xC8 necessario saper distinguere tra strumenti di lavoro e oggetti che possono
       realmente compromettere la sicurezza."
-  - label: "Allontanamento dell\u2019intruso dalla sala server"
+  - label: Intruso nella sala server
     check: 8
     expectedValue: 1
     okText: "La persona non autorizzata presente nella sala server \xE8 stata correttamente
