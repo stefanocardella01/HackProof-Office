@@ -16,16 +16,13 @@ MonoBehaviour:
   startNodeIndex: 0
   nodes:
   - lines:
-    - "Buongiorno e benvenuto nella nostra azienda.\n\xC8 un piacere averla qui."
-    - "Mi presento: sono la receptionist e mi occuper\xF2 di fornirle tutte le informazioni
-      necessarie per iniziare."
+    - "Salve! Benvenuto nella nostra azienda!\nDa oggi sar\xE0 l\u2019assistente
+      alla sicurezza informatica."
+    - "Il suo compito sar\xE0 aiutare i colleghi a riconoscere email sospette, individuare
+      vulnerabilit\xE0 sia informatiche sia fisiche e prevenire possibili attacchi
+      informatici."
     - "Come probabilmente le \xE8 stato anticipato, negli ultimi mesi la nostra azienda
       ha affrontato numerosi problemi di sicurezza informatica e aziendale."
-    - Abbiamo registrato accessi non autorizzati, comportamenti poco attenti da parte
-      dei dipendenti e diverse situazioni potenzialmente rischiose.
-    - "Per questo motivo l\u2019abbiamo contattata. \nAbbiamo bisogno del suo aiuto."
-    - "Il suo compito sar\xE0 quello di muoversi all\u2019interno dell\u2019azienda
-      e individuare eventuali minacce alla sicurezza, sia informatiche che fisiche."
     - Prima di iniziare, devo consegnarle il suo badge personale.
     - "Questo badge \xE8 indispensabile per sbloccare le porte di accesso alle sale
       uffici, alla sala server e alle altre aree riservate dell\u2019azienda."
@@ -33,8 +30,6 @@ MonoBehaviour:
     - Inoltre, le viene assegnato un telefono aziendale.
     - Attraverso questo dispositivo i dipendenti potranno contattarla direttamente
       nel caso abbiano bisogno di assistenza o segnalazioni.
-    - "Se ricever\xE0 chiamate o messaggi, significa che qualcuno necessita del suo
-      intervento."
     - "Se durante le sue attivit\xE0 dovesse trovare oggetti sospetti, dispositivi
       sconosciuti o qualsiasi elemento che le sembri fuori posto, la invito a non
       utilizzarli e a portarli immediatamente qui da me per la consegna e la segnalazione."
@@ -44,34 +39,24 @@ MonoBehaviour:
     - Le credenziali di default sono temporanee e sono riportate direttamente sul
       suo badge.
     - Per il primo accesso, username e password sono uguali.
-    - "Le verr\xE0 richiesto di modificarle al primo login."
     - "Da questo momento \xE8 ufficialmente operativo."
-    - Si prenda tutto il tempo necessario e non esiti a tornare da me per qualsiasi
-      dubbio.
     - "Buon lavoro\u2026 \ne grazie per aver accettato di aiutarci."
     lineVoiceOvers:
-    - {fileID: 8300000, guid: a963afd8b33192f4e9af720bb4b0d72b, type: 3}
-    - {fileID: 8300000, guid: 9218c016b470a244b885b31f8840f463, type: 3}
+    - {fileID: 8300000, guid: 267f32c4139c31b4fa57261d48b6da90, type: 3}
+    - {fileID: 8300000, guid: e000642f91b910647bfa99a6d85b86cf, type: 3}
     - {fileID: 8300000, guid: fb6badb20997f4f4d90bc05458bb7027, type: 3}
-    - {fileID: 8300000, guid: cbc3008797a890e4dac6cda08c8501e8, type: 3}
-    - {fileID: 8300000, guid: 8b28ff8222e513045a9fe12e04441c69, type: 3}
-    - {fileID: 8300000, guid: 5ee972401ea35db4384c27103c0eb9eb, type: 3}
     - {fileID: 8300000, guid: 1620878232a1d1d44833bb1c380f92fa, type: 3}
     - {fileID: 8300000, guid: 0b39b022001adfa43af37aa94138bcad, type: 3}
     - {fileID: 8300000, guid: 5dc93a09ff2b9424e891a6a1adbbf447, type: 3}
     - {fileID: 8300000, guid: 25cc19c441cb5be4aa57987fcc6b95cd, type: 3}
     - {fileID: 8300000, guid: 1fbf9b953dcd73c498299fb2f34c1c8a, type: 3}
-    - {fileID: 8300000, guid: 0dd880e1121c8794a9cfabf5ae411d8e, type: 3}
     - {fileID: 8300000, guid: a05cc488ce354dd4f95a78942fa85ab4, type: 3}
     - {fileID: 8300000, guid: c92a288c6b871d148bf6f1a20c7bdd9f, type: 3}
     - {fileID: 8300000, guid: f6e55b308eeffaa428280f503601ba65, type: 3}
     - {fileID: 8300000, guid: c9bb446a9461fb74487cac21924f79ae, type: 3}
     - {fileID: 8300000, guid: 07d7910ebcf38fe4fb4b3bb563d35179, type: 3}
-    - {fileID: 8300000, guid: 876b5477ba14646468d73da31e768c13, type: 3}
     - {fileID: 8300000, guid: 109ee52e8caf3a043bf3c37c9632cc50, type: 3}
-    - {fileID: 8300000, guid: 601d41b9022d3f14c9fff79d12786f5c, type: 3}
     - {fileID: 8300000, guid: 3631ac37351d30e4396f12e4f24ed2f3, type: 3}
-    - {fileID: 0}
     choices:
     - text: Arrivederci
       nextNodeIndex: 0
