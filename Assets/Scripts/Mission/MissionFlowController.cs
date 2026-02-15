@@ -350,9 +350,32 @@ public class MissionFlowController : MonoBehaviour
     private void SetObjectsActive(GameObject[] arr, bool active)
     {
         if (arr == null) return;
+
+        // Nome layer di destinazione in base al bool
+        string targetLayerName = active ? "Interactable" : "Default";
+        int targetLayer = LayerMask.NameToLayer(targetLayerName);
+
+        if (targetLayer < 0)
+        {
+            Debug.LogError($"[MissionFlow] Layer '{targetLayerName}' non esiste. Crealo in Project Settings > Tags and Layers.");
+            return;
+        }
+
         foreach (var go in arr)
-            if (go != null) go.SetActive(active);
+        {
+            if (go == null) continue;
+            SetLayerRecursively(go, targetLayer);
+        }
     }
+
+    private void SetLayerRecursively(GameObject root, int layer)
+    {
+        root.layer = layer;
+
+        foreach (Transform child in root.transform)
+            SetLayerRecursively(child.gameObject, layer);
+    }
+
 
     private void SetFx(GameObject fx, bool active)
     {
