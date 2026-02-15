@@ -36,7 +36,7 @@ MonoBehaviour:
     unlockedAfter:
     - m3_talk_receptionist
   - objectiveId: m3_deliver_items
-    displayText: Consegna eventuali oggetti sospetti alla receptionist
+    displayText: "Consegna eventuali vulnerabilit\xE0 alla receptionist"
     requiredCount: 1
     showCounter: 0
     visibleAtStart: 0
