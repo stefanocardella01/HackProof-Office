@@ -107,6 +107,18 @@ public class DialogueUI : MonoBehaviour
     private CursorLockMode prevLockState;
     private bool prevCursorVisible;
 
+    // --- Injected lines (frasi extra dette “al volo” prima di cambiare nodo) ---
+    private readonly List<string> injectedLines = new();
+    private readonly List<AudioClip> injectedClips = new();
+
+    private int injectedLineIndex = 0;
+    private bool isShowingInjected = false;
+
+    private bool hasPendingNavigation = false;
+    private int pendingNextNodeIndex = -1;
+    private bool pendingEndsDialogue = false;
+
+
 
     private IEnumerator TypeLine(string line)
     {
@@ -123,7 +135,13 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
+
+
         isTyping = false;
+
+        // se è injected senza audio, torna idle a fine typing
+        if (isShowingInjected && voiceSource != null && !voiceSource.isPlaying)
+            SetTalking(false);
         typeRoutine = null;
     }
 
@@ -264,6 +282,15 @@ public class DialogueUI : MonoBehaviour
 
 
     }
+
+    public void EnqueueInjectedLine(string line, AudioClip clip = null)
+    {
+        if (string.IsNullOrWhiteSpace(line)) return;
+        injectedLines.Add(line);
+        injectedClips.Add(clip);
+    }
+
+
 
     public void StartConversation(DialogueConversation conversation, Animator whoIsTalking, Action onFinished = null)
     {
@@ -471,6 +498,52 @@ public class DialogueUI : MonoBehaviour
         if (currentConversation == null || currentNodeIndex < 0)
             return;
 
+        // Se stiamo mostrando una frase “iniettata”, avanziamo quella
+        if (isShowingInjected)
+        {
+            if (injectedLineIndex < injectedLines.Count - 1)
+            {
+                injectedLineIndex++;
+                ShowInjectedLine();
+                return;
+            }
+
+            isShowingInjected = false;
+            isShowingLines = false;
+            injectedLines.Clear();
+            injectedClips.Clear();
+            SetTalking(false);
+
+
+            // ora esegui la navigazione che era “in pausa”
+            if (hasPendingNavigation)
+            {
+                hasPendingNavigation = false;
+
+                if (pendingEndsDialogue)
+                {
+                    EndDialogue();
+                    return;
+                }
+
+                if (currentConversation == null ||
+                    pendingNextNodeIndex < 0 ||
+                    pendingNextNodeIndex >= currentConversation.nodes.Length)
+                {
+                    EndDialogue();
+                    return;
+                }
+
+                GoToNode(pendingNextNodeIndex);
+                return;
+            }
+
+            // se non c’era navigazione, torna alle scelte del nodo corrente
+            ShowChoicesForCurrentNode();
+            return;
+        }
+
+
         DialogueNode node = currentConversation.nodes[currentNodeIndex];
 
         if (node.lines == null || node.lines.Length == 0)
@@ -615,6 +688,18 @@ public class DialogueUI : MonoBehaviour
             MarkSingleUseChoiceAsUsed(currentNodeIndex, choiceIndex, choice);
         }
 
+        // Se qualcuno ha “iniettato” una frase (es. receptionist dopo consegna),
+        // la mostriamo PRIMA di navigare al nodo successivo.
+        if (injectedLines.Count > 0)
+        {
+            hasPendingNavigation = true;
+            pendingNextNodeIndex = choice.nextNodeIndex;
+            pendingEndsDialogue = choice.endsDialogue;
+
+            StartInjectedSequence();
+            return;
+        }
+
         // Se questa scelta termina il dialogo
         if (choice.endsDialogue)
         {
@@ -631,7 +716,71 @@ public class DialogueUI : MonoBehaviour
 
         // Altrimenti andiamo al nodo indicato
         GoToNode(choice.nextNodeIndex);
+
     }
+
+    private void StartInjectedSequence()
+    {
+        // nascondi le scelte mentre parla
+        ClearChoices();
+
+        isShowingInjected = true;
+        injectedLineIndex = 0;
+        isShowingLines = true;
+
+        SetTalking(true);
+
+        ShowInjectedLine();
+    }
+
+    private void ShowInjectedLine()
+    {
+        StopTypingIfAny();
+
+        if (injectedLineIndex < 0 || injectedLineIndex >= injectedLines.Count)
+            return;
+
+        string line = injectedLines[injectedLineIndex];
+
+        // Start typing
+        if (typeRoutine != null) StopCoroutine(typeRoutine);
+        typeRoutine = StartCoroutine(TypeLine(line));
+
+        // clip associata (può essere null)
+        AudioClip clip = null;
+        if (injectedClips != null && injectedLineIndex >= 0 && injectedLineIndex < injectedClips.Count)
+            clip = injectedClips[injectedLineIndex];
+
+        // Se c’è audio: lo suona e Talking ON finché dura (già gestito dal tuo sistema)
+        if (clip != null && voiceSource != null)
+        {
+            voiceToken++;
+            int myToken = voiceToken;
+
+            if (waitVoiceRoutine != null)
+            {
+                StopCoroutine(waitVoiceRoutine);
+                waitVoiceRoutine = null;
+            }
+
+            if (stopPreviousVoiceOnAdvance && voiceSource.isPlaying)
+                voiceSource.Stop();
+
+            SetTalking(true);
+            voiceSource.clip = clip;
+            voiceSource.Play();
+
+            waitVoiceRoutine = StartCoroutine(WaitVoiceEndThenIdle(myToken));
+        }
+        else
+        {
+            // Se NON c’è audio: fai Talking ON durante il typing,
+            // poi lo spegni quando la riga è completa (vedi Modifica E)
+            SetTalking(true);
+        }
+    }
+
+
 
     /// <summary>
     /// Genera un ID univoco per una scelta single-use.

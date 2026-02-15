@@ -9,12 +9,25 @@ public class DialogueChoiceEventListener : MonoBehaviour
 
     [SerializeField] private ReportUI reportUI;
 
+    [SerializeField] private DialogueUI dialogueUI;
+
+    [Header("Audio receptionist (injected)")]
+    [SerializeField] private AudioClip clipThreat;
+    [SerializeField] private AudioClip clipFalseAlarm;
+
+
+
+
     private void Awake()
     {
         if (inventory == null)
             inventory = FindFirstObjectByType<InventoryManager>();
 
         if (reportUI == null) reportUI = FindFirstObjectByType<ReportUI>();
+
+        if (dialogueUI == null)
+            dialogueUI = FindFirstObjectByType<DialogueUI>();
+
     }
 
     private void OnEnable()
@@ -85,8 +98,9 @@ public class DialogueChoiceEventListener : MonoBehaviour
         if (!inventory.HasSelectedItem())
         {
             Debug.Log("[RemoveSelected] Nessun oggetto selezionato.");
-            return;
+            return; // se non consegni nulla, non dice niente
         }
+
         InventoryItem selected = inventory.GetSelectedItem();
         bool removed = inventory.RemoveItem();
 
@@ -96,7 +110,64 @@ public class DialogueChoiceEventListener : MonoBehaviour
             Debug.Log("[RemoveSelected] Oggetto NON removibile (es: badge).");
 
         MarkReportForRemovedItem(selected);
+
+        // Se ho consegnato davvero, la receptionist commenta subito
+        if (removed && dialogueUI != null && selected != null)
+        {
+            string line = GetReceptionistLineForItem(selected.id);
+
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                AudioClip clip = GetReceptionistClipForItem(selected.id);
+                dialogueUI.EnqueueInjectedLine(line, clip);
+            }
+        }
+
     }
+
+    private AudioClip GetReceptionistClipForItem(string itemId)
+    {
+        bool isThreat =
+            itemId == "badgeTecnico" ||
+            itemId == "post-it" ||
+            itemId == "hardDisk";
+
+        bool isFalseAlarm =
+            itemId == "manuale" ||
+            itemId == "cacciavite" ||
+            itemId == "cuffie";
+
+        if (isThreat) return clipThreat;
+        if (isFalseAlarm) return clipFalseAlarm;
+        return null;
+    }
+
+
+    private string GetReceptionistLineForItem(string itemId)
+    {
+        // “vera vulnerabilità / minaccia”
+        bool isThreat =
+            itemId == "badgeTecnico" ||
+            itemId == "post-it" ||
+            itemId == "hardDisk"; // usb
+
+        // “falso allarme” (come richiesto dal prof)
+        bool isFalseAlarm =
+            itemId == "manuale" ||
+            itemId == "cacciavite" ||
+            itemId == "cuffie";
+
+        if (isThreat)
+            return "Capisco. Questo oggetto potrebbe davvero rappresentare una minaccia: lo consegnerò subito a chi di dovere.";
+
+        if (isFalseAlarm)
+            return "Capisco. Da una prima verifica non sembra un oggetto sospetto: lo registrerò comunque e ti farò sapere.";
+
+        // se è un oggetto che non vuoi commentare
+        return null;
+    }
+
+
 
     private void MarkReportForRemovedItem(InventoryItem item)
     {
