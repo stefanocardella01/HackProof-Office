@@ -7,6 +7,13 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        // Distruggi singleton persistenti
+        if (MissionManager.Instance != null)
+            Destroy(MissionManager.Instance.gameObject);
+
+        if (MissionTracker.Instance != null)
+            Destroy(MissionTracker.Instance.gameObject);
+
         SceneManager.LoadScene("HackProof-Office");
     }
 

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using static Unity.Burst.Intrinsics.X86.Avx;
+
 
 public class ReportUI : MonoBehaviour
 {
@@ -46,6 +49,8 @@ public class ReportUI : MonoBehaviour
     // quale missione mostrare
     private int _missionIndexToShow = -1;
 
+    private bool _isFinalReportOpen = false;
+
     // modalità: report di fine missione vs micro-report (email)
     private bool _isMissionReport = true;
     private System.Action _onCloseCallback;
@@ -82,6 +87,7 @@ public class ReportUI : MonoBehaviour
 
         mixer.SetDialog();
 
+        _isFinalReportOpen = false;
 
         _isMissionReport = true;
         _onCloseCallback = null;
@@ -121,6 +127,13 @@ public class ReportUI : MonoBehaviour
         OpenReport(missionIndex);
     }
 
+    public void OnCloseButtonClicked()
+    {
+        if (_isFinalReportOpen)
+            SceneManager.LoadScene("EndMenu");
+        else
+            CloseReport();
+    }
 
     public void CloseReport()
     {
@@ -194,6 +207,24 @@ public class ReportUI : MonoBehaviour
          //if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
     }
 
+    private int GetEntryPriority(ReportEntry entry)
+    {
+        bool value = MissionTracker.Instance.Get(entry.check);
+        bool ok = (value == entry.expectedValue);
+
+        // Caso speciale EmailScore: trattalo sempre come ok (verde)
+        if (entry.check == ReportCheck.EmailScore)
+            ok = true;
+
+        if (ok) return 0; // verdi prima
+
+        bool isMinor = entry.check == ReportCheck.ManualDelivered ||
+                       entry.check == ReportCheck.ScrewdriverDelivered;
+
+        return isMinor ? 2 : 1; // rossi poi, gialli ultimi
+    }
+
+
     private void BuildSingle(int missionIndex)
     {
         // pulizia
@@ -224,26 +255,29 @@ public class ReportUI : MonoBehaviour
         h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
 
         // righe
-        foreach (var entry in mission.entries)
+        // righe (ordinate: verdi, rossi, gialli)
+        var ordered = new List<ReportEntry>(mission.entries);
+        ordered.Sort((a, b) => GetEntryPriority(a).CompareTo(GetEntryPriority(b)));
+
+        foreach (var entry in ordered)
         {
             bool value = MissionTracker.Instance.Get(entry.check);
             bool ok = (value == entry.expectedValue);
 
-            // prima assegni explanation "base"
             string explanation = ok ? entry.okText : entry.badText;
 
-            // poi, se è EmailScore, la sovrascrivi con il testo dinamico
             if (entry.check == ReportCheck.EmailScore)
             {
                 explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
-                ok = true; // (opzionale) così la riga risulta “verde” sempre
+                ok = true;
             }
 
             var row = Instantiate(rowPrefab, contentParent);
-            row.GetComponent<ReportRowUI>().Setup(entry.label, ok, explanation);
+            row.GetComponent<ReportRowUI>().Setup(entry.check, entry.label, ok, explanation);
         }
 
-      
+
+
     }
 
     public void Build()
@@ -263,33 +297,44 @@ public class ReportUI : MonoBehaviour
             return;
         }
 
+        var t = Instantiate(headerPrefab, contentParent);
+        var tmp = t.GetComponent<TextMeshProUGUI>();
+
+        tmp.text = "REPORT FINALE";
+        tmp.fontSize = 48;   // cambia valore come vuoi
+        tmp.fontStyle = FontStyles.Bold; // opzionale
+
+
         foreach (var mission in missions)
         {
             // header
             var h = Instantiate(headerPrefab, contentParent);
             h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
 
-            // righe
-            foreach (var entry in mission.entries)
-            {
-                bool ok = MissionTracker.Instance.Get(entry.check);
+            // righe (ordinate: verdi, rossi, gialli)
+            var ordered = new List<ReportEntry>(mission.entries);
+            ordered.Sort((a, b) => GetEntryPriority(a).CompareTo(GetEntryPriority(b)));
 
-                // explanation base
+            foreach (var entry in ordered)
+            {
+                bool value = MissionTracker.Instance.Get(entry.check);
+                bool ok = (value == entry.expectedValue);
+
                 string explanation = ok ? entry.okText : entry.badText;
 
-                // ✅ caso speciale: punteggio email
                 if (entry.check == ReportCheck.EmailScore)
                 {
                     explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
-                    ok = true; // sempre verde (informativo)
+                    ok = true;
                 }
 
                 var row = Instantiate(rowPrefab, contentParent);
-                row.GetComponent<ReportRowUI>().Setup(entry.label, ok, explanation);
+                row.GetComponent<ReportRowUI>().Setup(entry.check, entry.label, ok, explanation);
             }
+
         }
 
-       
+
     }
 
     public void OpenSingleFeedback(string title, string label, bool ok, string explanation, System.Action onClosed)
@@ -360,6 +405,9 @@ public class ReportUI : MonoBehaviour
     public void OpenFinalReport()
     {
         if (reportRoot == null) return;
+
+        _isFinalReportOpen = true;
+
 
         _isMissionReport = false;     // così CloseReport NON chiama StartNextMission
         _onCloseCallback = null;
