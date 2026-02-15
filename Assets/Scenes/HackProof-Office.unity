@@ -29184,7 +29184,7 @@ MonoBehaviour:
   disableCollidersWhenDisabled: 1
   rotateTowardsPlayerBeforeTalking: 1
   faceDuration: 0.4
-  faceTurnSpeed: 12
+  faceTurnSpeed: 8
   mixer: {fileID: 1223146774}
 --- !u!4 &2065112323 stripped
 Transform:

@@ -61,6 +61,9 @@ public class DialogueUI : MonoBehaviour
     private bool isTyping = false;
     private string currentFullLine = "";
 
+    private Coroutine waitVoiceRoutine;
+    private int voiceToken = 0;
+
     public bool IsDialogueActive => isDialogueActive;
 
     [Header("NPC Animation")]
@@ -196,6 +199,12 @@ public class DialogueUI : MonoBehaviour
     /// Puoi chiamare questo metodo da un trigger, da uno script NPC, ecc.
     /// </summary>
     /// 
+
+    private void SetTalking(bool value)
+    {
+        if (npcAnimator != null)
+            npcAnimator.SetBool("Talking", value);
+    }
 
     private void StopTypingIfAny()
     {
@@ -394,20 +403,68 @@ public class DialogueUI : MonoBehaviour
 
     private void PlayVoiceOverForCurrentLine(DialogueNode node)
     {
-        if (voiceSource == null) return;
+        // ogni volta che mostri una linea nuova, considerala "parlata"
+        // (anche se non c'è audio, poi sotto la spegniamo)
+        voiceToken++;
+        int myToken = voiceToken;
+
+        // se c'era una coroutine precedente, stoppa
+        if (waitVoiceRoutine != null)
+        {
+            StopCoroutine(waitVoiceRoutine);
+            waitVoiceRoutine = null;
+        }
+
+        if (voiceSource == null || node == null)
+        {
+            SetTalking(false);
+            return;
+        }
 
         if (stopPreviousVoiceOnAdvance && voiceSource.isPlaying)
             voiceSource.Stop();
 
-        if (node == null || node.lineVoiceOvers == null) return;
-        if (currentLineIndex < 0 || currentLineIndex >= node.lineVoiceOvers.Length) return;
+        AudioClip clip = null;
 
-        AudioClip clip = node.lineVoiceOvers[currentLineIndex];
-        if (clip == null) return;
+        if (node.lineVoiceOvers != null &&
+            currentLineIndex >= 0 &&
+            currentLineIndex < node.lineVoiceOvers.Length)
+        {
+            clip = node.lineVoiceOvers[currentLineIndex];
+        }
+
+        // Se non c'è clip: NON stai parlando (stai solo mostrando testo)
+        if (clip == null)
+        {
+            SetTalking(false);
+            return;
+        }
+
+        // Parte audio => Talking ON
+        SetTalking(true);
 
         voiceSource.clip = clip;
         voiceSource.Play();
+
+        waitVoiceRoutine = StartCoroutine(WaitVoiceEndThenIdle(myToken));
     }
+
+    private IEnumerator WaitVoiceEndThenIdle(int myToken)
+    {
+        // aspetta finché l'audio sta suonando
+        while (voiceSource != null && voiceSource.isPlaying)
+            yield return null;
+
+        // se nel frattempo è partita una nuova linea o è finito il dialogo, non fare nulla
+        if (!isDialogueActive) yield break;
+        if (myToken != voiceToken) yield break;
+
+        // audio finito, sei ancora sulla stessa linea => torna Idle
+        SetTalking(false);
+
+        waitVoiceRoutine = null;
+    }
+
 
     private void AdvanceLine()
     {
@@ -438,6 +495,8 @@ public class DialogueUI : MonoBehaviour
 
             if (voiceSource != null && voiceSource.isPlaying)
                 voiceSource.Stop();
+
+            SetTalking(false);
 
             ShowChoicesForCurrentNode();
         }
