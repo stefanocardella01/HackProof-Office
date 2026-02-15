@@ -5009,6 +5009,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3952072308106427707, guid: d535bfa58035eae449a4badf43180cf9, type: 3}
     - target: {fileID: 6704985785631418984, guid: d535bfa58035eae449a4badf43180cf9, type: 3}
+      propertyPath: inventoryIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 330f05e543c23ea4195c614e87bea204, type: 3}
+    - target: {fileID: 6704985785631418984, guid: d535bfa58035eae449a4badf43180cf9, type: 3}
       propertyPath: objectiveIdOnInspect
       value: m2_inspect_headphones
       objectReference: {fileID: 0}
@@ -14178,6 +14182,10 @@ PrefabInstance:
       propertyPath: inspectPrefab
       value: 
       objectReference: {fileID: 3692968736486109821, guid: eab01061b919f1446a1fdc87382ed17a, type: 3}
+    - target: {fileID: 8301638418831098810, guid: eab01061b919f1446a1fdc87382ed17a, type: 3}
+      propertyPath: inventoryIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: caf393381ab21334fbb73681d18322ce, type: 3}
     - target: {fileID: 8301638418831098810, guid: eab01061b919f1446a1fdc87382ed17a, type: 3}
       propertyPath: objectiveIdOnInspect
       value: m2_inspect_postit
@@ -30748,6 +30756,10 @@ PrefabInstance:
       propertyPath: inspectPrefab
       value: 
       objectReference: {fileID: 4331705280865179982, guid: 154bafcc13fc7a34fba8fd0b3c4144a1, type: 3}
+    - target: {fileID: 854311519350316987, guid: 154bafcc13fc7a34fba8fd0b3c4144a1, type: 3}
+      propertyPath: inventoryIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: c71c71311b814c140b612df02500b366, type: 3}
     - target: {fileID: 3987550082023506932, guid: 154bafcc13fc7a34fba8fd0b3c4144a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5461893
@@ -30959,6 +30971,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9084028387937588497, guid: 4aeeb6e676d6d17408a957ff120739b1, type: 3}
     - target: {fileID: 2805665147976504714, guid: 4aeeb6e676d6d17408a957ff120739b1, type: 3}
+      propertyPath: inventoryIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: c71c71311b814c140b612df02500b366, type: 3}
+    - target: {fileID: 2805665147976504714, guid: 4aeeb6e676d6d17408a957ff120739b1, type: 3}
       propertyPath: objectiveIdOnInspect
       value: m3_inspect_relax
       objectReference: {fileID: 0}
@@ -31150,6 +31166,10 @@ PrefabInstance:
       propertyPath: inspectPrefab
       value: 
       objectReference: {fileID: 3896263939353769721, guid: bdba1a6a9c1a7c54791a70cb3a1c97af, type: 3}
+    - target: {fileID: 4200101297823515253, guid: bdba1a6a9c1a7c54791a70cb3a1c97af, type: 3}
+      propertyPath: inventoryIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: cd06904ee5a22b94ca63ed7aa0a4c277, type: 3}
     - target: {fileID: 4200101297823515253, guid: bdba1a6a9c1a7c54791a70cb3a1c97af, type: 3}
       propertyPath: objectiveIdOnInspect
       value: m3_inspect_relax
