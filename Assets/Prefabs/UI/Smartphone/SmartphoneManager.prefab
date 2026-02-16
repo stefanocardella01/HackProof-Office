@@ -50,6 +50,8 @@ MonoBehaviour:
   messages: []
   notificationSound: {fileID: 8300000, guid: 864d98a2e45640e4d83ba4aebf0a2ca9, type: 3}
   buttonClickSound: {fileID: 8300000, guid: 500d2dbf883f91141b90055cd9c0eaa9, type: 3}
+  vibration: {fileID: 8300000, guid: 95505f601b89ae34d962b161a7123608, type: 3}
+  mixer: {fileID: 0}
 --- !u!114 &5910278823617320647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ AudioSource:
   m_GameObject: {fileID: 3692567743138680058}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8354255948372864454, guid: f93ec180571cc26448011aa849553234, type: 2}
+  OutputAudioMixerGroup: {fileID: 4623157172793686601, guid: f93ec180571cc26448011aa849553234, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
