@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeatedCharacterAudio
   writingClip: {fileID: 8300000, guid: 52bf6b2af52279440908ec068d4bedb7, type: 3}
+  talkingClip: {fileID: 8300000, guid: df03a28230d28cf4ebad6fee1a82683a, type: 3}
 --- !u!82 &1565676204492300801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -148,7 +149,7 @@ AudioSource:
   m_GameObject: {fileID: 6097416584201250587}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8354255948372864454, guid: f93ec180571cc26448011aa849553234, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

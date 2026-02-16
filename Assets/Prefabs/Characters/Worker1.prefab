@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeatedCharacterAudio
   writingClip: {fileID: 8300000, guid: 52bf6b2af52279440908ec068d4bedb7, type: 3}
+  talkingClip: {fileID: 8300000, guid: df03a28230d28cf4ebad6fee1a82683a, type: 3}
 --- !u!114 &250542974321093654
 MonoBehaviour:
   m_ObjectHideFlags: 0

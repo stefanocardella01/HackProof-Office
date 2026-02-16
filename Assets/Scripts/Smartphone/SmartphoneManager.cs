@@ -17,7 +17,10 @@ public class SmartphoneManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip notificationSound;  // Suono nuova notifica
     [SerializeField] private AudioClip buttonClickSound;   // Suono click UI
+    [SerializeField] private AudioClip vibration;
     [SerializeField] private ManagerAudio mixer;
+    private bool isVibrating = false;
+
 
     private AudioSource audioSource;
 
@@ -73,6 +76,10 @@ public class SmartphoneManager : MonoBehaviour
         messages.Insert(0, message); // Inserisci in cima (più recente)
 
         PlaySound(notificationSound);
+        // Avvia vibrazione in loop
+        StartVibration();
+
+
         OnMessageReceived?.Invoke(message);
 
         Debug.Log($"[SmartphoneManager] Nuovo messaggio da {message.senderName}: {message.messageText}");
@@ -124,7 +131,10 @@ public class SmartphoneManager : MonoBehaviour
         OnSmartphoneOpened?.Invoke();
 
         Debug.Log("[SmartphoneManager] Smartphone aperto");
+
         mixer.SetDialog();
+        StopVibration();
+
     }
 
     // Chiude lo smartphone.
@@ -137,6 +147,7 @@ public class SmartphoneManager : MonoBehaviour
 
         Debug.Log("[SmartphoneManager] Smartphone chiuso");
         mixer.SetNormal();
+        
     }
 
     // Toggle apertura/chiusura.
@@ -178,6 +189,29 @@ public class SmartphoneManager : MonoBehaviour
         }
     }
 
+    public void StartVibration()
+    {
+        if (vibration == null || audioSource == null) return;
+
+        audioSource.clip = vibration;
+        audioSource.loop = true;
+        audioSource.Play();
+
+        isVibrating = true;
+    }
+
+    public void StopVibration()
+    {
+        if (!isVibrating) return;
+
+        audioSource.loop = false;
+        audioSource.Stop();
+        audioSource.clip = null;
+
+        isVibrating = false;
+    }
+
+
 
     // Riproduce il suono di click per i bottoni UI.
     public void PlayButtonClick()
@@ -192,3 +226,6 @@ public class SmartphoneManager : MonoBehaviour
         return UnreadCount > 0;
     }
 }
+
+
+
