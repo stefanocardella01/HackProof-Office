@@ -130,16 +130,15 @@ public class MissionManager : MonoBehaviour
     /// </summary>
     public void StartNextMission()
     {
+        // Log solo quando è la chiamata "sbagliata" (stai per saltare una missione)
+
+        Debug.LogError("### STARTNEXT BUG ###\n" + Environment.StackTrace);
+
+        Debug.Log($"[MissionManager] StartNextMission OK | currentMissionIndex={currentMissionIndex}\n{Environment.StackTrace}");
+
         int nextIndex = currentMissionIndex + 1;
-        if (nextIndex < missions.Count)
-        {
-            StartMission(nextIndex);
-        }
-        else
-        {
-            Debug.Log("[MissionManager] ══════ TUTTE LE MISSIONI COMPLETATE — FINE GIOCO ══════");
-            OnAllMissionsCompleted?.Invoke();
-        }
+        if (nextIndex < missions.Count) StartMission(nextIndex);
+        else OnAllMissionsCompleted?.Invoke();
     }
 
     #endregion

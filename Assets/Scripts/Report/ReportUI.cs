@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using static Unity.Burst.Intrinsics.X86.Avx;
+using System;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 
 public class ReportUI : MonoBehaviour
@@ -54,11 +57,36 @@ public class ReportUI : MonoBehaviour
     // modalità: report di fine missione vs micro-report (email)
     private bool _isMissionReport = true;
     private System.Action _onCloseCallback;
+    private int _closeSeq = 0;
+
+    private static ReportUI _instance;
+
 
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+
+
+        Debug.Log($"[ReportUI] Awake instanceID={GetInstanceID()} GO={name} scene={gameObject.scene.name}");
+
         if (continueButton != null)
-            continueButton.onClick.AddListener(CloseReport);
+            Debug.Log($"[ReportUI] continueButton='{continueButton.name}' btnID={continueButton.GetInstanceID()}");
+        else
+            Debug.LogWarning("[ReportUI] continueButton NULL");
+
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(OnCloseButtonClicked);
+            continueButton.onClick.AddListener(OnCloseButtonClicked);
+
+            // IMPORTANTISSIMO: NON aggiungere CloseReport direttamente
+            continueButton.onClick.RemoveListener(CloseReport);
+        }
 
         if (reportRoot != null)
             reportRoot.SetActive(false);
@@ -91,6 +119,7 @@ public class ReportUI : MonoBehaviour
 
         _isMissionReport = true;
         _onCloseCallback = null;
+
 
         if (reportRoot == null) return;
 
@@ -129,6 +158,9 @@ public class ReportUI : MonoBehaviour
 
     public void OnCloseButtonClicked()
     {
+        Debug.Log($"[ReportUI] OnCloseButtonClicked instanceID={GetInstanceID()} selected={EventSystem.current?.currentSelectedGameObject?.name}");
+
+
         if (_isFinalReportOpen)
             SceneManager.LoadScene("EndMenu");
         else
@@ -137,10 +169,16 @@ public class ReportUI : MonoBehaviour
 
     public void CloseReport()
     {
+
+        Debug.LogError($"[ReportUI] CloseReport instanceID={GetInstanceID()} selected={EventSystem.current?.currentSelectedGameObject?.name}");
+
         if (reportRoot == null) return;
 
         reportRoot.SetActive(false);
         isOpen = false;
+
+        _closeSeq++;
+        Debug.LogError($"### CLOSEREPORT #{_closeSeq} ###\n" + Environment.StackTrace);
 
         // Micro-report (Email): lascia cursore visibile e player bloccato
         if (!_isMissionReport)
