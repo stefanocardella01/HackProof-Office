@@ -2206,6 +2206,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2069479560}
     m_Modifications:
+    - target: {fileID: 598840680136366339, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: codeSentMessage
+      value: Codice inviato! Premi P per aprire il telefono.
+      objectReference: {fileID: 0}
     - target: {fileID: 1098283370271183843, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1442
@@ -2234,6 +2238,18 @@ PrefabInstance:
       propertyPath: missionCheckList
       value: 
       objectReference: {fileID: 122809719}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: uiCanvasToHide.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[0]'
+      value: 
+      objectReference: {fileID: 720075259}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[1]'
+      value: 
+      objectReference: {fileID: 271139412}
     - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: correctPassword
       value: john.doe
@@ -9254,6 +9270,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f81ef23c489295448a29b3ed6c0331e0, type: 3}
+--- !u!1 &720075259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649199536629111301, guid: f81ef23c489295448a29b3ed6c0331e0, type: 3}
+  m_PrefabInstance: {fileID: 720075258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &722600188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9406,14 +9427,28 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0459
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6305346282475043244, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 722600194}
   m_SourcePrefab: {fileID: 100100000, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
 --- !u!4 &722600189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6686376112335971094, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &722600190 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1019506860040532567, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &722600191 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5928806730658433930, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
   m_PrefabInstance: {fileID: 722600188}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &722600192 stripped
@@ -9421,12 +9456,41 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2525608947504829243, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
   m_PrefabInstance: {fileID: 722600188}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 722600193}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bed222c18fcfb140bb0cd64dc23c30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmailComputerInteractable
+--- !u!1 &722600193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6305346282475043244, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &722600194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722600193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7dd62ccdd472d45a38a1a92b7cc106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCCameraControllerM4
+  pcCamera: {fileID: 722600190}
+  playerCamera: {fileID: 348196124}
+  pcCanvas: {fileID: 722600191}
+  mainUICanvas: {fileID: 772636137}
+  missionCheckList: {fileID: 122809719}
+  useFade: 0
+  fadeDuration: 0.2
+  playerObject: {fileID: 0}
+  firstPersonController: {fileID: 0}
+  playerInput: {fileID: 0}
+  playerInteractor: {fileID: 0}
+  smartphoneInput: {fileID: 0}
 --- !u!1 &723641020
 GameObject:
   m_ObjectHideFlags: 0
