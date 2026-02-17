@@ -29,7 +29,7 @@ public class SmartphoneManager : MonoBehaviour
     public event Action<SmartphoneMessage> OnMessageRead;      // Messaggio letto
     public event Action OnSmartphoneOpened;                    // Smartphone aperto
     public event Action OnSmartphoneClosed;                    // Smartphone chiuso
-
+    private bool isOverlayMode = false;
     // Stato
     public bool IsOpen { get; private set; }
     public int UnreadCount => messages.FindAll(m => !m.isRead).Count;
@@ -224,6 +224,12 @@ public class SmartphoneManager : MonoBehaviour
     public bool HasUnreadMessages()
     {
         return UnreadCount > 0;
+    }
+
+    public bool IsOverlayMode
+    {
+        get => isOverlayMode;
+        set => isOverlayMode = value;
     }
 }
 

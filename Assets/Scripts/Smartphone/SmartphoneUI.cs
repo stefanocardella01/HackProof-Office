@@ -314,7 +314,7 @@ public class SmartphoneUI : MonoBehaviour
             notificationBanner.SetActive(false);
 
         // Nascondi HUD principale
-        if (hudCanvas != null)
+        if (hudCanvas != null && !SmartphoneManager.Instance.IsOverlayMode)
             hudCanvas.SetActive(false);
 
         // Nascondi l'orologio chiuso SUBITO (quello aperto apparirà DOPO l'animazione)
@@ -350,7 +350,7 @@ public class SmartphoneUI : MonoBehaviour
         SlideDown();
 
         // Ripristina HUD principale
-        if (hudCanvas != null)
+        if (hudCanvas != null && !SmartphoneManager.Instance.IsOverlayMode)
             hudCanvas.SetActive(true);
 
         currentMessage = null;

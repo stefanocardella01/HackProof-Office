@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using StarterAssets;
 
 /// <summary>
 /// Gestisce l'input per lo smartphone (tasto P) e la disattivazione
-/// dei controlli del player quando lo smartphone � aperto.
+/// dei controlli del player quando lo smartphone è aperto.
 /// </summary>
 public class SmartphoneInput : MonoBehaviour
 {
@@ -85,11 +85,15 @@ public class SmartphoneInput : MonoBehaviour
     }
 
     /// <summary>
-    /// Disabilita i controlli del player quando lo smartphone � aperto.
+    /// Disabilita i controlli del player quando lo smartphone è aperto.
     /// </summary>
     private void DisablePlayerControls()
     {
         Debug.Log("[SmartphoneInput] Disabilitando controlli player...");
+
+        // In overlay mode il PC ha già disabilitato tutto → non toccare nulla
+        if (manager != null && manager.IsOverlayMode)
+            return;
 
         // Salva lo stato attuale
         if (playerController != null)
@@ -102,7 +106,6 @@ public class SmartphoneInput : MonoBehaviour
         // Disabilita l'input
         if (starterInputs != null)
         {
-            // Reset degli input per evitare movimento residuo
             starterInputs.move = Vector2.zero;
             starterInputs.look = Vector2.zero;
             starterInputs.jump = false;
@@ -128,6 +131,10 @@ public class SmartphoneInput : MonoBehaviour
     {
         Debug.Log("[SmartphoneInput] Riabilitando controlli player...");
 
+        // In overlay mode il PC gestisce i controlli → non toccare nulla
+        if (manager != null && manager.IsOverlayMode)
+            return;
+
         // Ripristina il controller
         if (playerController != null)
         {
@@ -149,7 +156,7 @@ public class SmartphoneInput : MonoBehaviour
     }
 
     /// <summary>
-    /// Verifica se lo smartphone pu� essere aperto.
+    /// Verifica se lo smartphone può essere aperto.
     /// Potresti aggiungere condizioni qui (es: non durante dialoghi).
     /// </summary>
     public bool CanOpenSmartphone()
@@ -159,7 +166,7 @@ public class SmartphoneInput : MonoBehaviour
         if (reportUI == null) reportUI = FindFirstObjectByType<ReportUI>();
         if (inspectUI == null)
         {
-            // includeInactive: TRUE cos� lo trova anche se il GameObject � disattivato
+            // includeInactive: TRUE così lo trova anche se il GameObject è disattivato
             inspectUI = FindFirstObjectByType<InspectUI>(FindObjectsInactive.Include);
         }
 
@@ -170,6 +177,12 @@ public class SmartphoneInput : MonoBehaviour
             return false;
 
         if (inspectUI != null && inspectUI.IsOpen)
+            return false;
+
+        // Blocca quando il player controller è disabilitato (es. al PC),
+        // MA fai eccezione se siamo in overlay mode (2FA)
+        if (playerController != null && !playerController.enabled
+            && (manager == null || (!manager.IsOverlayMode && !manager.IsOpen)))
             return false;
 
         return true;

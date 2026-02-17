@@ -109,6 +109,11 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
     public void Show()
     {
         // Ripristina lo stato salvato (se il player torna al PC)
+        // Se siamo ancora nella fase di inserimento codice, riattiva overlay
+        if (step3Panel != null && step3Panel.activeSelf)
+        {
+            SmartphoneManager.Instance.IsOverlayMode = true;
+        }
         if (savedCodeSent)
         {
             currentStep = savedStep;
@@ -130,6 +135,13 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
     public void Hide()
     {
         // Salva lo stato quando si esce
+        if (SmartphoneManager.Instance != null)
+        {
+            if (SmartphoneManager.Instance.IsOpen)
+                SmartphoneManager.Instance.Close();
+            SmartphoneManager.Instance.IsOverlayMode = false;
+        }
+
         savedStep = currentStep;
         savedCode = currentValidCode;
         savedCodeSent = codeSent;
@@ -201,7 +213,7 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
         {
             if (codeSent)
             {
-                hintText.text = "Codice inviato! Premi ESC per uscire, poi P per aprire il telefono.";
+                hintText.text = "Codice inviato! Premi P per aprire il telefono.";
             }
             else
             {
@@ -297,6 +309,12 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
 
         if (code == currentValidCode)
         {
+            if (SmartphoneManager.Instance != null)
+            {
+                if (SmartphoneManager.Instance.IsOpen)
+                    SmartphoneManager.Instance.Close();
+                SmartphoneManager.Instance.IsOverlayMode = false;
+            }
             // Codice corretto!
             GoToStep(4);
         }
@@ -329,6 +347,13 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
     private void OnSkipClicked()
     {
         // L'utente ha scelto di saltare l'attivazione 2FA
+        if (SmartphoneManager.Instance != null)
+        {
+            if (SmartphoneManager.Instance.IsOpen)
+                SmartphoneManager.Instance.Close();
+            SmartphoneManager.Instance.IsOverlayMode = false;
+        }
+
         manager?.On2FASkippedByUser();
     }
 
@@ -364,6 +389,8 @@ public class TwoFactorAuthScreen : MonoBehaviour, IPCScreen
 
         // Invia tramite SmartphoneManager
         SmartphoneManager.Instance.ReceiveMessage(smsSenderName, smsText);
+
+        SmartphoneManager.Instance.IsOverlayMode = true;
 
         Debug.Log($"[2FA] SMS inviato allo smartphone con codice: {currentValidCode}");
     }

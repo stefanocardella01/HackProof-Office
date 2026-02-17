@@ -1329,6 +1329,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7218383522589237717, guid: 768a7de6984192043b5c57d322fb8d80, type: 3}
   m_PrefabInstance: {fileID: 99541934}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &100912558 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5928806730658433930, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &103186216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2202,6 +2207,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2069479560}
     m_Modifications:
+    - target: {fileID: 598840680136366339, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: codeSentMessage
+      value: Codice inviato! Premi P per aprire il telefono.
+      objectReference: {fileID: 0}
     - target: {fileID: 1098283370271183843, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1442
@@ -2230,6 +2239,22 @@ PrefabInstance:
       propertyPath: missionCheckList
       value: 
       objectReference: {fileID: 122809719}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: uiCanvasToHide.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[0]'
+      value: 
+      objectReference: {fileID: 784635975}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[1]'
+      value: 
+      objectReference: {fileID: 271139412}
+    - target: {fileID: 1393496174694675373, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2123629139}
     - target: {fileID: 2002115060353038580, guid: 3603bcd4c980926428f6e08f91337992, type: 3}
       propertyPath: correctPassword
       value: john.doe
@@ -6333,6 +6358,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8301601986220961930, guid: 1ccec2dfbda4fcb44b06eecc65494624, type: 3}
   m_PrefabInstance: {fileID: 3586404753848427739}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &525535616 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1019506860040532567, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &543579615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9287,6 +9317,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
       propertyPath: mainUICanvas
       value: 
       objectReference: {fileID: 772636137}
@@ -9298,6 +9332,26 @@ PrefabInstance:
       propertyPath: missionCheckList
       value: 
       objectReference: {fileID: 122809719}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: uiCanvasToHide.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[0]'
+      value: 
+      objectReference: {fileID: 784635975}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[1]'
+      value: 
+      objectReference: {fileID: 271139412}
+    - target: {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: 'uiCanvasToHide.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2123629139}
+    - target: {fileID: 2525608947504829243, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: disabledText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3575659773865111692, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0311
@@ -9330,6 +9384,10 @@ PrefabInstance:
       propertyPath: reportUI
       value: 
       objectReference: {fileID: 823591668}
+    - target: {fileID: 4489411715498007346, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6305346282475043244, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
       propertyPath: m_Name
       value: PcMissione4
@@ -9394,10 +9452,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0459
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2119542527100597039, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6305346282475043244, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2101442847}
   m_SourcePrefab: {fileID: 100100000, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
 --- !u!4 &722600189 stripped
 Transform:
@@ -10422,6 +10484,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776698602}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &784635975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649199536629111301, guid: f81ef23c489295448a29b3ed6c0331e0, type: 3}
+  m_PrefabInstance: {fileID: 720075258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &798710406
 GameObject:
   m_ObjectHideFlags: 0
@@ -11102,7 +11169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolumePerSceneData
   serializedBakingSet: {fileID: 11400000, guid: 1b3ba917231d3bf488e3f7a5a6c22b28, type: 2}
-  sceneGUID: 04ee40ce40b52114faeda20971264d49
+  sceneGUID: 85b102c5b597faf4ba81a136280c27ba
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
   obsoleteCellSupportDataAsset: {fileID: 0}
@@ -27561,6 +27628,9 @@ MonoBehaviour:
   channel: {fileID: 11400000, guid: b49c93f483b49e54faa66db6d5739fcb, type: 2}
   inventory: {fileID: 0}
   reportUI: {fileID: 0}
+  dialogueUI: {fileID: 0}
+  clipThreat: {fileID: 0}
+  clipFalseAlarm: {fileID: 0}
 --- !u!1001 &1960162692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29580,6 +29650,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6709734021875533637, guid: fdef164df8a29fe45a5774095f887b76, type: 3}
   m_PrefabInstance: {fileID: 2100531769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2101442842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6305346282475043244, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2101442847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101442842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7dd62ccdd472d45a38a1a92b7cc106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCCameraControllerM4
+  pcCamera: {fileID: 525535616}
+  playerCamera: {fileID: 348196124}
+  pcCanvas: {fileID: 100912558}
+  mainUICanvas: {fileID: 772636137}
+  missionCheckList: {fileID: 122809719}
+  useFade: 0
+  fadeDuration: 0.2
+  playerObject: {fileID: 0}
+  firstPersonController: {fileID: 0}
+  playerInput: {fileID: 0}
+  playerInteractor: {fileID: 0}
+  smartphoneInput: {fileID: 0}
 --- !u!1001 &2102264768
 PrefabInstance:
   m_ObjectHideFlags: 0

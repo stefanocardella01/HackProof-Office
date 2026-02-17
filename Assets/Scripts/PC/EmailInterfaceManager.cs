@@ -29,7 +29,7 @@ public class EmailInterfaceManager : MonoBehaviour
     [SerializeField] private ReportUI reportUI;
 
     [Header("Camera e Controlli")]
-    [SerializeField] private PCCameraController cameraController;
+    [SerializeField] private PCCameraControllerM4 cameraController;
 
     [Header("Riferimento Computer")]
     [SerializeField] private EmailComputerInteractable computerInteractable;
@@ -103,7 +103,7 @@ public class EmailInterfaceManager : MonoBehaviour
     {
         if (cameraController == null)
         {
-            cameraController = GetComponent<PCCameraController>();
+            cameraController = GetComponent<PCCameraControllerM4>();
 
             if (cameraController == null)
             {

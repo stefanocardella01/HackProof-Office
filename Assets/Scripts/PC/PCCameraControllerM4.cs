@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 /// <summary>
 /// Gestisce il passaggio tra la camera del player e la camera del PC.
 /// Usa due camere separate: una per il gameplay normale, una per il PC.
 /// </summary>
-public class PCCameraController : MonoBehaviour
+public class PCCameraControllerM4 : MonoBehaviour
 {
     [Header("Camere")]
     [Tooltip("Camera dedicata al PC (posizionata davanti allo schermo)")]
@@ -19,7 +19,7 @@ public class PCCameraController : MonoBehaviour
     [SerializeField] private Canvas pcCanvas;
 
     [Tooltip("Canvas della UI principale da nascondere (HUD, inventario, ecc)")]
-    [SerializeField] private GameObject[] uiCanvasToHide;
+    [SerializeField] private GameObject mainUICanvas;
 
     [Tooltip("Canvas della mision check list da nascondere")]
     [SerializeField] private GameObject missionCheckList;
@@ -135,13 +135,13 @@ public class PCCameraController : MonoBehaviour
 
         if (isTransitioning)
         {
-            Debug.LogWarning("[PCCameraController] Già in transizione, ignoro");
+            Debug.LogWarning("[PCCameraController] Giï¿½ in transizione, ignoro");
             return;
         }
 
         if (isAtScreen)
         {
-            Debug.LogWarning("[PCCameraController] Già allo schermo, ignoro");
+            Debug.LogWarning("[PCCameraController] Giï¿½ allo schermo, ignoro");
             return;
         }
 
@@ -164,7 +164,7 @@ public class PCCameraController : MonoBehaviour
 
         if (isTransitioning)
         {
-            Debug.LogWarning("[PCCameraController] Già in transizione, ignoro");
+            Debug.LogWarning("[PCCameraController] Giï¿½ in transizione, ignoro");
             return;
         }
 
@@ -186,9 +186,10 @@ public class PCCameraController : MonoBehaviour
         SetPlayerControlsEnabled(false);
 
         // Nascondi la UI principale (HUD, inventario, ecc)
-        foreach (var canvas in uiCanvasToHide)
+        if (mainUICanvas != null)
         {
-            if (canvas != null) canvas.SetActive(false);
+            mainUICanvas.SetActive(false);
+            Debug.Log("[PCCameraController] UI principale nascosta");
         }
 
         if (missionCheckList != null)
@@ -246,7 +247,7 @@ public class PCCameraController : MonoBehaviour
         if (playerCamera != null)
             playerCamera.gameObject.SetActive(true);
 
-        // Ripristina la Event Camera (opzionale, ma più pulito)
+        // Ripristina la Event Camera (opzionale, ma piï¿½ pulito)
         if (pcCanvas != null && playerCamera != null)
         {
             pcCanvas.worldCamera = playerCamera;
@@ -257,23 +258,15 @@ public class PCCameraController : MonoBehaviour
             yield return new WaitForSeconds(fadeDuration);
         }
 
-        // Chiudi smartphone e disattiva overlay PRIMA di riabilitare i controlli
-        if (SmartphoneManager.Instance != null)
-        {
-            if (SmartphoneManager.Instance.IsOpen)
-                SmartphoneManager.Instance.Close();
-            SmartphoneManager.Instance.IsOverlayMode = false;
-        }
-
         // Riabilita i controlli del player
         SetPlayerControlsEnabled(true);
 
         // Rimostra la UI principale
-        foreach (var canvas in uiCanvasToHide)
+        if (mainUICanvas != null)
         {
-            if (canvas != null) canvas.SetActive(true);
+            mainUICanvas.SetActive(true);
+            Debug.Log("[PCCameraController] UI principale riattivata");
         }
-        Debug.Log("[PCCameraController] UI figli riattivati");
 
         if (missionCheckList != null)
         {
@@ -320,7 +313,12 @@ public class PCCameraController : MonoBehaviour
             playerInteractor.enabled = enabled;
             Debug.Log($"[PCCameraController] PlayerInteractor.enabled = {enabled}");
         }
-
+        // Disabilita SmartphoneInput (per evitare che P apra il telefono mentre sei al PC)
+        if (smartphoneInput != null)
+        {
+            smartphoneInput.enabled = enabled;
+            Debug.Log($"[PCCameraController] SmartphoneInput.enabled = {enabled}");
+        }
 
         // Gestisci cursore
         if (enabled)
