@@ -29,6 +29,10 @@ public class ReportUI : MonoBehaviour
     [SerializeField] private GameObject finalSectionPrefab;
     [SerializeField] private GameObject summaryBoxPrefab;
 
+    [Header("Email (Missione 4)")]
+    [SerializeField] private EmailInterfaceManager emailInterfaceManager;
+
+
 
     [Header("Blocco player")]
     public FirstPersonController playerController;
@@ -59,6 +63,10 @@ public class ReportUI : MonoBehaviour
 
     private bool _isFinalReportOpen = false;
 
+    private bool _returnToFinalOnClose = false;
+    private int _lastFinalScrollY = 0; // opzionale (se vuoi ricordare la posizione)
+
+
     // modalità: report di fine missione vs micro-report (email)
     private bool _isMissionReport = true;
     private System.Action _onCloseCallback;
@@ -75,6 +83,10 @@ public class ReportUI : MonoBehaviour
             return;
         }
         _instance = this;
+
+        if (emailInterfaceManager == null)
+            emailInterfaceManager = FindFirstObjectByType<EmailInterfaceManager>();
+
 
 
         Debug.Log($"[ReportUI] Awake instanceID={GetInstanceID()} GO={name} scene={gameObject.scene.name}");
@@ -101,6 +113,81 @@ public class ReportUI : MonoBehaviour
 
         if (starterInputs == null)
             starterInputs = FindFirstObjectByType<StarterAssetsInputs>();
+    }
+
+    private bool TryGetEmailExplanationAndSubject(ReportCheck check, out string subject, out string explanation)
+    {
+        subject = null;
+        explanation = null;
+
+        if (emailInterfaceManager == null || emailInterfaceManager.Emails == null)
+            return false;
+
+        int index = check switch
+        {
+            ReportCheck.Email1Correct => 0,
+            ReportCheck.Email2Correct => 1,
+            ReportCheck.Email3Correct => 2,
+            ReportCheck.Email4Correct => 3,
+            ReportCheck.Email5Correct => 4,
+            _ => -1
+        };
+
+        if (index < 0 || index >= emailInterfaceManager.Emails.Length)
+            return false;
+
+        var data = emailInterfaceManager.Emails[index];
+        if (data == null) return false;
+
+        subject = data.subject;
+        explanation = data.explanation;
+        return !string.IsNullOrWhiteSpace(explanation);
+    }
+
+
+    private void OpenReportFromFinal(int missionIndex)
+    {
+        // Rimaniamo in contesto "final report"
+        _returnToFinalOnClose = true;
+
+        // IMPORTANTE: non deve essere considerato report di fine missione
+        // altrimenti CloseReport chiama StartNextMission
+        _isMissionReport = false;
+
+        // Manteniamo final report open: la X nel final report porta a EndMenu,
+        // ma in questa view "dettaglio" deve tornare indietro (gestito dal flag sopra).
+        _isFinalReportOpen = true;
+
+        if (reportRoot == null) return;
+
+        reportRoot.SetActive(true);
+        isOpen = true;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+            playerController.ForceStopWalking();
+        }
+
+        if (starterInputs != null)
+        {
+            starterInputs.cursorInputForLook = false;
+            starterInputs.move = Vector2.zero;
+            starterInputs.look = Vector2.zero;
+        }
+
+        // HUD off
+        if (hudCanvas != null) hudCanvas.SetActive(false);
+        if (hudSmartphone != null) hudSmartphone.SetActive(false);
+        if (hudMissionCheckList != null) hudMissionCheckList.SetActive(false);
+
+        mixer.SetDialog();
+
+        // Mostra il report della missione selezionata
+        BuildSingle(missionIndex);
     }
 
     public void OpenReport(int missionIndex)
@@ -169,10 +256,12 @@ public class ReportUI : MonoBehaviour
         Debug.Log($"[ReportUI] OnCloseButtonClicked instanceID={GetInstanceID()} selected={EventSystem.current?.currentSelectedGameObject?.name}");
 
 
-        if (_isFinalReportOpen)
+        // Se sto tornando al report finale, NON andare all'EndMenu
+        if (_isFinalReportOpen && !_returnToFinalOnClose)
             SceneManager.LoadScene("EndMenu");
         else
             CloseReport();
+
     }
 
     public void CloseReport()
@@ -181,6 +270,40 @@ public class ReportUI : MonoBehaviour
         Debug.LogError($"[ReportUI] CloseReport instanceID={GetInstanceID()} selected={EventSystem.current?.currentSelectedGameObject?.name}");
 
         if (reportRoot == null) return;
+
+        // Caso speciale: ero nel dettaglio missione aperto dal report finale
+        if (_returnToFinalOnClose)
+        {
+            _returnToFinalOnClose = false;
+
+            // Ricostruisci la schermata finale SENZA uscire dalla UI
+            BuildFinalSummary();
+
+            // Mantieni stato "final report"
+            _isMissionReport = false;
+            _isFinalReportOpen = true;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (playerController != null) playerController.enabled = false;
+
+            if (starterInputs != null)
+            {
+                starterInputs.cursorInputForLook = false;
+                starterInputs.move = Vector2.zero;
+                starterInputs.look = Vector2.zero;
+            }
+
+            // HUD resta off
+            if (hudCanvas != null) hudCanvas.SetActive(false);
+            if (hudSmartphone != null) hudSmartphone.SetActive(false);
+            if (hudMissionCheckList != null) hudMissionCheckList.SetActive(false);
+
+            mixer.SetDialog();
+            return;
+        }
+
 
         reportRoot.SetActive(false);
         isOpen = false;
@@ -274,7 +397,6 @@ public class ReportUI : MonoBehaviour
         return isMinor ? 2 : 1; // rossi poi, gialli ultimi
     }
 
-
     private void BuildSingle(int missionIndex)
     {
         // pulizia
@@ -304,31 +426,41 @@ public class ReportUI : MonoBehaviour
         var h = Instantiate(headerPrefab, contentParent);
         h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
 
-        // righe
+        if (missionIndex == 3)
+        {
+            BuildEmailsList();
+            return;
+        }
+
         // righe (ordinate: verdi, rossi, gialli)
         var ordered = new List<ReportEntry>(mission.entries);
         ordered.Sort((a, b) => GetEntryPriority(a).CompareTo(GetEntryPriority(b)));
 
         foreach (var entry in ordered)
         {
+            // (opzionale) se NON vuoi la riga "Risultato complessivo", salta EmailScore
+            if (entry.check == ReportCheck.EmailScore)
+                continue;
+
             bool value = MissionTracker.Instance.Get(entry.check);
             bool ok = (value == entry.expectedValue);
 
             string explanation = ok ? entry.okText : entry.badText;
+            string labelToShow = entry.label;
 
-            if (entry.check == ReportCheck.EmailScore)
+            // Se è una riga Email1..Email5, usa ESATTAMENTE EmailData.explanation + subject
+            if (TryGetEmailExplanationAndSubject(entry.check, out var subj, out var exp))
             {
-                explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
-                ok = true;
+                labelToShow = subj;
+                explanation = exp;
             }
 
             var row = Instantiate(rowPrefab, contentParent);
-            row.GetComponent<ReportRowUI>().Setup(entry.check, entry.label, ok, explanation);
+            row.GetComponent<ReportRowUI>().Setup(entry.check, labelToShow, ok, explanation);
         }
-
-
-
     }
+
+
     public void Build()
     {
         BuildFinalSummary();
@@ -406,8 +538,9 @@ public class ReportUI : MonoBehaviour
         // Bottone dettagli
         sectionUI.SetupDetailsButton(() =>
         {
-            OpenReport(missionIndex);
+            OpenReportFromFinal(missionIndex);
         });
+
     }
 
     private void BuildMission1(FinalReportSectionUI section)
@@ -651,6 +784,71 @@ public class ReportUI : MonoBehaviour
 
         Build(); //mostra TUTTE le missioni
     }
+
+    private void BuildEmailsList()
+    {
+        if (emailInterfaceManager == null)
+            emailInterfaceManager = FindFirstObjectByType<EmailInterfaceManager>();
+
+        var emails = emailInterfaceManager != null ? emailInterfaceManager.Emails : null;
+        int total = (emails != null) ? emails.Length : 0;
+
+        if (total <= 0)
+        {
+            Debug.LogWarning("[ReportUI] BuildEmailsList: nessuna email trovata (emails null o vuoto).");
+            return;
+        }
+
+        for (int i = 0; i < total; i++)
+        {
+            // check: Email1Correct..Email5Correct
+            var check = (ReportCheck)((int)ReportCheck.Email1Correct + i);
+
+            bool ok = MissionTracker.Instance != null && MissionTracker.Instance.Get(check);
+
+            string subject = emails[i] != null ? emails[i].subject : $"Email {i + 1}";
+            string explanation = emails[i] != null ? emails[i].explanation : "";
+
+            // Titolo box: "Email 1 — <subject>"
+            string label = $"Email {i + 1} — {subject}";
+
+            var row = Instantiate(rowPrefab, contentParent);
+            row.GetComponent<ReportRowUI>().Setup(check, label, ok, explanation);
+        }
+    }
+
+
+    private ReportEntry FindEntryForCheck(int missionIndex, ReportCheck check)
+    {
+        if (missions == null || missionIndex < 0 || missionIndex >= missions.Count) return null;
+        var m = missions[missionIndex];
+        if (m == null || m.entries == null) return null;
+
+        for (int i = 0; i < m.entries.Count; i++)
+        {
+            if (m.entries[i] != null && m.entries[i].check == check)
+                return m.entries[i];
+        }
+        return null;
+    }
+
+    private ReportCheck GetEmailCheck(int emailIndex)
+    {
+        return emailIndex switch
+        {
+            1 => ReportCheck.Email1Correct,
+            2 => ReportCheck.Email2Correct,
+            3 => ReportCheck.Email3Correct,
+            4 => ReportCheck.Email4Correct,
+            5 => ReportCheck.Email5Correct,
+            6 => ReportCheck.Email6Correct,
+            7 => ReportCheck.Email7Correct,
+            8 => ReportCheck.Email8Correct,
+            9 => ReportCheck.Email9Correct,
+            _ => ReportCheck.Email9Correct
+        };
+    }
+
 }
 
 

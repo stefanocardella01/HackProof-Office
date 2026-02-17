@@ -31176,13 +31176,25 @@ PrefabInstance:
       propertyPath: m_Content
       value: 
       objectReference: {fileID: 1802913275}
+    - target: {fileID: 5368982083114346759, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368982083114346759, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
+      propertyPath: m_DecelerationRate
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368982083114346759, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
+      propertyPath: m_ScrollSensitivity
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5600804992540517781, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5600804992540517781, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000019790596
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5632489802347063628, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
       propertyPath: m_Value

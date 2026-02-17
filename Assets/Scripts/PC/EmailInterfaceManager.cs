@@ -60,6 +60,9 @@ public class EmailInterfaceManager : MonoBehaviour
     public int TotalEmails => emails.Length;
     public EmailMissionReport Report => report;
 
+    public EmailData[] Emails => emails;
+
+
     // Audio
     [SerializeField] private ManagerAudio mixer;
 
