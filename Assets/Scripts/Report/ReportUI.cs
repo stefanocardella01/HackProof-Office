@@ -25,6 +25,11 @@ public class ReportUI : MonoBehaviour
     public GameObject reportRoot;
     public Button continueButton;
 
+    [Header("Final Report Prefabs")]
+    [SerializeField] private GameObject finalSectionPrefab;
+    [SerializeField] private GameObject summaryBoxPrefab;
+
+
     [Header("Blocco player")]
     public FirstPersonController playerController;
     public StarterAssetsInputs starterInputs;
@@ -132,8 +137,11 @@ public class ReportUI : MonoBehaviour
         Cursor.visible = true;
 
         if (playerController != null)
+        {
             playerController.enabled = false;
             playerController.ForceStopWalking();
+        }
+
 
         if (starterInputs != null)
         {
@@ -241,8 +249,12 @@ public class ReportUI : MonoBehaviour
         if (isOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseReport();
 
-         //debug
-         //if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
+        //debug
+        //if (Input.GetKeyDown(KeyCode.F9)) OpenReport(0);
+
+        // DEBUG
+        if (Input.GetKeyDown(KeyCode.F10))
+            OpenFinalReport();
     }
 
     private int GetEntryPriority(ReportEntry entry)
@@ -317,17 +329,16 @@ public class ReportUI : MonoBehaviour
 
 
     }
-
     public void Build()
     {
-        // pulizia
-        foreach (Transform c in contentParent)
-        {
-            if (continueButton != null && c.gameObject == continueButton.gameObject)
-                continue;
+        BuildFinalSummary();
+    }
 
+    private void BuildFinalSummary()
+    {
+        // pulizia completa
+        foreach (Transform c in contentParent)
             Destroy(c.gameObject);
-        }
 
         if (missions == null || missions.Count == 0)
         {
@@ -335,45 +346,195 @@ public class ReportUI : MonoBehaviour
             return;
         }
 
-        var t = Instantiate(headerPrefab, contentParent);
-        var tmp = t.GetComponent<TextMeshProUGUI>();
-
+        // Header
+        var header = Instantiate(headerPrefab, contentParent);
+        var tmp = header.GetComponent<TextMeshProUGUI>();
         tmp.text = "REPORT FINALE";
-        tmp.fontSize = 48;   // cambia valore come vuoi
-        tmp.fontStyle = FontStyles.Bold; // opzionale
+        tmp.fontSize = 48;
+        tmp.fontStyle = FontStyles.Bold;
+
+        for (int i = 0; i < missions.Count; i++)
+            CreateMissionSection(i);
+    }
+
+    private bool IsCorrect(ReportCheck check, bool expectedValue)
+    {
+        bool value = MissionTracker.Instance.Get(check);
+        return value == expectedValue;
+    }
 
 
-        foreach (var mission in missions)
+    private void CreateMissionSection(int missionIndex)
+    {
+        if (finalSectionPrefab == null)
         {
-            // header
-            var h = Instantiate(headerPrefab, contentParent);
-            h.GetComponent<TextMeshProUGUI>().text = mission.missionTitle;
-
-            // righe (ordinate: verdi, rossi, gialli)
-            var ordered = new List<ReportEntry>(mission.entries);
-            ordered.Sort((a, b) => GetEntryPriority(a).CompareTo(GetEntryPriority(b)));
-
-            foreach (var entry in ordered)
-            {
-                bool value = MissionTracker.Instance.Get(entry.check);
-                bool ok = (value == entry.expectedValue);
-
-                string explanation = ok ? entry.okText : entry.badText;
-
-                if (entry.check == ReportCheck.EmailScore)
-                {
-                    explanation = $"Hai classificato correttamente {EmailFinalScore.LastScore} email su {EmailFinalScore.LastTotal}.";
-                    ok = true;
-                }
-
-                var row = Instantiate(rowPrefab, contentParent);
-                row.GetComponent<ReportRowUI>().Setup(entry.check, entry.label, ok, explanation);
-            }
-
+            Debug.LogError("[ReportUI] finalSectionPrefab NULL (assegnalo in Inspector)");
+            return;
         }
 
+        if (summaryBoxPrefab == null)
+        {
+            Debug.LogError("[ReportUI] summaryBoxPrefab NULL (assegnalo in Inspector)");
+            return;
+        }
+
+        var mission = missions[missionIndex];
+
+        var sectionGO = Instantiate(finalSectionPrefab, contentParent);
+        var sectionUI = sectionGO.GetComponent<FinalReportSectionUI>();
+
+        if (sectionUI == null)
+        {
+            Debug.LogError("[ReportUI] FinalSectionPrefab NON ha FinalReportSectionUI attaccato.");
+            return;
+        }
+
+        sectionUI.SetTitle(mission.missionTitle);
+
+        switch (missionIndex)
+        {
+            case 0: BuildMission1(sectionUI); break;
+            case 1: BuildMission2(sectionUI); break;
+            case 2: BuildMission3(sectionUI); break;
+            case 3: BuildMission4(sectionUI); break;
+            default:
+                // se hai più missioni in futuro
+                sectionUI.AddSummaryBox(summaryBoxPrefab, "Nessun riepilogo configurato", "", SummaryStatus.Yellow);
+                break;
+        }
+
+        // Bottone dettagli
+        sectionUI.SetupDetailsButton(() =>
+        {
+            OpenReport(missionIndex);
+        });
+    }
+
+    private void BuildMission1(FinalReportSectionUI section)
+    {
+        int total = 2;
+        int correct = 0;
+
+        bool password = MissionTracker.Instance.Get(ReportCheck.PasswordChanged);
+        bool twoFA = MissionTracker.Instance.Get(ReportCheck.TwoFactorEnabled);
+
+        if (password) correct++;
+        if (twoFA) correct++;
+
+        string headline = $"Sicurezza account: {correct}/{total} azioni completate";
+        string lines =
+            $"• Cambio password: {(password ? "effettuato" : "non effettuato")}\n" +
+            $"• Autenticazione a 2 fattori: {(twoFA ? "attivata" : "non attivata")}";
+
+        SummaryStatus status = GetStatus(correct, total);
+
+        section.AddSummaryBox(summaryBoxPrefab, headline, lines, status);
+    }
+
+    private void BuildMission2(FinalReportSectionUI section)
+    {
+        int total = 3;
+        int correct = 0;
+
+        // expectedValue IMPORTANTI:
+        // Post-it e Hard Disk: corretti se CONSEGNATI (expected=true)
+        // Cuffie: corrette se NON CONSEGNATE (expected=false)
+        bool postItOk = IsCorrect(ReportCheck.PostItDelivered, true);
+        bool usbOk = IsCorrect(ReportCheck.UsbDelivered, true);
+        bool headphonesOk = IsCorrect(ReportCheck.HeadphonesDelivered, false);
+
+        if (postItOk) correct++;
+        if (usbOk) correct++;
+        if (headphonesOk) correct++;
+
+        string headline = $"Classificazione oggetti: {correct}/{total} corretti";
+
+        // stato reale (serve per scrivere consegnato/non consegnato)
+        bool postItDelivered = MissionTracker.Instance.Get(ReportCheck.PostItDelivered);
+        bool usbDelivered = MissionTracker.Instance.Get(ReportCheck.UsbDelivered);
+        bool headphonesDelivered = MissionTracker.Instance.Get(ReportCheck.HeadphonesDelivered);
+
+        string lines =
+            $"• Post-it: {(postItDelivered ? "consegnato" : "non consegnato")}\n" +
+            $"• Hard Disk: {(usbDelivered ? "consegnato" : "non consegnato")}\n" +
+            $"• Cuffie: {(headphonesDelivered ? "consegnate" : "non consegnate")}";
+
+        SummaryStatus status = GetStatus(correct, total);
+
+        section.AddSummaryBox(summaryBoxPrefab, headline, lines, status);
+    }
+
+
+    private void BuildMission3(FinalReportSectionUI section)
+    {
+        // BOX 1 - Oggetti (badge/manuale/cacciavite)
+        int total = 3;
+        int correct = 0;
+
+        bool badgeOk = IsCorrect(ReportCheck.BadgeDelivered, true);
+        bool manualOk = IsCorrect(ReportCheck.ManualDelivered, false);
+        bool screwdriverOk = IsCorrect(ReportCheck.ScrewdriverDelivered, false);
+
+        if (badgeOk) correct++;
+        if (manualOk) correct++;
+        if (screwdriverOk) correct++;
+
+        string headline = $"Oggetti classificati: {correct}/{total} corretti";
+
+        bool badgeDelivered = MissionTracker.Instance.Get(ReportCheck.BadgeDelivered);
+        bool manualDelivered = MissionTracker.Instance.Get(ReportCheck.ManualDelivered);
+        bool screwdriverDelivered = MissionTracker.Instance.Get(ReportCheck.ScrewdriverDelivered);
+
+        string lines =
+            $"• Badge: {(badgeDelivered ? "consegnato" : "non consegnato")}\n" +
+            $"• Manuale: {(manualDelivered ? "consegnato" : "non consegnato")}\n" +
+            $"• Cacciavite: {(screwdriverDelivered ? "consegnato" : "non consegnato")}";
+
+        section.AddSummaryBox(summaryBoxPrefab, headline, lines, GetStatus(correct, total));
+
+        // BOX 2 - Intruso (opzione 2)
+        bool intruder = MissionTracker.Instance.Get(ReportCheck.IntruderKicked);
+
+        string intruderHeadline = intruder
+            ? "Scelta corretta: l’intruso è stato allontanato"
+            : "Scelta non corretta: l’intruso non è stato allontanato";
+
+        string intruderLines = $"• Intruso nella sala server: {(intruder ? "allontanato" : "non allontanato")}";
+
+        section.AddSummaryBox(
+            summaryBoxPrefab,
+            intruderHeadline,
+            intruderLines,
+            intruder ? SummaryStatus.Green : SummaryStatus.Red
+        );
 
     }
+
+    private void BuildMission4(FinalReportSectionUI section)
+    {
+        int total = EmailFinalScore.LastTotal;   // es: 5
+        int correct = EmailFinalScore.LastScore; // es: 3
+
+        string headline = $"Email classificate correttamente: {correct}/{total}";
+        string lines =
+            $"• Email 1: {(MissionTracker.Instance.Get(ReportCheck.Email1Correct) ? "corretta" : "errata")}\n" +
+            $"• Email 2: {(MissionTracker.Instance.Get(ReportCheck.Email2Correct) ? "corretta" : "errata")}\n" +
+            $"• Email 3: {(MissionTracker.Instance.Get(ReportCheck.Email3Correct) ? "corretta" : "errata")}\n" +
+            $"• Email 4: {(MissionTracker.Instance.Get(ReportCheck.Email4Correct) ? "corretta" : "errata")}\n" +
+            $"• Email 5: {(MissionTracker.Instance.Get(ReportCheck.Email5Correct) ? "corretta" : "errata")}";
+
+        section.AddSummaryBox(summaryBoxPrefab, headline, lines, GetStatus(correct, total));
+    }
+
+    private SummaryStatus GetStatus(int correct, int total)
+    {
+        if (correct <= 0) return SummaryStatus.Red;
+        if (correct >= total) return SummaryStatus.Green;
+        return SummaryStatus.Yellow;
+    }
+
+
+
 
     public void OpenSingleFeedback(string title, string label, bool ok, string explanation, System.Action onClosed)
     {
@@ -389,8 +550,11 @@ public class ReportUI : MonoBehaviour
         Cursor.visible = true;
 
         if (playerController != null)
+        {
             playerController.enabled = false;
             playerController.ForceStopWalking();
+        }
+
 
         if (starterInputs != null)
         {
@@ -457,8 +621,11 @@ public class ReportUI : MonoBehaviour
         Cursor.visible = true;
 
         if (playerController != null)
+        {
             playerController.enabled = false;
             playerController.ForceStopWalking();
+        }
+
 
         if (starterInputs != null)
         {
