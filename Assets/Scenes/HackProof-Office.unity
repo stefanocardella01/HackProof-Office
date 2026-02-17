@@ -9412,6 +9412,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6686376112335971094, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
   m_PrefabInstance: {fileID: 722600188}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &722600192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2525608947504829243, guid: c3c49ad49c8c3924d984557d20033cf3, type: 3}
+  m_PrefabInstance: {fileID: 722600188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bed222c18fcfb140bb0cd64dc23c30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmailComputerInteractable
 --- !u!1 &723641020
 GameObject:
   m_ObjectHideFlags: 0
@@ -25023,7 +25034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionFlowController
   smartphoneRoot: {fileID: 2123629139}
   pcLogin: {fileID: 0}
-  pcEmail: {fileID: 0}
+  pcEmail: {fileID: 722600192}
   badgePickupRoot: {fileID: 597214382}
   receptionist1: {fileID: 57106514}
   paoloNpc: {fileID: 1060081682}
@@ -31186,7 +31197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5368982083114346759, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
       propertyPath: m_ScrollSensitivity
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5600804992540517781, guid: 92971c6e09c4ddb49b0dc89fe8e1869e, type: 3}
       propertyPath: m_SizeDelta.y
