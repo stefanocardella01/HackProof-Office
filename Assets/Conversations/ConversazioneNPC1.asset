@@ -47,7 +47,7 @@ MonoBehaviour:
       triggerEvent: 0
       eventId: 
       eventChannel: {fileID: 0}
-    - text: Cosa contiene quella chiavetta USB sul tavolo?
+    - text: Cosa contiene quell'Hard Disk sul tavolo?
       nextNodeIndex: 3
       endsDialogue: 0
       singleUse: 1
@@ -104,12 +104,12 @@ MonoBehaviour:
       eventId: 
       eventChannel: {fileID: 0}
   - lines:
-    - "Quella? In realt\xE0 non ne ho la pi\xF9 pallida idea."
-    - L'ho trovata per terra nel parcheggio mentre venivo in ufficio. Qualcuno deve
-      averla persa.
+    - "Quello? In realt\xE0 non ne ho la pi\xF9 pallida idea."
+    - L'ho trovato per terra nel parcheggio mentre venivo in ufficio. Qualcuno deve
+      averlo persa.
     - L'etichetta sopra dice 'Bonus Dipendenti 2024' o qualcosa del genere... molto
       interessante, no?
-    - "Non vedo l'ora di inserirla nel PC per controllare cosa c'\xE8 dentro. Stavo
+    - "Non vedo l'ora di inserirlo nel PC per controllare cosa c'\xE8 dentro. Stavo
       per farlo proprio prima che arrivassi tu!"
     lineVoiceOvers:
     - {fileID: 8300000, guid: 3c30b814e4a75ff45a52e327afb80d5e, type: 3}
