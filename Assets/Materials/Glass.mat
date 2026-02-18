@@ -66,7 +66,7 @@ Material:
     - _DisortStrength: 0.38
     - _DistortionOnTexture: 0.402
     - _Metalic: 0.246
-    - _Metallic: 0.946
+    - _Metallic: 0.221
     - _NormalStrenght: 0.01
     - _NormalStrength: 0.91
     - _QueueControl: 0
@@ -80,7 +80,7 @@ Material:
     m_Colors:
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 0.38039216}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1748688521998277390
