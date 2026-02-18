@@ -44,17 +44,16 @@ MonoBehaviour:
       non hanno capacit\xE0 di memorizzazione o esecuzione di codice. Una valutazione
       errata del rischio pu\xF2 generare falsi allarmi e ridurre l\u2019attenzione
       verso minacce effettive."
-  - label: Chiavetta USB trovata nel parcheggio
+  - label: Hard Disk trovato nel parcheggio
     check: 3
     expectedValue: 1
-    okText: "La chiavetta USB trovata all\u2019esterno dell\u2019azienda \xE8 stata
-      correttamente segnalata e non utilizzata. I dispositivi di archiviazione rimovibili
-      sconosciuti rappresentano uno dei vettori pi\xF9 comuni per la diffusione di
-      malware (attacchi di tipo baiting). Collegare tali dispositivi a un computer
-      aziendale pu\xF2 comportare l\u2019esecuzione automatica di codice malevolo,
-      l\u2019installazione di software non autorizzato o l\u2019esfiltrazione di
-      dati sensibili."
-    badText: "La chiavetta USB trovata nel parcheggio non \xE8 stata segnalata. Inserire
+    okText: "L'hard Disk trovato all\u2019esterno dell\u2019azienda \xE8 stato correttamente
+      segnalato e non utilizzato. I dispositivi di archiviazione rimovibili sconosciuti
+      rappresentano uno dei vettori pi\xF9 comuni per la diffusione di malware (attacchi
+      di tipo baiting). Collegare tali dispositivi a un computer aziendale pu\xF2
+      comportare l\u2019esecuzione automatica di codice malevolo, l\u2019installazione
+      di software non autorizzato o l\u2019esfiltrazione di dati sensibili."
+    badText: "L'hard Disk trovato nel parcheggio non \xE8 stato segnalato. Inserire
       dispositivi di archiviazione sconosciuti nei computer aziendali espone l\u2019infrastruttura
       a rischi elevati di infezione da malware e compromissione dei dati. Questo
       tipo di attacco sfrutta la curiosit\xE0 dell\u2019utente ed \xE8 una tecnica
