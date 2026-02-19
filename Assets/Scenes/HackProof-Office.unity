@@ -51333,6 +51333,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5872353701744318839, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1790515517}
+    - targetCorrespondingSourceObject: {fileID: 5872353701744318839, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1790515518}
   m_SourcePrefab: {fileID: 100100000, guid: a7315e7da901b0b4f9626bddb50c9c00, type: 3}
 --- !u!1 &1790515512 stripped
 GameObject:
@@ -51405,6 +51408,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissionDebugShortcuts
   completeCurrentMissionKey: 285
+--- !u!114 &1790515518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790515512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46460f36c2eae4644a5c0e3f55249163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenshotTool
 --- !u!1001 &1791473802
 PrefabInstance:
   m_ObjectHideFlags: 0

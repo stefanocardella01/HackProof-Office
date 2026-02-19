@@ -56,7 +56,6 @@ public class FinalReportSectionUI : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        // Non è obbligatorio, ma aiuta a capire subito se manca qualcosa
         if (detailsButton == null)
             detailsButton = GetComponentInChildren<Button>(true);
     }

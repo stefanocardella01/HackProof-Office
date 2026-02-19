@@ -677,19 +677,17 @@ public class DialogueUI : MonoBehaviour
         if (choice.triggerEvent)
         {
             Debug.Log($"[DialogueUI] About to raise. id={choice.eventId} channelNull={(choice.eventChannel == null)} channelInstanceID={(choice.eventChannel ? choice.eventChannel.GetInstanceID() : -1)}");
-            // choice.eventChannel.Raise(choice.eventId);  // la tua chiamata
+            // choice.eventChannel.Raise(choice.eventId);  
         }
 
 
 
-        // Se è single-use, la segniamo come già usata
         if (choice.singleUse)
         {
             MarkSingleUseChoiceAsUsed(currentNodeIndex, choiceIndex, choice);
         }
 
-        // Se qualcuno ha “iniettato” una frase (es. receptionist dopo consegna),
-        // la mostriamo PRIMA di navigare al nodo successivo.
+
         if (injectedLines.Count > 0)
         {
             hasPendingNavigation = true;
@@ -775,7 +773,7 @@ public class DialogueUI : MonoBehaviour
         else
         {
             // Se NON c’è audio: fai Talking ON durante il typing,
-            // poi lo spegni quando la riga è completa (vedi Modifica E)
+            // poi lo spegni quando la riga è completa
             SetTalking(true);
         }
     }

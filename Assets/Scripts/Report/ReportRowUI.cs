@@ -12,9 +12,9 @@ public class ReportRowUI : MonoBehaviour
     [Header("Sfondo riga")]
     public Image rowBackground;
 
-    public Color okColor = new Color(0.55f, 0.78f, 0.65f, 0.90f);     // verde tenue
-    public Color badColor = new Color(0.82f, 0.55f, 0.55f, 0.90f);    // rosso tenue
-    public Color minorBadColor = new Color(0.95f, 0.88f, 0.55f, 0.90f); // giallo tenue
+    public Color okColor = new Color(0.55f, 0.78f, 0.65f, 0.90f);     // verde 
+    public Color badColor = new Color(0.82f, 0.55f, 0.55f, 0.90f);    // rosso 
+    public Color minorBadColor = new Color(0.95f, 0.88f, 0.55f, 0.90f); // giallo
 
     // Oggetti meno gravi
     private static readonly HashSet<ReportCheck> minorChecks = new()
@@ -23,7 +23,6 @@ public class ReportRowUI : MonoBehaviour
         ReportCheck.ScrewdriverDelivered
     };
 
-    //NUOVA versione che riceve anche il check
     public void Setup(ReportCheck check, string label, bool ok, string explanation)
     {
         labelText.text = label;

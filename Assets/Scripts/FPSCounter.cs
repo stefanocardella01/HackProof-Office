@@ -19,7 +19,6 @@ public class FPSCounter : MonoBehaviour
     {
         currentFPS = 1f / Time.unscaledDeltaTime;
 
-        // Ignora valori impossibili
         if (currentFPS > 0 && currentFPS < 1000)
         {
             if (currentFPS < minFPS) minFPS = currentFPS;
@@ -28,7 +27,6 @@ public class FPSCounter : MonoBehaviour
 
         timer += Time.unscaledDeltaTime;
 
-        // Reset ogni secondo (come fanno molti giochi)
         if (timer >= 1f)
         {
             timer = 0f;

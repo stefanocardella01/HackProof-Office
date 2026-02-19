@@ -64,7 +64,7 @@ public class ReportUI : MonoBehaviour
     private bool _isFinalReportOpen = false;
 
     private bool _returnToFinalOnClose = false;
-    private int _lastFinalScrollY = 0; // opzionale (se vuoi ricordare la posizione)
+    private int _lastFinalScrollY = 0; 
 
 
     // modalità: report di fine missione vs micro-report (email)
@@ -101,7 +101,6 @@ public class ReportUI : MonoBehaviour
             continueButton.onClick.RemoveListener(OnCloseButtonClicked);
             continueButton.onClick.AddListener(OnCloseButtonClicked);
 
-            // IMPORTANTISSIMO: NON aggiungere CloseReport direttamente
             continueButton.onClick.RemoveListener(CloseReport);
         }
 
@@ -147,15 +146,12 @@ public class ReportUI : MonoBehaviour
 
     private void OpenReportFromFinal(int missionIndex)
     {
-        // Rimaniamo in contesto "final report"
         _returnToFinalOnClose = true;
 
-        // IMPORTANTE: non deve essere considerato report di fine missione
-        // altrimenti CloseReport chiama StartNextMission
+
         _isMissionReport = false;
 
-        // Manteniamo final report open: la X nel final report porta a EndMenu,
-        // ma in questa view "dettaglio" deve tornare indietro (gestito dal flag sopra).
+
         _isFinalReportOpen = true;
 
         if (reportRoot == null) return;
@@ -317,7 +313,7 @@ public class ReportUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            // NON riabilitare il player qui
+            // NON riabilita il player qui
             if (playerController != null)
                 playerController.enabled = false;
 
@@ -385,7 +381,6 @@ public class ReportUI : MonoBehaviour
         bool value = MissionTracker.Instance.Get(entry.check);
         bool ok = (value == entry.expectedValue);
 
-        // Caso speciale EmailScore: trattalo sempre come ok (verde)
         if (entry.check == ReportCheck.EmailScore)
             ok = true;
 
@@ -438,7 +433,6 @@ public class ReportUI : MonoBehaviour
 
         foreach (var entry in ordered)
         {
-            // (opzionale) se NON vuoi la riga "Risultato complessivo", salta EmailScore
             if (entry.check == ReportCheck.EmailScore)
                 continue;
 
@@ -448,7 +442,6 @@ public class ReportUI : MonoBehaviour
             string explanation = ok ? entry.okText : entry.badText;
             string labelToShow = entry.label;
 
-            // Se è una riga Email1..Email5, usa ESATTAMENTE EmailData.explanation + subject
             if (TryGetEmailExplanationAndSubject(entry.check, out var subj, out var exp))
             {
                 labelToShow = subj;
@@ -530,7 +523,7 @@ public class ReportUI : MonoBehaviour
             case 2: BuildMission3(sectionUI); break;
             case 3: BuildMission4(sectionUI); break;
             default:
-                // se hai più missioni in futuro
+                // se ha più missioni in futuro
                 sectionUI.AddSummaryBox(summaryBoxPrefab, "Nessun riepilogo configurato", "", SummaryStatus.Yellow);
                 break;
         }
@@ -569,9 +562,7 @@ public class ReportUI : MonoBehaviour
         int total = 3;
         int correct = 0;
 
-        // expectedValue IMPORTANTI:
-        // Post-it e Hard Disk: corretti se CONSEGNATI (expected=true)
-        // Cuffie: corrette se NON CONSEGNATE (expected=false)
+
         bool postItOk = IsCorrect(ReportCheck.PostItDelivered, true);
         bool usbOk = IsCorrect(ReportCheck.UsbDelivered, true);
         bool headphonesOk = IsCorrect(ReportCheck.HeadphonesDelivered, false);
